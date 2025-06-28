@@ -1,0 +1,10 @@
+{
+    "printWidth": 120,
+    "tabWidth": 4,
+    "singleQuote": true,
+    "bracketSameLine": true,
+    "plugins": ["prettier-plugin-tailwindcss"],
+    "tailwindAttributes": ["class", "className", "ngClass", ".*[cC]lassName"],
+    "tailwindFunctions": ["clsx", "cn", "cva"],
+    "tailwindConfig": "./tailwind.config.js"
+}
