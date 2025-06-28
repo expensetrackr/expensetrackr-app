@@ -14,6 +14,11 @@
             "bundleIdentifier": "com.danestves.expensetrackr",
             "infoPlist": {
                 "ITSAppUsesNonExemptEncryption": false
+            },
+            "icon": {
+                "light": "./assets/images/ios-light.png",
+                "dark": "./assets/images/ios-dark.png",
+                "tinted": "./assets/images/ios-tinted.png"
             }
         },
         "android": {
@@ -37,10 +42,17 @@
                     "image": "./assets/images/splash-icon.png",
                     "imageWidth": 200,
                     "resizeMode": "contain",
-                    "backgroundColor": "#ffffff"
+                    "backgroundColor": "#ffffff",
+                    "dark": {
+                        "image": "./assets/images/splash-icon-dark.png",
+                        "imageWidth": 200,
+                        "resizeMode": "contain",
+                        "backgroundColor": "#0E121B"
+                    }
                 }
             ],
-            "expo-font"
+            "expo-font",
+            "expo-secure-store"
         ],
         "experiments": {
             "typedRoutes": true

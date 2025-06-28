@@ -1,21 +1,18 @@
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, router } from 'expo-router';
 import * as React from 'react';
-import { Image, Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView, KeyboardController, KeyboardStickyView } from 'react-native-keyboard-controller';
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AlertAnchor } from '#/components/ui/alert';
-import { AlertRef } from '#/components/ui/alert/types';
-import { Button } from '#/components/ui/button';
-import { Form, FormItem, FormSection } from '#/components/ui/form';
-import { Text } from '#/components/ui/text';
-import { TextField } from '#/components/ui/text-field';
-
-const LOGO_SOURCE = {
-    uri: 'https://expensetrackr.app/img/isotype-light.png',
-};
+import { AlertAnchor } from '#/components/ui/alert/index.ts';
+import { AlertRef } from '#/components/ui/alert/types.ts';
+import { Button } from '#/components/ui/button.tsx';
+import { Form, FormItem, FormSection } from '#/components/ui/form.tsx';
+import { TextField } from '#/components/ui/text-field/index.ts';
+import { Text } from '#/components/ui/text.tsx';
 
 export default function ForgotPasswordScreen() {
     const insets = useSafeAreaInsets();
@@ -84,13 +81,18 @@ export default function ForgotPasswordScreen() {
             <KeyboardAwareScrollView
                 bottomOffset={Platform.select({ ios: 175 })}
                 bounces={false}
+                contentContainerClassName="ios:pt-20 pt-28"
                 keyboardDismissMode="interactive"
-                keyboardShouldPersistTaps="handled"
-                contentContainerClassName="ios:pt-20 pt-28">
+                keyboardShouldPersistTaps="handled">
                 <View className="ios:px-12 flex-1 px-8">
                     <Animated.View className="items-center pb-6" entering={FadeIn.delay(200).duration(800)}>
                         <View style={styles.logoContainer}>
-                            <Image source={LOGO_SOURCE} className="ios:h-16 ios:w-16 h-12 w-12" resizeMode="contain" />
+                            <Image
+                                className="ios:h-16 ios:w-16 h-12 w-12"
+                                contentFit="contain"
+                                source={require('#/assets/images/logo.png')}
+                                style={styles.logo}
+                            />
                         </View>
                         <Animated.View entering={FadeInUp.delay(400).duration(600)}>
                             <Text
@@ -111,15 +113,15 @@ export default function ForgotPasswordScreen() {
                             <FormSection className="ios:bg-background/95 backdrop-blur-sm" style={styles.formSection}>
                                 <FormItem>
                                     <TextField
-                                        placeholder={Platform.select({ ios: 'Email', default: '' })}
-                                        label={Platform.select({ ios: undefined, default: 'Email' })}
-                                        onSubmitEditing={onSubmit}
-                                        submitBehavior="submit"
+                                        autoCapitalize="none"
                                         autoFocus
                                         keyboardType="email-address"
-                                        textContentType="emailAddress"
+                                        label={Platform.select({ ios: undefined, default: 'Email' })}
+                                        onSubmitEditing={onSubmit}
+                                        placeholder={Platform.select({ ios: 'Email', default: '' })}
                                         returnKeyType="send"
-                                        autoCapitalize="none"
+                                        submitBehavior="submit"
+                                        textContentType="emailAddress"
                                     />
                                 </FormItem>
                             </FormSection>
@@ -142,7 +144,7 @@ export default function ForgotPasswordScreen() {
                 }}>
                 {Platform.OS === 'ios' ? (
                     <Animated.View className="px-12 py-4" entering={FadeInDown.delay(1000).duration(600)}>
-                        <Button $size="lg" style={styles.primaryButton} onPress={onSubmit}>
+                        <Button $size="lg" onPress={onSubmit} style={styles.primaryButton}>
                             <Text className="font-semibold">Send reset link</Text>
                         </Button>
                     </Animated.View>
@@ -158,7 +160,7 @@ export default function ForgotPasswordScreen() {
                             }}>
                             <Text className="px-0.5 text-sm font-medium text-primary">Create account</Text>
                         </Button>
-                        <Button style={styles.primaryButton} onPress={onSubmit}>
+                        <Button onPress={onSubmit} style={styles.primaryButton}>
                             <Text className="text-sm font-semibold">Send reset link</Text>
                         </Button>
                     </Animated.View>
@@ -176,6 +178,7 @@ const styles = StyleSheet.create({
         inset: 0,
     },
     logoContainer: {
+        flex: 1,
         shadowColor: '#3C7EF8',
         shadowOffset: {
             width: 0,
@@ -184,6 +187,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 5,
+    },
+    logo: {
+        flex: 1,
+        width: Platform.OS === 'ios' ? 64 : 48,
+        height: Platform.OS === 'ios' ? 64 : 48,
     },
     welcomeText: {
         textShadowColor: 'rgba(0, 0, 0, 0.1)',

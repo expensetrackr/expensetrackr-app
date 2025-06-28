@@ -1,7 +1,8 @@
+import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from 'expo-router';
 import * as React from 'react';
-import { Image, Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import Animated, {
     FadeIn,
     FadeInDown,
@@ -15,18 +16,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AlertAnchor } from '#/components/ui/alert';
-import { AlertRef } from '#/components/ui/alert/types';
-import { Button } from '#/components/ui/button';
-import { Text } from '#/components/ui/text';
-
-const LOGO_SOURCE = {
-    uri: 'https://expensetrackr.app/img/isotype-light.png',
-};
-
-const GOOGLE_SOURCE = {
-    uri: 'https://www.pngall.com/wp-content/uploads/13/Google-Logo.png',
-};
+import { AlertAnchor } from '#/components/ui/alert/index.ts';
+import { AlertRef } from '#/components/ui/alert/types.ts';
+import { Button } from '#/components/ui/button.tsx';
+import { Text } from '#/components/ui/text.tsx';
 
 // Financial data for animations
 const FINANCIAL_DATA = [
@@ -322,15 +315,15 @@ export default function AuthIndexScreen() {
                 {/* Financial Background Animations */}
                 {FINANCIAL_DATA.map((item, index) => (
                     <FloatingFinancialNumber
-                        key={index}
-                        value={item.value}
-                        type={item.type}
                         delay={item.delay}
+                        key={index}
                         position={{
                             top: 100 + index * 80,
                             left: index % 2 === 0 ? 20 : undefined,
                             right: index % 2 === 1 ? 20 : undefined,
                         }}
+                        type={item.type}
+                        value={item.value}
                     />
                 ))}
 
@@ -353,8 +346,13 @@ export default function AuthIndexScreen() {
 
                 <View className="ios:justify-end relative flex-1 justify-center gap-0 px-6 py-4">
                     <View className="flex-1 items-center justify-center gap-5">
-                        <Animated.View style={styles.logoContainer} entering={FadeIn.delay(300).duration(1000)}>
-                            <Image source={LOGO_SOURCE} className="ios:size-20 h-10 w-10" resizeMode="contain" />
+                        <Animated.View entering={FadeIn.delay(300).duration(1000)} style={styles.logoContainer}>
+                            <Image
+                                contentFit="contain"
+                                source={require('#/assets/images/logo.png')}
+                                style={styles.logo}
+                                transition={1000}
+                            />
                         </Animated.View>
 
                         <Animated.View
@@ -387,28 +385,32 @@ export default function AuthIndexScreen() {
                                 Free to start • Premium features available
                             </Text>
                         </View>
-                        <Link href="/(guest)/(create-account)" asChild>
+                        <Link asChild href="/(guest)/(create-account)">
                             <Button $size={Platform.select({ ios: 'lg', default: 'md' })} style={styles.primaryButton}>
                                 <Text className="font-semibold">Get started now</Text>
                             </Button>
                         </Link>
                         <Button
+                            $size={Platform.select({ ios: 'lg', default: 'md' })}
                             $variant="secondary"
                             className="ios:border-foreground/20 bg-white/90 dark:bg-background"
-                            $size={Platform.select({ ios: 'lg', default: 'md' })}
-                            style={styles.secondaryButton}
                             onPress={() => {
                                 alertRef.current?.alert({
                                     title: 'Suggestion',
                                     message: 'Use @react-native-google-signin/google-signin',
                                     buttons: [{ text: 'OK', style: 'cancel' }],
                                 });
-                            }}>
-                            <Image source={GOOGLE_SOURCE} className="absolute left-4 h-4 w-4" resizeMode="contain" />
+                            }}
+                            style={styles.secondaryButton}>
+                            <Image
+                                contentFit="contain"
+                                source={require('#/assets/images/google-logo.png')}
+                                style={{ flex: 1, height: 16, width: 16, position: 'absolute', left: 12 }}
+                            />
                             <Text className="ios:text-foreground font-medium">Continue with Google</Text>
                         </Button>
-                        <Link href="/(guest)/(login)" asChild>
-                            <Button $variant="plain" $size={Platform.select({ ios: 'lg', default: 'md' })}>
+                        <Link asChild href="/(guest)/(login)">
+                            <Button $size={Platform.select({ ios: 'lg', default: 'md' })} $variant="plain">
                                 <Text className="font-semibold text-primary">Log in</Text>
                             </Button>
                         </Link>
@@ -476,6 +478,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 5,
+        width: Platform.OS === 'ios' ? 64 : 48,
+        height: Platform.OS === 'ios' ? 64 : 48,
+    },
+    logo: {
+        flex: 1,
+        width: Platform.OS === 'ios' ? 64 : 48,
+        height: Platform.OS === 'ios' ? 64 : 48,
     },
     mainHeading: {
         textShadowColor: 'rgba(0, 0, 0, 0.1)',

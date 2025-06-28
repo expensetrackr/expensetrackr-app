@@ -134,10 +134,10 @@ const Button = React.forwardRef<React.ComponentRef<typeof Pressable>, ButtonProp
                         }),
                     })}>
                     <Pressable
+                        android_ripple={ANDROID_RIPPLE[colorScheme][$variant]}
                         className={cn(props.disabled && 'opacity-50', buttonVariants({ $variant, $size, className }))}
                         ref={ref}
                         style={style}
-                        android_ripple={ANDROID_RIPPLE[colorScheme][$variant]}
                         {...props}
                     />
                 </Root>

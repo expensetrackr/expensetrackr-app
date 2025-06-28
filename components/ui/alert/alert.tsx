@@ -84,23 +84,23 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
         }
 
         return (
-            <AlertDialogPrimitive.Root ref={augmentedRef} open={open} onOpenChange={onOpenChange}>
+            <AlertDialogPrimitive.Root onOpenChange={onOpenChange} open={open} ref={augmentedRef}>
                 <AlertDialogPrimitive.Trigger asChild={!!children}>{children}</AlertDialogPrimitive.Trigger>
                 <AlertDialogPrimitive.Portal hostName={materialPortalHost}>
                     <AlertDialogPrimitive.Overlay asChild>
                         <Animated.View
-                            entering={FadeIn}
-                            exiting={FadeOut}
-                            style={bottomPaddingStyle}
                             className={cn(
                                 'bg-popover/80 absolute bottom-0 left-0 right-0 top-0 items-center justify-center px-3',
-                            )}>
+                            )}
+                            entering={FadeIn}
+                            exiting={FadeOut}
+                            style={bottomPaddingStyle}>
                             <AlertDialogPrimitive.Content>
                                 <Animated.View
-                                    style={typeof materialWidth === 'number' ? { width: materialWidth } : undefined}
+                                    className="min-w-72 max-w-xl rounded-3xl bg-card p-6 pt-7 shadow-xl"
                                     entering={FadeInDown}
                                     exiting={FadeOutDown}
-                                    className="min-w-72 max-w-xl rounded-3xl bg-card p-6 pt-7 shadow-xl">
+                                    style={typeof materialWidth === 'number' ? { width: materialWidth } : undefined}>
                                     {!!materialIcon && (
                                         <View className="items-center pb-4">
                                             <Icon color={colors.foreground} size={27} {...materialIcon} />
@@ -140,13 +140,12 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                         <View className="gap-4 pb-8">
                                             <TextField
                                                 autoFocus
-                                                labelClassName="bg-card"
+                                                blurOnSubmit={prompt.type !== 'login-password'}
                                                 keyboardType={
                                                     prompt.type === 'secure-text' ? 'default' : prompt.keyboardType
                                                 }
                                                 label={prompt.type === 'login-password' ? 'Email' : ''}
-                                                secureTextEntry={prompt.type === 'secure-text'}
-                                                value={text}
+                                                labelClassName="bg-card"
                                                 onChangeText={setText}
                                                 onSubmitEditing={() => {
                                                     if (prompt.type === 'login-password' && passwordRef.current) {
@@ -160,17 +159,15 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                     }
                                                     onOpenChange(false);
                                                 }}
-                                                blurOnSubmit={prompt.type !== 'login-password'}
+                                                secureTextEntry={prompt.type === 'secure-text'}
+                                                value={text}
                                             />
                                             {prompt.type === 'login-password' && (
                                                 <TextField
-                                                    ref={passwordRef}
-                                                    labelClassName="bg-card"
-                                                    keyboardType={prompt.keyboardType}
                                                     defaultValue={prompt.defaultValue}
+                                                    keyboardType={prompt.keyboardType}
                                                     label="Password"
-                                                    secureTextEntry={prompt.type === 'login-password'}
-                                                    value={password}
+                                                    labelClassName="bg-card"
                                                     onChangeText={setPassword}
                                                     onSubmitEditing={() => {
                                                         for (const button of buttons) {
@@ -180,6 +177,9 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                         }
                                                         onOpenChange(false);
                                                     }}
+                                                    ref={passwordRef}
+                                                    secureTextEntry={prompt.type === 'login-password'}
+                                                    value={password}
                                                 />
                                             )}
                                         </View>
@@ -195,10 +195,10 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                             if (button.style === 'cancel') {
                                                 return (
                                                     <View
-                                                        key={`${button.text}-${index}`}
                                                         className={cn(
                                                             buttons.length > 2 && index === 0 && 'flex-1 items-start',
-                                                        )}>
+                                                        )}
+                                                        key={`${button.text}-${index}`}>
                                                         <AlertDialogPrimitive.Cancel asChild>
                                                             <Button
                                                                 $variant="plain"
@@ -220,10 +220,10 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                             if (button.style === 'destructive') {
                                                 return (
                                                     <View
-                                                        key={`${button.text}-${index}`}
                                                         className={cn(
                                                             buttons.length > 2 && index === 0 && 'flex-1 items-start',
-                                                        )}>
+                                                        )}
+                                                        key={`${button.text}-${index}`}>
                                                         <AlertDialogPrimitive.Action asChild>
                                                             <Button
                                                                 $variant="tonal"
@@ -245,10 +245,10 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                             }
                                             return (
                                                 <View
-                                                    key={`${button.text}-${index}`}
                                                     className={cn(
                                                         buttons.length > 2 && index === 0 && 'flex-1 items-start',
-                                                    )}>
+                                                    )}
+                                                    key={`${button.text}-${index}`}>
                                                     <AlertDialogPrimitive.Action asChild>
                                                         <Button
                                                             $variant="plain"
@@ -281,7 +281,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
 Alert.displayName = 'Alert';
 
 const AlertAnchor = React.forwardRef<AlertRef>((_, ref) => {
-    return <Alert ref={ref} title="" buttons={[]} />;
+    return <Alert buttons={[]} ref={ref} title="" />;
 });
 AlertAnchor.displayName = 'AlertAnchor';
 

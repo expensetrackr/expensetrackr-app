@@ -7,7 +7,7 @@ import { cn } from '#/utils/cn';
 import { Text } from './text';
 
 const Form = React.forwardRef<View, ViewProps>(({ className, ...props }, ref) => {
-    return <View ref={ref} className={cn('flex-1 gap-9', className)} {...props} />;
+    return <View className={cn('flex-1 gap-9', className)} ref={ref} {...props} />;
 });
 Form.displayName = 'Form';
 
@@ -81,19 +81,19 @@ const FormSection = React.forwardRef<React.ElementRef<typeof View>, FormSectionP
                 )}
                 <View className="flex-1">
                     <View
-                        ref={ref}
                         className={cn(
                             'ios:overflow-hidden ios:rounded-lg ios:bg-card ios:gap-0 ios:pl-1 gap-4',
                             className,
                         )}
+                        ref={ref}
                         style={style}
                         {...props}>
                         {children}
                     </View>
                     {!!footnote && (
                         <Text
-                            className={cn('ios:pl-3 ios:pt-1 pl-3 pt-0.5 text-muted-foreground', footnoteClassName)}
-                            $variant="footnote">
+                            $variant="footnote"
+                            className={cn('ios:pl-3 ios:pt-1 pl-3 pt-0.5 text-muted-foreground', footnoteClassName)}>
                             {footnote}
                         </Text>
                     )}
@@ -113,7 +113,7 @@ const FormItem = React.forwardRef<
 >(({ className, isLast, iosSeparatorClassName, ...props }, ref) => {
     return (
         <>
-            <View ref={ref} className={cn('ios:pr-1', className)} {...props} />
+            <View className={cn('ios:pr-1', className)} ref={ref} {...props} />
             {Platform.OS === 'ios' && !isLast && (
                 <View className={cn('ml-2 h-px flex-1 bg-border', iosSeparatorClassName)} />
             )}

@@ -14,6 +14,7 @@ import 'react-native-reanimated';
 import { Colors } from '#/constants/Colors';
 import { useColorScheme } from '#/hooks/use-color-scheme';
 import { setAndroidNavigationBar } from '#/lib/android-navigation-bar';
+import { SessionProvider } from '#/providers/session-provider';
 import '../global.css';
 
 // Set the animation options. This is optional.
@@ -77,22 +78,24 @@ export default function RootLayout() {
     }
 
     return (
-        <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-            <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+        <SessionProvider>
+            <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+                <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
 
-            <KeyboardProvider statusBarTranslucent navigationBarTranslucent>
-                <MotiView
-                    className="bg-bg-white-0 flex-1"
-                    from={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ type: 'timing' }}
-                    onLayout={onLayoutRootView}>
-                    <Slot />
-                </MotiView>
+                <KeyboardProvider navigationBarTranslucent statusBarTranslucent>
+                    <MotiView
+                        animate={{ opacity: 1 }}
+                        className="flex-1 bg-background"
+                        from={{ opacity: 0 }}
+                        onLayout={onLayoutRootView}
+                        transition={{ type: 'timing' }}>
+                        <Slot />
+                    </MotiView>
 
-                <PortalHost />
-            </KeyboardProvider>
-        </ThemeProvider>
+                    <PortalHost />
+                </KeyboardProvider>
+            </ThemeProvider>
+        </SessionProvider>
     );
 }
 

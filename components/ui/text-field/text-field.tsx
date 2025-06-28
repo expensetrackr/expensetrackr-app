@@ -87,9 +87,9 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
                     }),
                     className: containerClassName,
                 })}
-                style={materialRingColor ? { borderColor: materialRingColor } : undefined}
                 disabled={editable === false}
-                onPress={focus}>
+                onPress={focus}
+                style={materialRingColor ? { borderColor: materialRingColor } : undefined}>
                 <View
                     className={innerRootVariants({
                         $variant: materialVariant,
@@ -104,29 +104,29 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
                     <InputWrapper>
                         {!!label && (
                             <MaterialLabel
-                                materialVariant={materialVariant}
-                                isFocused={isFocused}
-                                value={value}
-                                materialLabel={label}
-                                hasLeftView={!!leftView}
                                 className={labelClassName}
                                 hasError={!!errorMessage}
+                                hasLeftView={!!leftView}
+                                isFocused={isFocused}
+                                materialLabel={label}
+                                materialVariant={materialVariant}
+                                value={value}
                             />
                         )}
                         <TextInput
-                            ref={inputRef}
-                            editable={editable}
+                            accessibilityHint={accessibilityHint ?? errorMessage}
                             className={cn(
                                 'flex-1 rounded py-3 pl-2.5 text-[17px] text-foreground dark:placeholder:text-white/30',
                                 materialVariant === 'filled' && !!label && 'pb-2 pt-5',
                                 className,
                             )}
-                            placeholder={isFocused || !label ? placeholder : ''}
-                            onFocus={onFocus}
+                            editable={editable}
                             onBlur={onBlur}
                             onChangeText={onChangeText}
+                            onFocus={onFocus}
+                            placeholder={isFocused || !label ? placeholder : ''}
+                            ref={inputRef}
                             value={value}
-                            accessibilityHint={accessibilityHint ?? errorMessage}
                             {...props}
                         />
                     </InputWrapper>
@@ -271,7 +271,7 @@ function MaterialLabel(props: MaterialLabelProps) {
         };
     });
     return (
-        <Animated.View style={animatedRootStyle} pointerEvents="none">
+        <Animated.View pointerEvents="none" style={animatedRootStyle}>
             <Animated.Text
                 className={cn(
                     'bg-card/0 text-foreground/70 rounded',
@@ -298,8 +298,8 @@ function MaterialClearIcon(props: MaterialClearIconProps) {
     return (
         <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(200)}>
             <Pressable
-                disabled={props.editable === false}
                 className="flex-1 justify-center px-2 active:opacity-65"
+                disabled={props.editable === false}
                 onPress={props.clearText}>
                 <Icon color={colors.grey2} name="close-circle-outline" size={24} />
             </Pressable>
@@ -311,17 +311,17 @@ function MaterialErrorIcon() {
     const { colors } = useColorScheme();
     return (
         <Animated.View
-            pointerEvents="none"
+            className="justify-center pr-2"
             entering={FadeIn.duration(200)}
             exiting={FadeOut.duration(200)}
-            className="justify-center pr-2">
+            pointerEvents="none">
             <Icon
                 color={colors.destructive}
-                name="close-circle-outline"
                 materialIcon={{
                     name: 'alert-circle',
                     type: 'MaterialCommunityIcons',
                 }}
+                name="close-circle-outline"
                 size={24}
             />
         </Animated.View>

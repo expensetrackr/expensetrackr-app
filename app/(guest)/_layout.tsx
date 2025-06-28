@@ -1,6 +1,14 @@
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
+
+import { useSession } from '#/providers/session-provider';
 
 export default function GuestLayout() {
+    const { session } = useSession();
+
+    if (session) {
+        return <Redirect href="/(authenticated)/home" />;
+    }
+
     return (
         <Stack screenOptions={SCREEN_OPTIONS}>
             <Stack.Screen name="index" />

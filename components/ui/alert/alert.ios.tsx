@@ -48,7 +48,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(({ children, title, buttons
 
     const Component = !children ? Pressable : Slot.Pressable;
     return (
-        <Component ref={augmentedRef} onPress={onPress}>
+        <Component onPress={onPress} ref={augmentedRef}>
             {children}
         </Component>
     );
@@ -57,7 +57,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(({ children, title, buttons
 Alert.displayName = 'Alert';
 
 const AlertAnchor = React.forwardRef<AlertRef>((_, ref) => {
-    return <Alert ref={ref} title="" buttons={[]} />;
+    return <Alert buttons={[]} ref={ref} title="" />;
 });
 AlertAnchor.displayName = 'AlertAnchor';
 
