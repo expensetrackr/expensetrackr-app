@@ -13,7 +13,16 @@
             "supportsTablet": true,
             "bundleIdentifier": "com.danestves.expensetrackr",
             "infoPlist": {
-                "ITSAppUsesNonExemptEncryption": false
+                "ITSAppUsesNonExemptEncryption": false,
+                "NSAppTransportSecurity": {
+                    "NSExceptionDomains": {
+                        "api.expensetrackr.app": {
+                            "NSIncludesSubdomains": true,
+                            "NSExceptionRequiresForwardSecrecy": false,
+                            "NSExceptionMinimumTLSVersion": "TLSv1.2"
+                        }
+                    }
+                }
             },
             "icon": {
                 "light": "./assets/images/ios-light.png",
@@ -27,7 +36,8 @@
                 "backgroundColor": "#ffffff"
             },
             "edgeToEdgeEnabled": true,
-            "package": "com.danestves.expensetrackr"
+            "package": "com.danestves.expensetrackr",
+            "usesCleartextTraffic": false
         },
         "web": {
             "bundler": "metro",
@@ -52,7 +62,13 @@
                 }
             ],
             "expo-font",
-            "expo-secure-store"
+            "expo-secure-store",
+            [
+                "expo-dev-client",
+                {
+                    "launchMode": "most-recent"
+                }
+            ]
         ],
         "experiments": {
             "typedRoutes": true
