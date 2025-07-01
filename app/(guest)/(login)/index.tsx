@@ -1,11 +1,11 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, Stack, router } from 'expo-router';
+import { MotiView } from 'moti';
 import * as React from 'react';
 import { useRef } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView, KeyboardController, KeyboardStickyView } from 'react-native-keyboard-controller';
-import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { toast } from 'sonner-native';
 
@@ -89,7 +89,11 @@ export default function LoginScreen() {
                     keyboardDismissMode="interactive"
                     keyboardShouldPersistTaps="handled">
                     <View className="ios:px-12 flex-1 px-8">
-                        <Animated.View className="items-center pb-6" entering={FadeIn.delay(200).duration(800)}>
+                        <MotiView
+                            animate={{ opacity: 1 }}
+                            className="items-center pb-6"
+                            from={{ opacity: 0 }}
+                            transition={{ type: 'timing', delay: 200, duration: 800 }}>
                             <View style={styles.logoContainer}>
                                 <Image
                                     contentFit="contain"
@@ -97,7 +101,10 @@ export default function LoginScreen() {
                                     style={styles.logo}
                                 />
                             </View>
-                            <Animated.View entering={FadeInUp.delay(400).duration(600)}>
+                            <MotiView
+                                animate={{ opacity: 1, translateY: 0 }}
+                                from={{ opacity: 0, translateY: 20 }}
+                                transition={{ type: 'timing', delay: 400, duration: 600 }}>
                                 <Text
                                     $variant="title1"
                                     className="ios:font-bold pb-2 pt-6 text-center text-2xl"
@@ -107,10 +114,14 @@ export default function LoginScreen() {
                                 <Text className="text-center text-sm text-muted-foreground">
                                     Sign in to continue managing your finances
                                 </Text>
-                            </Animated.View>
-                        </Animated.View>
+                            </MotiView>
+                        </MotiView>
 
-                        <Animated.View className="ios:pt-4 pt-6" entering={FadeInDown.delay(600).duration(600)}>
+                        <MotiView
+                            animate={{ opacity: 1, translateY: 0 }}
+                            className="ios:pt-4 pt-6"
+                            from={{ opacity: 0, translateY: 30 }}
+                            transition={{ type: 'timing', delay: 600, duration: 600 }}>
                             <Form className="gap-3">
                                 <FormSection
                                     className="ios:bg-background/95 backdrop-blur-sm"
@@ -179,7 +190,7 @@ export default function LoginScreen() {
                                     </Link>
                                 </View>
                             </Form>
-                        </Animated.View>
+                        </MotiView>
                     </View>
                 </KeyboardAwareScrollView>
                 <KeyboardStickyView
@@ -188,7 +199,11 @@ export default function LoginScreen() {
                         opened: Platform.select({ ios: insets.bottom + 30, default: insets.bottom }),
                     }}>
                     {Platform.OS === 'ios' ? (
-                        <Animated.View className="px-12 py-4" entering={FadeInDown.delay(800).duration(600)}>
+                        <MotiView
+                            animate={{ opacity: 1, translateY: 0 }}
+                            className="px-12 py-4"
+                            from={{ opacity: 0, translateY: 30 }}
+                            transition={{ type: 'timing', delay: 800, duration: 600 }}>
                             <Button
                                 $size="lg"
                                 disabled={form.state.isSubmitting}
@@ -196,16 +211,21 @@ export default function LoginScreen() {
                                 style={styles.primaryButton}>
                                 <Text className="font-semibold">Continue</Text>
                                 {form.state.isSubmitting ? (
-                                    <Animated.View entering={FadeIn.delay(200)}>
+                                    <MotiView
+                                        animate={{ opacity: 1 }}
+                                        from={{ opacity: 0 }}
+                                        transition={{ type: 'timing', delay: 200 }}>
                                         <ActivityIndicator color="#fff" size="small" />
-                                    </Animated.View>
+                                    </MotiView>
                                 ) : null}
                             </Button>
-                        </Animated.View>
+                        </MotiView>
                     ) : (
-                        <Animated.View
+                        <MotiView
+                            animate={{ opacity: 1, translateY: 0 }}
                             className="flex-row justify-between py-4 pl-6 pr-8"
-                            entering={FadeInDown.delay(800).duration(600)}>
+                            from={{ opacity: 0, translateY: 30 }}
+                            transition={{ type: 'timing', delay: 800, duration: 600 }}>
                             <Button
                                 $variant="plain"
                                 className="px-2"
@@ -226,19 +246,25 @@ export default function LoginScreen() {
                                 }}
                                 style={styles.primaryButton}>
                                 {form.state.isSubmitting ? (
-                                    <Animated.View entering={FadeIn.delay(200)}>
+                                    <MotiView
+                                        animate={{ opacity: 1 }}
+                                        from={{ opacity: 0 }}
+                                        transition={{ type: 'timing', delay: 200 }}>
                                         <ActivityIndicator color="#fff" size="small" />
-                                    </Animated.View>
+                                    </MotiView>
                                 ) : null}
                                 <Text className="text-sm font-semibold">
                                     {focusedTextField === 'email' ? 'Next' : 'Submit'}
                                 </Text>
                             </Button>
-                        </Animated.View>
+                        </MotiView>
                     )}
                 </KeyboardStickyView>
                 {Platform.OS === 'ios' && (
-                    <Animated.View entering={FadeIn.delay(1000).duration(600)}>
+                    <MotiView
+                        animate={{ opacity: 1 }}
+                        from={{ opacity: 0 }}
+                        transition={{ type: 'timing', delay: 1000, duration: 600 }}>
                         <Button
                             $variant="plain"
                             onPress={() => {
@@ -246,7 +272,7 @@ export default function LoginScreen() {
                             }}>
                             <Text className="text-sm font-medium text-primary">Create account</Text>
                         </Button>
-                    </Animated.View>
+                    </MotiView>
                 )}
             </View>
 
