@@ -2,11 +2,15 @@ import { createFetch, createSchema } from '@better-fetch/fetch';
 import * as SecureStore from 'expo-secure-store';
 import * as z from 'zod/v4';
 
-import { LoginSchema } from '#/schemas/auth.ts';
+import { LoginSchema, RegisterSchema } from '#/schemas/auth.ts';
 
 export const schema = createSchema({
     '@post/auth/login': {
         input: LoginSchema,
+        output: z.string(),
+    },
+    '@post/auth/register': {
+        input: RegisterSchema,
         output: z.string(),
     },
 });
@@ -20,9 +24,6 @@ export const $fetch = createFetch({
 
             return session ?? undefined;
         },
-    },
-    headers: {
-        'Content-Type': 'application/json',
     },
     schema,
 });

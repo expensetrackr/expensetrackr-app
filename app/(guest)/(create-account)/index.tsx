@@ -7,16 +7,34 @@ import { KeyboardAwareScrollView, KeyboardController, KeyboardStickyView } from 
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { ExternalLink } from '#/components/external-link.tsx';
 import { Button } from '#/components/ui/button.tsx';
 import { Form, FormItem, FormSection } from '#/components/ui/form.tsx';
 import { TextField } from '#/components/ui/text-field/index.ts';
 import { Text } from '#/components/ui/text.tsx';
+import { useAppForm } from '#/hooks/use-app-form.tsx';
+import { RegisterSchema } from '#/schemas/auth.ts';
 
 export default function CreateAccountScreen() {
     const insets = useSafeAreaInsets();
     const [focusedTextField, setFocusedTextField] = React.useState<
         'fullName' | 'email' | 'password' | 'confirmPassword' | null
     >(null);
+    const form = useAppForm({
+        defaultValues: {
+            name: '',
+            email: '',
+            password: '',
+            confirm_password: '',
+        },
+        validators: {
+            onSubmit: RegisterSchema,
+        },
+    });
+
+    const handleSubmit = async () => {
+        await form.handleSubmit();
+    };
 
     return (
         <View className="ios:bg-card flex-1" style={{ paddingBottom: insets.bottom }}>
@@ -127,7 +145,7 @@ export default function CreateAccountScreen() {
                                         label={Platform.select({ ios: undefined, default: 'Confirm password' })}
                                         onBlur={() => setFocusedTextField(null)}
                                         onFocus={() => setFocusedTextField('confirmPassword')}
-                                        onSubmitEditing={() => router.replace('/')}
+                                        onSubmitEditing={handleSubmit}
                                         placeholder={Platform.select({ ios: 'Confirm password', default: '' })}
                                         returnKeyType="done"
                                         secureTextEntry
@@ -139,8 +157,17 @@ export default function CreateAccountScreen() {
                             <Animated.View className="mt-2" entering={FadeInDown.delay(800).duration(600)}>
                                 <Text className="text-center text-xs leading-relaxed text-muted-foreground">
                                     By creating an account, you agree to our{' '}
-                                    <Text className="text-xs text-primary">Terms of Service</Text> and{' '}
-                                    <Text className="text-xs text-primary">Privacy Policy</Text>
+                                    <ExternalLink
+                                        className="text-xs text-primary"
+                                        href="https://expensetrackr.app/terms-of-service">
+                                        Terms of Service
+                                    </ExternalLink>{' '}
+                                    and{' '}
+                                    <ExternalLink
+                                        className="text-xs text-primary"
+                                        href="https://expensetrackr.app/privacy-policy">
+                                        Privacy Policy
+                                    </ExternalLink>
                                 </Text>
                             </Animated.View>
                         </Form>
@@ -155,12 +182,7 @@ export default function CreateAccountScreen() {
                 }}>
                 {Platform.OS === 'ios' ? (
                     <Animated.View className="px-12 py-4" entering={FadeInDown.delay(1000).duration(600)}>
-                        <Button
-                            $size="lg"
-                            onPress={() => {
-                                router.replace('/');
-                            }}
-                            style={styles.primaryButton}>
+                        <Button $size="lg" onPress={handleSubmit} style={styles.primaryButton}>
                             <Text className="font-semibold">Create account</Text>
                         </Button>
                     </Animated.View>
@@ -168,12 +190,7 @@ export default function CreateAccountScreen() {
                     <Animated.View
                         className="flex-row justify-between py-4 pl-6 pr-8"
                         entering={FadeInDown.delay(1000).duration(600)}>
-                        <Button
-                            $variant="plain"
-                            className="px-2"
-                            onPress={() => {
-                                router.replace('/(guest)/(login)');
-                            }}>
+                        <Button $variant="plain" className="px-2" onPress={() => router.replace('/(guest)/(login)')}>
                             <Text className="px-0.5 text-sm font-medium text-primary">Already have an account?</Text>
                         </Button>
                         <Button
@@ -191,7 +208,7 @@ export default function CreateAccountScreen() {
                                     return;
                                 }
                                 KeyboardController.dismiss();
-                                router.replace('/');
+                                handleSubmit();
                             }}
                             style={styles.primaryButton}>
                             <Text className="text-sm font-semibold">
