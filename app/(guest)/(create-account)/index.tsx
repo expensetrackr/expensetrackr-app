@@ -1,18 +1,23 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router, Stack } from 'expo-router';
+import { MotiView } from 'moti';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView, KeyboardController, KeyboardStickyView } from 'react-native-keyboard-controller';
-import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { toast } from 'sonner-native';
 
 import { ExternalLink } from '#/components/external-link.tsx';
+import { ActivityIndicator } from '#/components/ui/activity-indicator.tsx';
 import { Button } from '#/components/ui/button.tsx';
 import { Form, FormItem, FormSection } from '#/components/ui/form.tsx';
+import { HelperText } from '#/components/ui/helper-text.tsx';
 import { TextField } from '#/components/ui/text-field/index.ts';
 import { Text } from '#/components/ui/text.tsx';
+import { useRegister } from '#/hooks/api/auth.ts';
 import { useAppForm } from '#/hooks/use-app-form.tsx';
+import { useSession } from '#/providers/session-provider.tsx';
 import { RegisterSchema } from '#/schemas/auth.ts';
 
 export default function CreateAccountScreen() {
@@ -20,12 +25,23 @@ export default function CreateAccountScreen() {
     const [focusedTextField, setFocusedTextField] = React.useState<
         'fullName' | 'email' | 'password' | 'confirmPassword' | null
     >(null);
+    const { mutateAsync, isPending } = useRegister();
+    const { setSession } = useSession();
     const form = useAppForm({
         defaultValues: {
             name: '',
             email: '',
             password: '',
             confirm_password: '',
+        },
+        async onSubmit({ value }) {
+            try {
+                const token = await mutateAsync(value);
+
+                setSession(token);
+            } catch (error) {
+                toast.error(error instanceof Error ? error.message : 'An unknown error occurred');
+            }
         },
         validators: {
             onSubmit: RegisterSchema,
@@ -74,7 +90,11 @@ export default function CreateAccountScreen() {
                 keyboardDismissMode="interactive"
                 keyboardShouldPersistTaps="handled">
                 <View className="ios:px-12 flex-1 px-8">
-                    <Animated.View className="items-center pb-6" entering={FadeIn.delay(200).duration(800)}>
+                    <MotiView
+                        animate={{ opacity: 1 }}
+                        className="items-center pb-6"
+                        from={{ opacity: 0 }}
+                        transition={{ type: 'timing', delay: 200, duration: 800 }}>
                         <View style={styles.logoContainer}>
                             <Image
                                 className="ios:h-16 ios:w-16 h-12 w-12"
@@ -83,7 +103,10 @@ export default function CreateAccountScreen() {
                                 style={styles.logo}
                             />
                         </View>
-                        <Animated.View entering={FadeInUp.delay(400).duration(600)}>
+                        <MotiView
+                            animate={{ opacity: 1, translateY: 0 }}
+                            from={{ opacity: 0, translateY: 20 }}
+                            transition={{ type: 'timing', delay: 400, duration: 600 }}>
                             <Text
                                 $variant="title1"
                                 className="ios:font-bold pb-2 pt-6 text-center text-2xl"
@@ -93,68 +116,142 @@ export default function CreateAccountScreen() {
                             <Text className="text-center text-sm text-muted-foreground">
                                 Join thousands managing their finances with confidence
                             </Text>
-                        </Animated.View>
-                    </Animated.View>
+                        </MotiView>
+                    </MotiView>
 
-                    <Animated.View className="ios:pt-4 pt-6" entering={FadeInDown.delay(600).duration(600)}>
+                    <MotiView
+                        animate={{ opacity: 1, translateY: 0 }}
+                        className="ios:pt-4 pt-6"
+                        from={{ opacity: 0, translateY: 30 }}
+                        transition={{ type: 'timing', delay: 600, duration: 600 }}>
                         <Form className="gap-3">
                             <FormSection className="ios:bg-background/95 backdrop-blur-sm" style={styles.formSection}>
-                                <FormItem>
-                                    <TextField
-                                        autoCapitalize="words"
-                                        autoFocus
-                                        label={Platform.select({ ios: undefined, default: 'Full name' })}
-                                        onBlur={() => setFocusedTextField(null)}
-                                        onFocus={() => setFocusedTextField('fullName')}
-                                        onSubmitEditing={() => KeyboardController.setFocusTo('next')}
-                                        placeholder={Platform.select({ ios: 'Full name', default: '' })}
-                                        returnKeyType="next"
-                                        submitBehavior="submit"
-                                        textContentType="name"
-                                    />
-                                </FormItem>
-                                <FormItem>
-                                    <TextField
-                                        autoCapitalize="none"
-                                        keyboardType="email-address"
-                                        label={Platform.select({ ios: undefined, default: 'Email' })}
-                                        onBlur={() => setFocusedTextField(null)}
-                                        onFocus={() => setFocusedTextField('email')}
-                                        onSubmitEditing={() => KeyboardController.setFocusTo('next')}
-                                        placeholder={Platform.select({ ios: 'Email', default: '' })}
-                                        returnKeyType="next"
-                                        submitBehavior="submit"
-                                        textContentType="emailAddress"
-                                    />
-                                </FormItem>
-                                <FormItem>
-                                    <TextField
-                                        label={Platform.select({ ios: undefined, default: 'Password' })}
-                                        onBlur={() => setFocusedTextField(null)}
-                                        onFocus={() => setFocusedTextField('password')}
-                                        onSubmitEditing={() => KeyboardController.setFocusTo('next')}
-                                        placeholder={Platform.select({ ios: 'Password', default: '' })}
-                                        returnKeyType="next"
-                                        secureTextEntry
-                                        submitBehavior="submit"
-                                        textContentType="newPassword"
-                                    />
-                                </FormItem>
-                                <FormItem>
-                                    <TextField
-                                        label={Platform.select({ ios: undefined, default: 'Confirm password' })}
-                                        onBlur={() => setFocusedTextField(null)}
-                                        onFocus={() => setFocusedTextField('confirmPassword')}
-                                        onSubmitEditing={handleSubmit}
-                                        placeholder={Platform.select({ ios: 'Confirm password', default: '' })}
-                                        returnKeyType="done"
-                                        secureTextEntry
-                                        textContentType="newPassword"
-                                    />
-                                </FormItem>
+                                <form.AppField name="name">
+                                    {(field) => (
+                                        <FormItem>
+                                            <TextField
+                                                autoCapitalize="words"
+                                                autoFocus
+                                                id={field.name}
+                                                label={Platform.select({ ios: undefined, default: 'Full name' })}
+                                                onBlur={() => {
+                                                    setFocusedTextField(null);
+                                                    field.handleBlur();
+                                                }}
+                                                onChangeText={field.handleChange}
+                                                onFocus={() => {
+                                                    setFocusedTextField('fullName');
+                                                }}
+                                                onSubmitEditing={() => KeyboardController.setFocusTo('next')}
+                                                placeholder={Platform.select({ ios: 'Full name', default: '' })}
+                                                returnKeyType="next"
+                                                submitBehavior="submit"
+                                                textContentType="name"
+                                                value={field.state.value}
+                                            />
+                                            <HelperText
+                                                className="px-1.5"
+                                                error={field.state.meta.errors?.[0]?.message}
+                                            />
+                                        </FormItem>
+                                    )}
+                                </form.AppField>
+                                <form.AppField name="email">
+                                    {(field) => (
+                                        <FormItem>
+                                            <TextField
+                                                autoCapitalize="none"
+                                                id={field.name}
+                                                keyboardType="email-address"
+                                                label={Platform.select({ ios: undefined, default: 'Email' })}
+                                                onBlur={() => {
+                                                    setFocusedTextField(null);
+                                                    field.handleBlur();
+                                                }}
+                                                onChangeText={field.handleChange}
+                                                onFocus={() => {
+                                                    setFocusedTextField('email');
+                                                }}
+                                                onSubmitEditing={() => KeyboardController.setFocusTo('next')}
+                                                placeholder={Platform.select({ ios: 'Email', default: '' })}
+                                                returnKeyType="next"
+                                                submitBehavior="submit"
+                                                textContentType="emailAddress"
+                                                value={field.state.value}
+                                            />
+                                            <HelperText
+                                                className="px-1.5"
+                                                error={field.state.meta.errors?.[0]?.message}
+                                            />
+                                        </FormItem>
+                                    )}
+                                </form.AppField>
+
+                                <form.AppField name="password">
+                                    {(field) => (
+                                        <FormItem>
+                                            <TextField
+                                                id={field.name}
+                                                label={Platform.select({ ios: undefined, default: 'Password' })}
+                                                onBlur={() => {
+                                                    setFocusedTextField(null);
+                                                    field.handleBlur();
+                                                }}
+                                                onChangeText={field.handleChange}
+                                                onFocus={() => {
+                                                    setFocusedTextField('password');
+                                                }}
+                                                onSubmitEditing={() => KeyboardController.setFocusTo('next')}
+                                                placeholder={Platform.select({ ios: 'Password', default: '' })}
+                                                returnKeyType="next"
+                                                secureTextEntry
+                                                submitBehavior="submit"
+                                                textContentType="newPassword"
+                                                value={field.state.value}
+                                            />
+                                            <HelperText
+                                                className="px-1.5"
+                                                error={field.state.meta.errors?.[0]?.message}
+                                            />
+                                        </FormItem>
+                                    )}
+                                </form.AppField>
+
+                                <form.AppField name="confirm_password">
+                                    {(field) => (
+                                        <FormItem>
+                                            <TextField
+                                                id={field.name}
+                                                label={Platform.select({ ios: undefined, default: 'Confirm password' })}
+                                                onBlur={() => {
+                                                    setFocusedTextField(null);
+                                                    field.handleBlur();
+                                                }}
+                                                onChangeText={field.handleChange}
+                                                onFocus={() => {
+                                                    setFocusedTextField('confirmPassword');
+                                                }}
+                                                onSubmitEditing={handleSubmit}
+                                                placeholder={Platform.select({ ios: 'Confirm password', default: '' })}
+                                                returnKeyType="done"
+                                                secureTextEntry
+                                                textContentType="newPassword"
+                                                value={field.state.value}
+                                            />
+                                            <HelperText
+                                                className="px-1.5"
+                                                error={field.state.meta.errors?.[0]?.message}
+                                            />
+                                        </FormItem>
+                                    )}
+                                </form.AppField>
                             </FormSection>
 
-                            <Animated.View className="mt-2" entering={FadeInDown.delay(800).duration(600)}>
+                            <MotiView
+                                animate={{ opacity: 1, translateY: 0 }}
+                                className="mt-2"
+                                from={{ opacity: 0, translateY: 20 }}
+                                transition={{ type: 'timing', delay: 800, duration: 600 }}>
                                 <Text className="text-center text-xs leading-relaxed text-muted-foreground">
                                     By creating an account, you agree to our{' '}
                                     <ExternalLink
@@ -169,9 +266,9 @@ export default function CreateAccountScreen() {
                                         Privacy Policy
                                     </ExternalLink>
                                 </Text>
-                            </Animated.View>
+                            </MotiView>
                         </Form>
-                    </Animated.View>
+                    </MotiView>
                 </View>
             </KeyboardAwareScrollView>
 
@@ -181,19 +278,36 @@ export default function CreateAccountScreen() {
                     opened: Platform.select({ ios: insets.bottom + 30, default: insets.bottom }),
                 }}>
                 {Platform.OS === 'ios' ? (
-                    <Animated.View className="px-12 py-4" entering={FadeInDown.delay(1000).duration(600)}>
-                        <Button $size="lg" onPress={handleSubmit} style={styles.primaryButton}>
-                            <Text className="font-semibold">Create account</Text>
+                    <MotiView
+                        animate={{ opacity: 1, translateY: 0 }}
+                        className="px-12 py-4"
+                        from={{ opacity: 0, translateY: 30 }}
+                        transition={{ type: 'timing', delay: 1000, duration: 600 }}>
+                        <Button $size="lg" disabled={isPending} onPress={handleSubmit} style={styles.primaryButton}>
+                            <Text className="font-semibold">
+                                {isPending ? 'Creating account...' : 'Create account'}
+                            </Text>
+                            {form.state.isSubmitting ? (
+                                <MotiView
+                                    animate={{ opacity: 1 }}
+                                    from={{ opacity: 0 }}
+                                    transition={{ type: 'timing', delay: 200 }}>
+                                    <ActivityIndicator color="#fff" size="small" />
+                                </MotiView>
+                            ) : null}
                         </Button>
-                    </Animated.View>
+                    </MotiView>
                 ) : (
-                    <Animated.View
+                    <MotiView
+                        animate={{ opacity: 1, translateY: 0 }}
                         className="flex-row justify-between py-4 pl-6 pr-8"
-                        entering={FadeInDown.delay(1000).duration(600)}>
+                        from={{ opacity: 0, translateY: 30 }}
+                        transition={{ type: 'timing', delay: 1000, duration: 600 }}>
                         <Button $variant="plain" className="px-2" onPress={() => router.replace('/(guest)/(login)')}>
                             <Text className="px-0.5 text-sm font-medium text-primary">Already have an account?</Text>
                         </Button>
                         <Button
+                            disabled={isPending}
                             onPress={() => {
                                 if (focusedTextField === 'fullName') {
                                     KeyboardController.setFocusTo('next');
@@ -212,15 +326,30 @@ export default function CreateAccountScreen() {
                             }}
                             style={styles.primaryButton}>
                             <Text className="text-sm font-semibold">
-                                {focusedTextField === 'confirmPassword' ? 'Create account' : 'Next'}
+                                {isPending
+                                    ? 'Creating account...'
+                                    : focusedTextField === 'confirmPassword'
+                                      ? 'Create account'
+                                      : 'Next'}
                             </Text>
+                            {form.state.isSubmitting ? (
+                                <MotiView
+                                    animate={{ opacity: 1 }}
+                                    from={{ opacity: 0 }}
+                                    transition={{ type: 'timing', delay: 200 }}>
+                                    <ActivityIndicator color="#fff" size="small" />
+                                </MotiView>
+                            ) : null}
                         </Button>
-                    </Animated.View>
+                    </MotiView>
                 )}
             </KeyboardStickyView>
 
             {Platform.OS === 'ios' && (
-                <Animated.View entering={FadeIn.delay(1200).duration(600)}>
+                <MotiView
+                    animate={{ opacity: 1 }}
+                    from={{ opacity: 0 }}
+                    transition={{ type: 'timing', delay: 1200, duration: 600 }}>
                     <Button
                         $variant="plain"
                         onPress={() => {
@@ -228,7 +357,7 @@ export default function CreateAccountScreen() {
                         }}>
                         <Text className="text-sm font-medium text-primary">Already have an account?</Text>
                     </Button>
-                </Animated.View>
+                </MotiView>
             )}
         </View>
     );
