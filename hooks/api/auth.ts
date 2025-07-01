@@ -3,6 +3,7 @@ import * as z from 'zod/v4';
 
 import { $fetch } from '#/lib/fetch.ts';
 import { ApiErrorSchema, AuthValidationErrorSchema, LoginSchema } from '#/schemas/auth.ts';
+import { getConfiguredDeviceName } from '#/utils/auth-config.ts';
 
 export function useLogin(): UseMutationResult<string, Error, z.infer<typeof LoginSchema>> {
     return useMutation({
@@ -10,7 +11,7 @@ export function useLogin(): UseMutationResult<string, Error, z.infer<typeof Logi
             const response = await $fetch('@post/auth/login', {
                 body: {
                     ...values,
-                    device_name: 'mobile-app',
+                    device_name: await getConfiguredDeviceName(),
                 },
             });
 
