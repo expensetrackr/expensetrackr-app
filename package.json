@@ -30,7 +30,6 @@
         "@roninoss/icons": "0.0.4",
         "@tanstack/react-form": "1.12.4",
         "@tanstack/react-query": "5.81.5",
-        "axios": "1.10.0",
         "clsx": "2.1.1",
         "expo": "~53.0.13",
         "expo-blur": "~14.1.5",

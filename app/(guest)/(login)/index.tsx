@@ -156,7 +156,7 @@ export default function LoginScreen() {
                                                     }}
                                                     onChangeText={field.handleChange}
                                                     onFocus={() => setFocusedTextField('password')}
-                                                    onSubmitEditing={() => router.replace('/')}
+                                                    onSubmitEditing={handleSubmit}
                                                     placeholder={Platform.select({ ios: 'Password', default: '' })}
                                                     returnKeyType="done"
                                                     secureTextEntry
