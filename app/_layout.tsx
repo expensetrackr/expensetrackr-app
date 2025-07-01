@@ -8,13 +8,16 @@ import { StatusBar } from 'expo-status-bar';
 import { MotiView } from 'moti';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Platform } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import 'react-native-reanimated';
+import { Toaster } from 'sonner-native';
 
-import { Colors } from '#/constants/Colors';
-import { useColorScheme } from '#/hooks/use-color-scheme';
-import { setAndroidNavigationBar } from '#/lib/android-navigation-bar';
-import { SessionProvider } from '#/providers/session-provider';
+import { Colors } from '#/constants/Colors.ts';
+import { useColorScheme } from '#/hooks/use-color-scheme.ts';
+import { setAndroidNavigationBar } from '#/lib/android-navigation-bar.ts';
+import { QueryClientProvider } from '#/providers/query-client-provider.tsx';
+import { SessionProvider } from '#/providers/session-provider.tsx';
 import '../global.css';
 
 // Set the animation options. This is optional.
@@ -53,9 +56,6 @@ export default function RootLayout() {
             return;
         }
 
-        if (Platform.OS === 'web') {
-            document.documentElement.classList.add('bg-background');
-        }
         setAndroidNavigationBar(colorScheme);
         setIsColorSchemeLoaded(true);
         hasMounted.current = true;
@@ -79,22 +79,28 @@ export default function RootLayout() {
 
     return (
         <SessionProvider>
-            <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-                <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+            <QueryClientProvider>
+                <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+                    <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
 
-                <KeyboardProvider navigationBarTranslucent statusBarTranslucent>
-                    <MotiView
-                        animate={{ opacity: 1 }}
-                        className="flex-1 bg-background"
-                        from={{ opacity: 0 }}
-                        onLayout={onLayoutRootView}
-                        transition={{ type: 'timing' }}>
-                        <Slot />
-                    </MotiView>
+                    <GestureHandlerRootView>
+                        <KeyboardProvider navigationBarTranslucent statusBarTranslucent>
+                            <MotiView
+                                animate={{ opacity: 1 }}
+                                className="flex-1 bg-background"
+                                from={{ opacity: 0 }}
+                                onLayout={onLayoutRootView}
+                                transition={{ type: 'timing' }}>
+                                <Slot />
+                            </MotiView>
 
-                    <PortalHost />
-                </KeyboardProvider>
-            </ThemeProvider>
+                            <Toaster />
+
+                            <PortalHost />
+                        </KeyboardProvider>
+                    </GestureHandlerRootView>
+                </ThemeProvider>
+            </QueryClientProvider>
         </SessionProvider>
     );
 }
