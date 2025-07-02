@@ -260,11 +260,18 @@ export default function CreateAccountScreen() {
                         className="px-12 py-4"
                         from={{ opacity: 0, translateY: 30 }}
                         transition={{ type: 'timing', delay: 1000, duration: 600 }}>
-                        <Button $size="lg" disabled={isPending} onPress={handleSubmit} style={styles.primaryButton}>
+                        <Button 
+                            $size="lg" 
+                            disabled={isPending} 
+                            onPress={handleSubmit} 
+                            style={styles.primaryButton}
+                            accessibilityLabel="Create account"
+                            accessibilityHint="Submit the registration form to create a new account"
+                            accessibilityRole="button">
                             <Text className="font-semibold">
                                 {isPending ? 'Creating account...' : 'Create account'}
                             </Text>
-                            {form.state.isSubmitting ? (
+                            {isPending ? (
                                 <MotiView
                                     animate={{ opacity: 1 }}
                                     from={{ opacity: 0 }}
@@ -294,7 +301,20 @@ export default function CreateAccountScreen() {
                                 KeyboardController.dismiss();
                                 handleSubmit();
                             }}
-                            style={styles.primaryButton}>
+                            style={styles.primaryButton}
+                            accessibilityLabel={
+                                isPending
+                                    ? 'Creating account'
+                                    : focusedTextField === 'confirmPassword'
+                                      ? 'Create account'
+                                      : 'Next field'
+                            }
+                            accessibilityHint={
+                                focusedTextField === 'confirmPassword'
+                                    ? 'Submit the registration form to create a new account'
+                                    : 'Move to the next form field'
+                            }
+                            accessibilityRole="button">
                             <Text className="text-sm font-semibold">
                                 {isPending
                                     ? 'Creating account...'
@@ -302,7 +322,7 @@ export default function CreateAccountScreen() {
                                       ? 'Create account'
                                       : 'Next'}
                             </Text>
-                            {form.state.isSubmitting ? (
+                            {isPending ? (
                                 <MotiView
                                     animate={{ opacity: 1 }}
                                     from={{ opacity: 0 }}

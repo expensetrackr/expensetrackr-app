@@ -41,7 +41,10 @@ export function useRegister(): UseMutationResult<string, Error, z.infer<typeof R
     return useMutation({
         mutationFn: async (values: z.infer<typeof RegisterSchema>) => {
             const response = await $fetch('@post/auth/register', {
-                body: values,
+                body: {
+                    ...values,
+                    device_name: await getConfiguredDeviceName(),
+                },
             });
 
             if (response.error) {
