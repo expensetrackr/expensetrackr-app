@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link, Stack, router } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { MotiView } from 'moti';
 import * as React from 'react';
 import { useRef } from 'react';
@@ -61,27 +61,6 @@ export default function LoginScreen() {
                     style={styles.background}
                 />
 
-                <Stack.Screen
-                    options={{
-                        title: '',
-                        headerShadowVisible: false,
-                        headerTransparent: true,
-                        headerStyle: {
-                            backgroundColor: 'transparent',
-                        },
-                        headerTitleStyle: {
-                            color: '#1f2937',
-                            fontWeight: '600',
-                        },
-                        headerLeft() {
-                            return (
-                                <Button $variant="plain" className="ios:px-0" onPress={() => router.dismiss()}>
-                                    <Text className="font-medium text-primary">Cancel</Text>
-                                </Button>
-                            );
-                        },
-                    }}
-                />
                 <KeyboardAwareScrollView
                     bottomOffset={Platform.select({ ios: 175 })}
                     bounces={false}
@@ -183,7 +162,7 @@ export default function LoginScreen() {
                                     </form.AppField>
                                 </FormSection>
                                 <View className="flex-row justify-end">
-                                    <Link asChild href="/(guest)/(login)/forgot-password">
+                                    <Link asChild href="/(guest)/(auth)/forgot-password">
                                         <Button $size="sm" $variant="plain" className="px-0.5">
                                             <Text className="text-sm font-medium text-primary">Forgot password?</Text>
                                         </Button>
@@ -230,7 +209,7 @@ export default function LoginScreen() {
                                 $variant="plain"
                                 className="px-2"
                                 onPress={() => {
-                                    router.replace('/(guest)/(create-account)');
+                                    router.push('/(guest)/(auth)/create-account');
                                 }}>
                                 <Text className="px-0.5 text-sm font-medium text-primary">Create account</Text>
                             </Button>
@@ -268,7 +247,7 @@ export default function LoginScreen() {
                         <Button
                             $variant="plain"
                             onPress={() => {
-                                router.replace('/(guest)/(create-account)');
+                                router.push('/(guest)/(auth)/create-account');
                             }}>
                             <Text className="text-sm font-medium text-primary">Create account</Text>
                         </Button>

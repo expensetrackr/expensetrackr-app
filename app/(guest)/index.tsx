@@ -385,7 +385,7 @@ export default function AuthIndexScreen() {
                                 Free to start • Premium features available
                             </Text>
                         </View>
-                        <Link asChild href="/(guest)/(create-account)">
+                        <Link asChild href="/(guest)/(auth)/create-account">
                             <Button $size={Platform.select({ ios: 'lg', default: 'md' })} style={styles.primaryButton}>
                                 <Text className="font-semibold">Get started now</Text>
                             </Button>
@@ -409,7 +409,7 @@ export default function AuthIndexScreen() {
                             />
                             <Text className="ios:text-foreground font-medium">Continue with Google</Text>
                         </Button>
-                        <Link asChild href="/(guest)/(login)">
+                        <Link asChild href="/(guest)/(auth)/login">
                             <Button $size={Platform.select({ ios: 'lg', default: 'md' })} $variant="plain">
                                 <Text className="font-semibold text-primary">Log in</Text>
                             </Button>

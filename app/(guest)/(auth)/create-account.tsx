@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router, Stack } from 'expo-router';
+import { router } from 'expo-router';
 import { MotiView } from 'moti';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
@@ -59,28 +59,6 @@ export default function CreateAccountScreen() {
                 colors={['rgba(60.3, 126, 248, 0.3)', 'rgba(60.3, 126, 248, 0.1)', 'transparent']}
                 locations={[0, 0.2, 0.6]}
                 style={styles.background}
-            />
-
-            <Stack.Screen
-                options={{
-                    title: '',
-                    headerShadowVisible: false,
-                    headerTransparent: true,
-                    headerStyle: {
-                        backgroundColor: 'transparent',
-                    },
-                    headerTitleStyle: {
-                        color: '#1f2937',
-                        fontWeight: '600',
-                    },
-                    headerLeft() {
-                        return (
-                            <Button $variant="plain" className="ios:px-0" onPress={() => router.dismiss()}>
-                                <Text className="font-medium text-primary">Cancel</Text>
-                            </Button>
-                        );
-                    },
-                }}
             />
 
             <KeyboardAwareScrollView
@@ -303,7 +281,7 @@ export default function CreateAccountScreen() {
                         className="flex-row justify-between py-4 pl-6 pr-8"
                         from={{ opacity: 0, translateY: 30 }}
                         transition={{ type: 'timing', delay: 1000, duration: 600 }}>
-                        <Button $variant="plain" className="px-2" onPress={() => router.replace('/(guest)/(login)')}>
+                        <Button $variant="plain" className="px-2" onPress={() => router.push('/(guest)/(auth)/login')}>
                             <Text className="px-0.5 text-sm font-medium text-primary">Already have an account?</Text>
                         </Button>
                         <Button
@@ -353,7 +331,7 @@ export default function CreateAccountScreen() {
                     <Button
                         $variant="plain"
                         onPress={() => {
-                            router.replace('/(guest)/(login)');
+                            router.push('/(guest)/(auth)/login');
                         }}>
                         <Text className="text-sm font-medium text-primary">Already have an account?</Text>
                     </Button>
