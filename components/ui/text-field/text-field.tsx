@@ -115,6 +115,9 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
                         )}
                         <TextInput
                             accessibilityHint={accessibilityHint ?? errorMessage}
+                            accessibilityInvalid={!!errorMessage}
+                            accessibilityLabel={label}
+                            accessibilityRole="text"
                             className={cn(
                                 'flex-1 rounded py-3 pl-2.5 text-[17px] text-foreground dark:placeholder:text-white/30',
                                 materialVariant === 'filled' && !!label && 'pb-2 pt-5',

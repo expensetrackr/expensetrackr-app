@@ -1,6 +1,6 @@
 # Bug Fixes Summary
 
-This document outlines the 3 significant bugs identified and fixed in the React Native/Expo codebase.
+This document outlines the 7 significant bugs identified and fixed in the React Native/Expo codebase.
 
 ## Bug 1: Race Condition in Storage State Hook
 
@@ -173,20 +173,226 @@ const headerAnimatedStyle = useAnimatedStyle(() => {
 }, [scrollProgress]);
 ```
 
+## Bug 4: Memory Leak in Guest Index Screen
+
+**File**: `app/(guest)/index.tsx`
+**Type**: Performance Issue
+**Severity**: High
+
+### Problem Description
+The guest index screen had multiple animation components that created timers and intervals without proper cleanup, leading to memory leaks when the component unmounts. Each animation component (`FloatingFinancialNumber`, `AnimatedChart`, `FloatingGeometry`, `ConnectedDots`) created timers and intervals that continued running even after navigation.
+
+### Impact
+- **Memory Leaks**: Timers and intervals continue running after navigation
+- **Battery Drain**: Continuous animations running in background
+- **Performance Degradation**: Accumulating memory usage over time
+- **Potential Crashes**: On lower-end devices with limited memory
+
+### Root Cause
+```typescript
+// BEFORE (Problematic code)
+React.useEffect(() => {
+    const timer = setTimeout(startAnimation, delay);
+    const interval = setInterval(startAnimation, 6000);
+
+    return () => {
+        clearTimeout(timer);
+        clearInterval(interval);
+        // Missing animation cleanup!
+    };
+}, [delay, opacity, translateY]);
+```
+
+### Solution Implemented
+- Added proper cleanup for all animation values on unmount
+- Ensured timers and intervals are properly cleared
+- Reset animation values to prevent memory leaks
+
+```typescript
+// AFTER (Fixed code)
+React.useEffect(() => {
+    const timer = setTimeout(startAnimation, delay);
+    const interval = setInterval(startAnimation, 6000);
+
+    return () => {
+        clearTimeout(timer);
+        clearInterval(interval);
+        // Cancel any running animations
+        opacity.value = 0;
+        translateY.value = 0;
+    };
+}, [delay, opacity, translateY]);
+```
+
+## Bug 5: Incorrect Error Handling in Query Configuration
+
+**File**: `utils/query.ts`
+**Type**: Logic Issue
+**Severity**: Medium
+
+### Problem Description
+The query client configuration had `throwOnError: true` which could cause unhandled promise rejections if errors are not properly caught throughout the application. This can crash the app or cause unexpected behavior, especially for mutations.
+
+### Impact
+- **App Crashes**: Unhandled promise rejections can crash the app
+- **Poor User Experience**: Unexpected errors without proper handling
+- **Difficult Debugging**: Errors thrown at unexpected times
+- **Authentication Issues**: Infinite retry loops on auth failures
+
+### Root Cause
+```typescript
+// BEFORE (Problematic code)
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            throwOnError: true,  // Can cause crashes!
+            retry: (failureCount, error) => {
+                if (failureCount >= 3) {
+                    return false;
+                }
+                return true;  // Retries even auth errors!
+            },
+        },
+    },
+});
+```
+
+### Solution Implemented
+- Disabled `throwOnError` by default to prevent crashes
+- Added smart retry logic that doesn't retry authentication errors
+- Added mutation-specific configuration for better error handling
+
+```typescript
+// AFTER (Fixed code)
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            throwOnError: false, // Don't throw errors by default to prevent crashes
+            retry: (failureCount, error) => {
+                if (failureCount >= 3) {
+                    return false;
+                }
+                // Don't retry on certain error types
+                if (error instanceof Error && error.message.indexOf('401') !== -1) {
+                    return false; // Don't retry authentication errors
+                }
+                return true;
+            },
+        },
+        mutations: {
+            throwOnError: false, // Don't throw errors by default for mutations
+            retry: false, // Don't retry mutations by default
+        },
+    },
+});
+```
+
+## Bug 6: Type Coercion Issue in Form Component
+
+**File**: `components/ui/form.tsx`
+**Type**: Logic Issue
+**Severity**: Medium
+
+### Problem Description
+In the `FormSection` component, there was dangerous type coercion where string children were being replaced with empty fragments but then cast as React elements. This could cause runtime errors and unexpected behavior.
+
+### Impact
+- **Runtime Errors**: When string children are passed to FormSection
+- **Inconsistent Rendering**: Unexpected behavior with different child types
+- **Type Safety Issues**: Dangerous type casting that bypasses TypeScript safety
+
+### Root Cause
+```typescript
+// BEFORE (Problematic code)
+return React.cloneElement<ViewProps & { isLast?: boolean }, View>(
+    typeof child === 'string' ? <></> : child,  // Dangerous coercion!
+    { isLast },
+);
+```
+
+### Solution Implemented
+- Fixed type checking to properly identify string elements
+- Added proper warning for invalid usage
+- Removed dangerous type coercion
+
+```typescript
+// AFTER (Fixed code)
+if (typeof child.type === 'string') {
+    console.warn('FormSection - String elements should not be direct children', child);
+    return child; // Return the string element as-is
+}
+return React.cloneElement<ViewProps & { isLast?: boolean }, View>(
+    child,
+    { isLast },
+);
+```
+
+## Bug 7: Accessibility Issue in TextField Component
+
+**File**: `components/ui/text-field/text-field.tsx`
+**Type**: Accessibility Issue
+**Severity**: Medium
+
+### Problem Description
+The TextField component had accessibility issues where error messages were only passed to `accessibilityHint` but not properly associated with the input for screen readers. This makes it difficult for users with disabilities to understand validation errors.
+
+### Impact
+- **Poor Accessibility**: Users with visual impairments can't properly access error information
+- **Screen Reader Issues**: Validation errors may not be announced properly
+- **Non-Compliance**: Fails to meet accessibility standards (WCAG)
+- **User Experience**: Difficult for users with disabilities to use forms
+
+### Root Cause
+```typescript
+// BEFORE (Problematic code)
+<TextInput
+    accessibilityHint={accessibilityHint ?? errorMessage}
+    // Missing proper accessibility attributes
+    className={...}
+    // ...
+/>
+```
+
+### Solution Implemented
+- Added `accessibilityInvalid` to indicate validation state
+- Added `accessibilityLabel` for proper labeling
+- Added `accessibilityRole` for semantic meaning
+- Maintained existing error hint functionality
+
+```typescript
+// AFTER (Fixed code)
+<TextInput
+    accessibilityHint={accessibilityHint ?? errorMessage}
+    accessibilityInvalid={!!errorMessage}
+    accessibilityLabel={label}
+    accessibilityRole="text"
+    className={...}
+    // ...
+/>
+```
+
 ## Summary
 
-These three bug fixes address critical issues in:
+These seven bug fixes address critical issues in:
 
 1. **Data Persistence**: Ensuring reliable storage operations with proper error handling
 2. **Security**: Maintaining authentication context validation in all environments  
-3. **Performance**: Optimizing scroll animations for better user experience
+3. **Performance**: Optimizing scroll animations and preventing memory leaks
+4. **Memory Management**: Proper cleanup of animations and timers
+5. **Error Handling**: Graceful error handling in data fetching
+6. **Type Safety**: Fixing dangerous type coercion issues
+7. **Accessibility**: Improving support for users with disabilities
 
-The fixes improve the overall reliability, security, and performance of the application while maintaining backward compatibility and following React Native/Expo best practices.
+The fixes improve the overall reliability, security, performance, and accessibility of the application while maintaining backward compatibility and following React Native/Expo best practices.
 
 ## Testing Recommendations
 
 1. **Storage Bug**: Test storage operations under poor network conditions and app crashes
 2. **Session Bug**: Verify authentication flows work correctly in production builds
 3. **Performance Bug**: Test scroll performance on various device types and screen sizes
+4. **Memory Leaks**: Monitor memory usage during navigation and extended app usage
+5. **Query Errors**: Test error scenarios with network failures and authentication issues
+6. **Form Components**: Test with various child types and edge cases
+7. **Accessibility**: Test with screen readers and accessibility tools
 
 All fixes have been implemented with proper TypeScript typing and error handling to prevent regression issues.

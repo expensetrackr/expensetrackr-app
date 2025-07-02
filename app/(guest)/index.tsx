@@ -51,6 +51,9 @@ function FloatingFinancialNumber({ value, type, delay, position }: any) {
         return () => {
             clearTimeout(timer);
             clearInterval(interval);
+            // Cancel any running animations
+            opacity.value = 0;
+            translateY.value = 0;
         };
     }, [delay, opacity, translateY]);
 
@@ -111,6 +114,14 @@ function AnimatedChart({ position }: any) {
         };
 
         animateBars();
+
+        return () => {
+            // Cancel all running animations
+            height1.value = 10;
+            height2.value = 15;
+            height3.value = 8;
+            height4.value = 20;
+        };
     }, [height1, height2, height3, height4]);
 
     const bar1Style = useAnimatedStyle(() => ({

@@ -50,11 +50,12 @@ const FormSection = React.forwardRef<React.ElementRef<typeof View>, FormSectionP
             return React.Children.map(childrenArray, (child, index) => {
                 if (!React.isValidElement(child)) return child;
                 const isLast = index === childrenArray.length - 1;
-                if (typeof child === 'string') {
-                    console.log('FormSection - Invalid asChild element', child);
+                if (typeof child.type === 'string') {
+                    console.warn('FormSection - String elements should not be direct children', child);
+                    return child; // Return the string element as-is
                 }
                 return React.cloneElement<ViewProps & { isLast?: boolean }, View>(
-                    typeof child === 'string' ? <></> : child,
+                    child,
                     { isLast },
                 );
             });
