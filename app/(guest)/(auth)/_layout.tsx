@@ -2,6 +2,7 @@ import { Stack, router, usePathname } from 'expo-router';
 
 import { Button } from '#/components/ui/button.tsx';
 import { Text } from '#/components/ui/text.tsx';
+import { useThemeColor } from '#/hooks/use-theme-color.ts';
 
 function HeaderLeftButton() {
     const pathname = usePathname();
@@ -23,6 +24,8 @@ function HeaderLeftButton() {
 }
 
 export default function AuthLayout() {
+    const textColor = useThemeColor({}, 'text');
+
     return (
         <Stack
             screenOptions={{
@@ -33,7 +36,7 @@ export default function AuthLayout() {
                     backgroundColor: 'transparent',
                 },
                 headerTitleStyle: {
-                    color: '#1f2937',
+                    color: textColor,
                     fontWeight: '600',
                 },
                 animation: 'ios_from_right', // This provides smooth horizontal transitions

@@ -10,12 +10,17 @@ export const LoginValidationErrorSchema = z.object({
     password: z.array(z.string()).optional(),
 });
 
-export const RegisterSchema = z.object({
-    name: z.string().min(1, 'Name is required'),
-    email: z.email('Please enter a valid email address'),
-    password: z.string().min(8, 'Password must be at least 8 characters long'),
-    confirm_password: z.string().min(8, 'Password must be at least 8 characters long'),
-});
+export const RegisterSchema = z
+    .object({
+        name: z.string().min(1, 'Name is required'),
+        email: z.email('Please enter a valid email address'),
+        password: z.string().min(8, 'Password must be at least 8 characters long'),
+        confirm_password: z.string().min(8, 'Password must be at least 8 characters long'),
+    })
+    .refine((data) => data.password === data.confirm_password, {
+        message: 'Passwords do not match',
+        path: ['confirm_password'],
+    });
 
 export const RegisterValidationErrorSchema = z.object({
     name: z.array(z.string()).optional(),
