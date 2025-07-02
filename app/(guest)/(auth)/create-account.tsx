@@ -75,7 +75,6 @@ export default function CreateAccountScreen() {
                         transition={{ type: 'timing', delay: 200, duration: 800 }}>
                         <View style={styles.logoContainer}>
                             <Image
-                                className="ios:h-16 ios:w-16 h-12 w-12"
                                 contentFit="contain"
                                 source={require('#/assets/images/logo.png')}
                                 style={styles.logo}
@@ -287,15 +286,8 @@ export default function CreateAccountScreen() {
                         <Button
                             disabled={isPending}
                             onPress={() => {
-                                if (focusedTextField === 'fullName') {
-                                    KeyboardController.setFocusTo('next');
-                                    return;
-                                }
-                                if (focusedTextField === 'email') {
-                                    KeyboardController.setFocusTo('next');
-                                    return;
-                                }
-                                if (focusedTextField === 'password') {
+                                const fieldsRequiringNext = ['fullName', 'email', 'password'];
+                                if (focusedTextField && fieldsRequiringNext.includes(focusedTextField)) {
                                     KeyboardController.setFocusTo('next');
                                     return;
                                 }

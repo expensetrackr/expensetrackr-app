@@ -6,7 +6,7 @@ import { useThemeColor } from '#/hooks/use-theme-color.ts';
 
 function HeaderLeftButton() {
     const pathname = usePathname();
-    const isForgotPassword = pathname.includes('forgot-password');
+    const isForgotPassword = pathname.endsWith('/forgot-password');
 
     if (isForgotPassword) {
         return (
