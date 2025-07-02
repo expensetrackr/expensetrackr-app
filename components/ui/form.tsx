@@ -2,9 +2,10 @@ import { Icon, type IconProps } from '@roninoss/icons';
 import * as React from 'react';
 import { Platform, View, ViewProps, ViewStyle } from 'react-native';
 
-import { useColorScheme } from '#/hooks/use-color-scheme';
-import { cn } from '#/utils/cn';
-import { Text } from './text';
+import { useColorScheme } from '#/hooks/use-color-scheme.ts';
+import { cn } from '#/utils/cn.ts';
+
+import { Text } from './text.tsx';
 
 const Form = React.forwardRef<View, ViewProps>(({ className, ...props }, ref) => {
     return <View className={cn('flex-1 gap-9', className)} ref={ref} {...props} />;
@@ -44,18 +45,22 @@ const FormSection = React.forwardRef<React.ElementRef<typeof View>, FormSectionP
     ) => {
         const { colors } = useColorScheme();
         const children = React.useMemo(() => {
-            if (Platform.OS !== 'ios') return childrenProps;
+            if (Platform.OS !== 'ios') {
+                return childrenProps;
+            }
             const childrenArray = React.Children.toArray(childrenProps);
             // Add isLast prop to last child
             return React.Children.map(childrenArray, (child, index) => {
-                if (!React.isValidElement(child)) return child;
+                if (!React.isValidElement(child)) {
+                    return child;
+                }
                 const isLast = index === childrenArray.length - 1;
                 if (typeof child.type === 'string') {
                     console.warn('FormSection - String elements should not be direct children', child);
                     return child; // Return the string element as-is
                 }
                 return React.cloneElement<ViewProps & { isLast?: boolean }, View>(
-                    child,
+                    typeof child === 'string' ? <></> : child,
                     { isLast },
                 );
             });

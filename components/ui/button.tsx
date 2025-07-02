@@ -2,11 +2,12 @@ import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { Platform, Pressable, PressableProps, View, ViewStyle } from 'react-native';
 
-import { useColorScheme } from '#/hooks/use-color-scheme';
-import { COLORS } from '#/theme/colors';
-import { cn } from '#/utils/cn';
-import { tv, VariantProps } from '#/utils/tv';
-import { TextClassContext } from './text';
+import { useColorScheme } from '#/hooks/use-color-scheme.ts';
+import { COLORS } from '#/theme/colors.ts';
+import { cn } from '#/utils/cn.ts';
+import { tv, VariantProps } from '#/utils/tv.ts';
+
+import { TextClassContext } from './text.tsx';
 
 const buttonVariants = tv({
     base: 'flex-row items-center justify-center gap-2',

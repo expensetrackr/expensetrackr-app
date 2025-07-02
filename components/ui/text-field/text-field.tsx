@@ -12,10 +12,11 @@ import {
 } from 'react-native';
 import Animated, { FadeIn, FadeOut, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
-import { useColorScheme } from '#/hooks/use-color-scheme';
-import { cn } from '#/utils/cn';
-import { tv } from '#/utils/tv';
-import type { TextFieldProps, TextFieldRef } from './types';
+import { useColorScheme } from '#/hooks/use-color-scheme.ts';
+import { cn } from '#/utils/cn.ts';
+import { tv } from '#/utils/tv.ts';
+
+import type { TextFieldProps, TextFieldRef } from './types.ts';
 
 const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
     (
@@ -28,7 +29,6 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
             placeholder,
             editable,
             className,
-            children,
             leftView,
             rightView,
             label,
@@ -88,8 +88,8 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
                     className: containerClassName,
                 })}
                 disabled={editable === false}
-                onPress={focus}
-                style={materialRingColor ? { borderColor: materialRingColor } : undefined}>
+                style={materialRingColor ? { borderColor: materialRingColor } : undefined}
+                onPress={focus}>
                 <View
                     className={innerRootVariants({
                         $variant: materialVariant,
@@ -115,7 +115,6 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
                         )}
                         <TextInput
                             accessibilityHint={accessibilityHint ?? errorMessage}
-                            accessibilityInvalid={!!errorMessage}
                             accessibilityLabel={label}
                             accessibilityRole="text"
                             className={cn(
@@ -124,12 +123,12 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
                                 className,
                             )}
                             editable={editable}
-                            onBlur={onBlur}
-                            onChangeText={onChangeText}
-                            onFocus={onFocus}
                             placeholder={isFocused || !label ? placeholder : ''}
                             ref={inputRef}
                             value={value}
+                            onBlur={onBlur}
+                            onChangeText={onChangeText}
+                            onFocus={onFocus}
                             {...props}
                         />
                     </InputWrapper>
@@ -162,9 +161,15 @@ type GetInputArgs = {
 };
 
 function getInputState(args: GetInputArgs): InputState {
-    if (args.editable === false) return 'disabled';
-    if (args.hasError && args.isFocused) return 'errorAndFocused';
-    if (args.isFocused) return 'focused';
+    if (args.editable === false) {
+        return 'disabled';
+    }
+    if (args.hasError && args.isFocused) {
+        return 'errorAndFocused';
+    }
+    if (args.isFocused) {
+        return 'focused';
+    }
     return 'idle';
 }
 

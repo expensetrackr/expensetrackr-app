@@ -327,7 +327,7 @@ export default function AuthIndexScreen() {
                 {FINANCIAL_DATA.map((item, index) => (
                     <FloatingFinancialNumber
                         delay={item.delay}
-                        key={index}
+                        key={item.value}
                         position={{
                             top: 100 + index * 80,
                             left: index % 2 === 0 ? 20 : undefined,
@@ -405,14 +405,14 @@ export default function AuthIndexScreen() {
                             $size={Platform.select({ ios: 'lg', default: 'md' })}
                             $variant="secondary"
                             className="ios:border-foreground/20 bg-white/90 dark:bg-background"
+                            style={styles.secondaryButton}
                             onPress={() => {
                                 alertRef.current?.alert({
                                     title: 'Suggestion',
                                     message: 'Use @react-native-google-signin/google-signin',
                                     buttons: [{ text: 'OK', style: 'cancel' }],
                                 });
-                            }}
-                            style={styles.secondaryButton}>
+                            }}>
                             <Image
                                 contentFit="contain"
                                 source={require('#/assets/images/google-logo.png')}

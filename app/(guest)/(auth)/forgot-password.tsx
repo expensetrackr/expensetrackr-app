@@ -91,15 +91,15 @@ export default function ForgotPasswordScreen() {
                             <FormSection className="ios:bg-background/95 backdrop-blur-sm" style={styles.formSection}>
                                 <FormItem>
                                     <TextField
-                                        autoCapitalize="none"
                                         autoFocus
+                                        autoCapitalize="none"
                                         keyboardType="email-address"
                                         label={Platform.select({ ios: undefined, default: 'Email' })}
-                                        onSubmitEditing={onSubmit}
                                         placeholder={Platform.select({ ios: 'Email', default: '' })}
                                         returnKeyType="send"
                                         submitBehavior="submit"
                                         textContentType="emailAddress"
+                                        onSubmitEditing={onSubmit}
                                     />
                                 </FormItem>
                             </FormSection>
@@ -122,7 +122,7 @@ export default function ForgotPasswordScreen() {
                 }}>
                 {Platform.OS === 'ios' ? (
                     <Animated.View className="px-12 py-4" entering={FadeInDown.delay(1000).duration(600)}>
-                        <Button $size="lg" onPress={onSubmit} style={styles.primaryButton}>
+                        <Button $size="lg" style={styles.primaryButton} onPress={onSubmit}>
                             <Text className="font-semibold">Send reset link</Text>
                         </Button>
                     </Animated.View>
@@ -138,7 +138,7 @@ export default function ForgotPasswordScreen() {
                             }}>
                             <Text className="px-0.5 text-sm font-medium text-primary">Create account</Text>
                         </Button>
-                        <Button onPress={onSubmit} style={styles.primaryButton}>
+                        <Button style={styles.primaryButton} onPress={onSubmit}>
                             <Text className="text-sm font-semibold">Send reset link</Text>
                         </Button>
                     </Animated.View>

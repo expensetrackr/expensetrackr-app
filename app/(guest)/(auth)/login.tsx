@@ -109,11 +109,16 @@ export default function LoginScreen() {
                                         {(field) => (
                                             <FormItem>
                                                 <TextField
-                                                    autoCapitalize="none"
                                                     autoFocus
+                                                    autoCapitalize="none"
                                                     id={field.name}
                                                     keyboardType="email-address"
                                                     label={Platform.select({ ios: undefined, default: 'Email' })}
+                                                    placeholder={Platform.select({ ios: 'Email', default: '' })}
+                                                    returnKeyType="next"
+                                                    submitBehavior="submit"
+                                                    textContentType="emailAddress"
+                                                    value={field.state.value}
                                                     onBlur={() => {
                                                         setFocusedTextField(null);
                                                         field.handleBlur();
@@ -121,11 +126,6 @@ export default function LoginScreen() {
                                                     onChangeText={field.handleChange}
                                                     onFocus={() => setFocusedTextField('email')}
                                                     onSubmitEditing={() => KeyboardController.setFocusTo('next')}
-                                                    placeholder={Platform.select({ ios: 'Email', default: '' })}
-                                                    returnKeyType="next"
-                                                    submitBehavior="submit"
-                                                    textContentType="emailAddress"
-                                                    value={field.state.value}
                                                 />
                                                 <HelperText
                                                     className="px-1.5"
@@ -138,8 +138,13 @@ export default function LoginScreen() {
                                         {(field) => (
                                             <FormItem>
                                                 <TextField
+                                                    secureTextEntry
                                                     id={field.name}
                                                     label={Platform.select({ ios: undefined, default: 'Password' })}
+                                                    placeholder={Platform.select({ ios: 'Password', default: '' })}
+                                                    returnKeyType="done"
+                                                    textContentType="password"
+                                                    value={field.state.value}
                                                     onBlur={() => {
                                                         setFocusedTextField(null);
                                                         field.handleBlur();
@@ -147,11 +152,6 @@ export default function LoginScreen() {
                                                     onChangeText={field.handleChange}
                                                     onFocus={() => setFocusedTextField('password')}
                                                     onSubmitEditing={handleSubmit}
-                                                    placeholder={Platform.select({ ios: 'Password', default: '' })}
-                                                    returnKeyType="done"
-                                                    secureTextEntry
-                                                    textContentType="password"
-                                                    value={field.state.value}
                                                 />
                                                 <HelperText
                                                     className="px-1.5"
@@ -186,8 +186,8 @@ export default function LoginScreen() {
                             <Button
                                 $size="lg"
                                 disabled={form.state.isSubmitting}
-                                onPress={handleSubmit}
-                                style={styles.primaryButton}>
+                                style={styles.primaryButton}
+                                onPress={handleSubmit}>
                                 <Text className="font-semibold">Continue</Text>
                                 {form.state.isSubmitting ? (
                                     <MotiView
@@ -215,6 +215,7 @@ export default function LoginScreen() {
                             </Button>
                             <Button
                                 disabled={form.state.isSubmitting}
+                                style={styles.primaryButton}
                                 onPress={() => {
                                     if (focusedTextField === 'email') {
                                         KeyboardController.setFocusTo('next');
@@ -222,8 +223,7 @@ export default function LoginScreen() {
                                     }
                                     KeyboardController.dismiss();
                                     handleSubmit();
-                                }}
-                                style={styles.primaryButton}>
+                                }}>
                                 {form.state.isSubmitting ? (
                                     <MotiView
                                         animate={{ opacity: 1 }}

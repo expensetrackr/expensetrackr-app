@@ -1,5 +1,6 @@
-import { useSession } from '#/providers/session-provider';
 import { Redirect, Slot } from 'expo-router';
+
+import { useSession } from '#/providers/session-provider.tsx';
 
 export default function AuthenticatedLayout() {
     const { session } = useSession();

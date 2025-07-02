@@ -107,10 +107,15 @@ export default function CreateAccountScreen() {
                                     {(field) => (
                                         <FormItem>
                                             <TextField
-                                                autoCapitalize="words"
                                                 autoFocus
+                                                autoCapitalize="words"
                                                 id={field.name}
                                                 label={Platform.select({ ios: undefined, default: 'Full name' })}
+                                                placeholder={Platform.select({ ios: 'Full name', default: '' })}
+                                                returnKeyType="next"
+                                                submitBehavior="submit"
+                                                textContentType="name"
+                                                value={field.state.value}
                                                 onBlur={() => {
                                                     setFocusedTextField(null);
                                                     field.handleBlur();
@@ -120,11 +125,6 @@ export default function CreateAccountScreen() {
                                                     setFocusedTextField('fullName');
                                                 }}
                                                 onSubmitEditing={() => KeyboardController.setFocusTo('next')}
-                                                placeholder={Platform.select({ ios: 'Full name', default: '' })}
-                                                returnKeyType="next"
-                                                submitBehavior="submit"
-                                                textContentType="name"
-                                                value={field.state.value}
                                             />
                                             <HelperText
                                                 className="px-1.5"
@@ -141,6 +141,11 @@ export default function CreateAccountScreen() {
                                                 id={field.name}
                                                 keyboardType="email-address"
                                                 label={Platform.select({ ios: undefined, default: 'Email' })}
+                                                placeholder={Platform.select({ ios: 'Email', default: '' })}
+                                                returnKeyType="next"
+                                                submitBehavior="submit"
+                                                textContentType="emailAddress"
+                                                value={field.state.value}
                                                 onBlur={() => {
                                                     setFocusedTextField(null);
                                                     field.handleBlur();
@@ -150,11 +155,6 @@ export default function CreateAccountScreen() {
                                                     setFocusedTextField('email');
                                                 }}
                                                 onSubmitEditing={() => KeyboardController.setFocusTo('next')}
-                                                placeholder={Platform.select({ ios: 'Email', default: '' })}
-                                                returnKeyType="next"
-                                                submitBehavior="submit"
-                                                textContentType="emailAddress"
-                                                value={field.state.value}
                                             />
                                             <HelperText
                                                 className="px-1.5"
@@ -168,8 +168,14 @@ export default function CreateAccountScreen() {
                                     {(field) => (
                                         <FormItem>
                                             <TextField
+                                                secureTextEntry
                                                 id={field.name}
                                                 label={Platform.select({ ios: undefined, default: 'Password' })}
+                                                placeholder={Platform.select({ ios: 'Password', default: '' })}
+                                                returnKeyType="next"
+                                                submitBehavior="submit"
+                                                textContentType="newPassword"
+                                                value={field.state.value}
                                                 onBlur={() => {
                                                     setFocusedTextField(null);
                                                     field.handleBlur();
@@ -179,12 +185,6 @@ export default function CreateAccountScreen() {
                                                     setFocusedTextField('password');
                                                 }}
                                                 onSubmitEditing={() => KeyboardController.setFocusTo('next')}
-                                                placeholder={Platform.select({ ios: 'Password', default: '' })}
-                                                returnKeyType="next"
-                                                secureTextEntry
-                                                submitBehavior="submit"
-                                                textContentType="newPassword"
-                                                value={field.state.value}
                                             />
                                             <HelperText
                                                 className="px-1.5"
@@ -198,8 +198,13 @@ export default function CreateAccountScreen() {
                                     {(field) => (
                                         <FormItem>
                                             <TextField
+                                                secureTextEntry
                                                 id={field.name}
                                                 label={Platform.select({ ios: undefined, default: 'Confirm password' })}
+                                                placeholder={Platform.select({ ios: 'Confirm password', default: '' })}
+                                                returnKeyType="done"
+                                                textContentType="newPassword"
+                                                value={field.state.value}
                                                 onBlur={() => {
                                                     setFocusedTextField(null);
                                                     field.handleBlur();
@@ -209,11 +214,6 @@ export default function CreateAccountScreen() {
                                                     setFocusedTextField('confirmPassword');
                                                 }}
                                                 onSubmitEditing={handleSubmit}
-                                                placeholder={Platform.select({ ios: 'Confirm password', default: '' })}
-                                                returnKeyType="done"
-                                                secureTextEntry
-                                                textContentType="newPassword"
-                                                value={field.state.value}
                                             />
                                             <HelperText
                                                 className="px-1.5"
@@ -260,14 +260,14 @@ export default function CreateAccountScreen() {
                         className="px-12 py-4"
                         from={{ opacity: 0, translateY: 30 }}
                         transition={{ type: 'timing', delay: 1000, duration: 600 }}>
-                        <Button 
-                            $size="lg" 
-                            disabled={isPending} 
-                            onPress={handleSubmit} 
-                            style={styles.primaryButton}
-                            accessibilityLabel="Create account"
+                        <Button
+                            $size="lg"
                             accessibilityHint="Submit the registration form to create a new account"
-                            accessibilityRole="button">
+                            accessibilityLabel="Create account"
+                            accessibilityRole="button"
+                            disabled={isPending}
+                            style={styles.primaryButton}
+                            onPress={handleSubmit}>
                             <Text className="font-semibold">
                                 {isPending ? 'Creating account...' : 'Create account'}
                             </Text>
@@ -291,7 +291,21 @@ export default function CreateAccountScreen() {
                             <Text className="px-0.5 text-sm font-medium text-primary">Already have an account?</Text>
                         </Button>
                         <Button
+                            accessibilityHint={
+                                focusedTextField === 'confirmPassword'
+                                    ? 'Submit the registration form to create a new account'
+                                    : 'Move to the next form field'
+                            }
+                            accessibilityLabel={
+                                isPending
+                                    ? 'Creating account'
+                                    : focusedTextField === 'confirmPassword'
+                                      ? 'Create account'
+                                      : 'Next field'
+                            }
+                            accessibilityRole="button"
                             disabled={isPending}
+                            style={styles.primaryButton}
                             onPress={() => {
                                 const fieldsRequiringNext = ['fullName', 'email', 'password'];
                                 if (focusedTextField && fieldsRequiringNext.includes(focusedTextField)) {
@@ -300,21 +314,7 @@ export default function CreateAccountScreen() {
                                 }
                                 KeyboardController.dismiss();
                                 handleSubmit();
-                            }}
-                            style={styles.primaryButton}
-                            accessibilityLabel={
-                                isPending
-                                    ? 'Creating account'
-                                    : focusedTextField === 'confirmPassword'
-                                      ? 'Create account'
-                                      : 'Next field'
-                            }
-                            accessibilityHint={
-                                focusedTextField === 'confirmPassword'
-                                    ? 'Submit the registration form to create a new account'
-                                    : 'Move to the next form field'
-                            }
-                            accessibilityRole="button">
+                            }}>
                             <Text className="text-sm font-semibold">
                                 {isPending
                                     ? 'Creating account...'

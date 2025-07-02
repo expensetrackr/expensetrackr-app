@@ -89,8 +89,8 @@ export default function RootLayout() {
                                 animate={{ opacity: 1 }}
                                 className="flex-1 bg-background"
                                 from={{ opacity: 0 }}
-                                onLayout={onLayoutRootView}
-                                transition={{ type: 'timing' }}>
+                                transition={{ type: 'timing' }}
+                                onLayout={onLayoutRootView}>
                                 <Slot />
                             </MotiView>
 

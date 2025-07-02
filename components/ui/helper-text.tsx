@@ -3,6 +3,7 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { cn } from '#/utils/cn.ts';
+
 import { Text } from './text.tsx';
 
 interface HelperTextProps {
@@ -25,8 +26,7 @@ export function HelperText({ error, className, duration = 300 }: HelperTextProps
 
     return (
         <AnimatePresence>
-            {hasError && (
-                <MotiView
+            {hasError ? <MotiView
                     animate={{
                         height: 24,
                         opacity: 1,
@@ -53,8 +53,7 @@ export function HelperText({ error, className, duration = 300 }: HelperTextProps
                     <Text className={cn('text-xs text-destructive', className)} style={styles.text}>
                         {error}
                     </Text>
-                </MotiView>
-            )}
+                </MotiView> : null}
         </AnimatePresence>
     );
 }

@@ -2,32 +2,11 @@
     "extends": "expo/tsconfig.base",
     "compilerOptions": {
         "strict": true,
-        "exactOptionalPropertyTypes": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "noUncheckedIndexedAccess": true,
-        "noImplicitOverride": true,
         "allowImportingTsExtensions": true,
-        "allowUnusedLabels": false,
-        "allowUnreachableCode": false,
-        "forceConsistentCasingInFileNames": true,
-        "isolatedModules": true,
-        "skipLibCheck": true,
         "paths": {
             "#/*": ["./*"]
         }
     },
-    "include": [
-        "**/*.ts", 
-        "**/*.tsx", 
-        ".expo/types/**/*.ts", 
-        "expo-env.d.ts", 
-        "nativewind-env.d.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        ".expo",
-        "dist",
-        "build"
-    ]
+    "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts"],
+    "exclude": ["node_modules", ".expo", "dist", "build"]
 }

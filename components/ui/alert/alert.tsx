@@ -6,13 +6,15 @@ import { View } from 'react-native';
 import { useReanimatedKeyboardAnimation } from 'react-native-keyboard-controller';
 import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown, useAnimatedStyle } from 'react-native-reanimated';
 
-import { useColorScheme } from '#/hooks/use-color-scheme';
-import { cn } from '#/utils/cn';
-import { Button } from '../button';
-import { Text } from '../text';
-import { TextField } from '../text-field';
-import { TextFieldRef } from '../text-field/types';
-import { AlertProps, AlertRef } from './types';
+import { useColorScheme } from '#/hooks/use-color-scheme.ts';
+import { cn } from '#/utils/cn.ts';
+
+import { Button } from '../button.tsx';
+import { TextField } from '../text-field/index.ts';
+import { TextFieldRef } from '../text-field/types.ts';
+import { Text } from '../text.tsx';
+
+import { AlertProps, AlertRef } from './types.ts';
 
 const Alert = React.forwardRef<AlertRef, AlertProps>(
     (
@@ -84,7 +86,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
         }
 
         return (
-            <AlertDialogPrimitive.Root onOpenChange={onOpenChange} open={open} ref={augmentedRef}>
+            <AlertDialogPrimitive.Root open={open} ref={augmentedRef} onOpenChange={onOpenChange}>
                 <AlertDialogPrimitive.Trigger asChild={!!children}>{children}</AlertDialogPrimitive.Trigger>
                 <AlertDialogPrimitive.Portal hostName={materialPortalHost}>
                     <AlertDialogPrimitive.Overlay asChild>
@@ -146,6 +148,8 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                 }
                                                 label={prompt.type === 'login-password' ? 'Email' : ''}
                                                 labelClassName="bg-card"
+                                                secureTextEntry={prompt.type === 'secure-text'}
+                                                value={text}
                                                 onChangeText={setText}
                                                 onSubmitEditing={() => {
                                                     if (prompt.type === 'login-password' && passwordRef.current) {
@@ -159,8 +163,6 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                     }
                                                     onOpenChange(false);
                                                 }}
-                                                secureTextEntry={prompt.type === 'secure-text'}
-                                                value={text}
                                             />
                                             {prompt.type === 'login-password' && (
                                                 <TextField
@@ -168,6 +170,9 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                     keyboardType={prompt.keyboardType}
                                                     label="Password"
                                                     labelClassName="bg-card"
+                                                    ref={passwordRef}
+                                                    secureTextEntry={prompt.type === 'login-password'}
+                                                    value={password}
                                                     onChangeText={setPassword}
                                                     onSubmitEditing={() => {
                                                         for (const button of buttons) {
@@ -177,9 +182,6 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                         }
                                                         onOpenChange(false);
                                                     }}
-                                                    ref={passwordRef}
-                                                    secureTextEntry={prompt.type === 'login-password'}
-                                                    value={password}
                                                 />
                                             )}
                                         </View>
@@ -198,7 +200,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                         className={cn(
                                                             buttons.length > 2 && index === 0 && 'flex-1 items-start',
                                                         )}
-                                                        key={`${button.text}-${index}`}>
+                                                        key={button.text}>
                                                         <AlertDialogPrimitive.Cancel asChild>
                                                             <Button
                                                                 $variant="plain"
@@ -223,7 +225,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                         className={cn(
                                                             buttons.length > 2 && index === 0 && 'flex-1 items-start',
                                                         )}
-                                                        key={`${button.text}-${index}`}>
+                                                        key={button.text}>
                                                         <AlertDialogPrimitive.Action asChild>
                                                             <Button
                                                                 $variant="tonal"
@@ -248,7 +250,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                     className={cn(
                                                         buttons.length > 2 && index === 0 && 'flex-1 items-start',
                                                     )}
-                                                    key={`${button.text}-${index}`}>
+                                                    key={button.text}>
                                                     <AlertDialogPrimitive.Action asChild>
                                                         <Button
                                                             $variant="plain"

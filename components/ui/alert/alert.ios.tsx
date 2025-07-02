@@ -3,7 +3,7 @@ import * as Slot from '@rn-primitives/slot';
 import * as React from 'react';
 import { AlertButton, Pressable, Alert as RNAlert } from 'react-native';
 
-import { AlertProps, AlertRef } from './types';
+import { AlertProps, AlertRef } from './types.ts';
 
 const Alert = React.forwardRef<AlertRef, AlertProps>(({ children, title, buttons, message, prompt }, ref) => {
     const augmentedRef = useAugmentedRef({
@@ -48,7 +48,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(({ children, title, buttons
 
     const Component = !children ? Pressable : Slot.Pressable;
     return (
-        <Component onPress={onPress} ref={augmentedRef}>
+        <Component ref={augmentedRef} onPress={onPress}>
             {children}
         </Component>
     );
