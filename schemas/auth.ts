@@ -5,16 +5,26 @@ export const LoginSchema = z.object({
     password: z.string().min(8, 'Password must be at least 8 characters long'),
 });
 
-export const AuthValidationErrorSchema = z.object({
-    errors: z
-        .object({
-            email: z.array(z.string()).optional(),
-            password: z.array(z.string()).optional(),
-        })
-        .optional(),
+export const LoginValidationErrorSchema = z.object({
+    email: z.array(z.string()).optional(),
+    password: z.array(z.string()).optional(),
 });
 
-export const ApiErrorSchema = z.object({
-    status: z.number(),
-    statusText: z.string(),
+export const RegisterSchema = z
+    .object({
+        name: z.string().min(1, 'Name is required'),
+        email: z.email('Please enter a valid email address'),
+        password: z.string().min(8, 'Password must be at least 8 characters long'),
+        confirm_password: z.string().min(8, 'Password must be at least 8 characters long'),
+    })
+    .refine((data) => data.password === data.confirm_password, {
+        message: 'Passwords do not match',
+        path: ['confirm_password'],
+    });
+
+export const RegisterValidationErrorSchema = z.object({
+    name: z.array(z.string()).optional(),
+    email: z.array(z.string()).optional(),
+    password: z.array(z.string()).optional(),
+    confirm_password: z.array(z.string()).optional(),
 });

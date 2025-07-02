@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Stack, router } from 'expo-router';
+import { router } from 'expo-router';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView, KeyboardController, KeyboardStickyView } from 'react-native-keyboard-controller';
@@ -54,28 +54,6 @@ export default function ForgotPasswordScreen() {
                 colors={['rgba(60.3, 126, 248, 0.3)', 'rgba(60.3, 126, 248, 0.1)', 'transparent']}
                 locations={[0, 0.2, 0.6]}
                 style={styles.background}
-            />
-
-            <Stack.Screen
-                options={{
-                    title: '',
-                    headerShadowVisible: false,
-                    headerTransparent: true,
-                    headerStyle: {
-                        backgroundColor: 'transparent',
-                    },
-                    headerTitleStyle: {
-                        color: '#1f2937',
-                        fontWeight: '600',
-                    },
-                    headerLeft() {
-                        return (
-                            <Button $variant="plain" className="ios:px-0" onPress={() => router.back()}>
-                                <Text className="font-medium text-primary">Back</Text>
-                            </Button>
-                        );
-                    },
-                }}
             />
 
             <KeyboardAwareScrollView
@@ -156,7 +134,7 @@ export default function ForgotPasswordScreen() {
                             $variant="plain"
                             className="px-2"
                             onPress={() => {
-                                router.replace('/(guest)/(create-account)');
+                                router.push('/(guest)/(auth)/create-account');
                             }}>
                             <Text className="px-0.5 text-sm font-medium text-primary">Create account</Text>
                         </Button>
