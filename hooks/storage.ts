@@ -24,13 +24,25 @@ export function useStorageState(key: string): UseStateHook<string> {
     useEffect(() => {
         SecureStore.getItemAsync(key).then((value) => {
             setState(value);
+        }).catch((error: unknown) => {
+            console.error(`Failed to load storage item "${key}":`, error);
+            setState(null);
         });
     }, [key]);
 
     const setValue = useCallback(
         (value: string | null) => {
+            // Update local state first for immediate UI response
             setState(value);
-            setStorageItemAsync(key, value);
+            
+            // Then persist to storage with error handling
+            setStorageItemAsync(key, value).catch((error: unknown) => {
+                console.error(`Failed to save storage item "${key}":`, error);
+                // Revert local state if storage fails
+                SecureStore.getItemAsync(key)
+                    .then((currentValue: string | null) => setState(currentValue))
+                    .catch(() => setState(null));
+            });
         },
         [key],
     );
