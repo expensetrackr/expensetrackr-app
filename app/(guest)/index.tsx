@@ -23,13 +23,13 @@ import { Text } from '#/components/ui/text.tsx';
 
 // Financial data for animations
 const FINANCIAL_DATA = [
-    { value: '+$1,234', type: 'gain', delay: 0 },
-    { value: '+15.2%', type: 'gain', delay: 1000 },
-    { value: '-$89', type: 'loss', delay: 2000 },
-    { value: '+$567', type: 'gain', delay: 3000 },
-    { value: '+8.5%', type: 'gain', delay: 4000 },
-    { value: '-$45', type: 'loss', delay: 5000 },
-    { value: '+$1,234', type: 'gain', delay: 6000 },
+    { id: 1, value: '+$1,234', type: 'gain', delay: 0 },
+    { id: 2, value: '+15.2%', type: 'gain', delay: 1000 },
+    { id: 3, value: '-$89', type: 'loss', delay: 2000 },
+    { id: 4, value: '+$567', type: 'gain', delay: 3000 },
+    { id: 5, value: '+8.5%', type: 'gain', delay: 4000 },
+    { id: 6, value: '-$45', type: 'loss', delay: 5000 },
+    { id: 7, value: '+$1,234', type: 'gain', delay: 6000 },
 ];
 
 function FloatingFinancialNumber({ value, type, delay, position }: any) {
@@ -327,7 +327,7 @@ export default function AuthIndexScreen() {
                 {FINANCIAL_DATA.map((item, index) => (
                     <FloatingFinancialNumber
                         delay={item.delay}
-                        key={item.value}
+                        key={item.id}
                         position={{
                             top: 100 + index * 80,
                             left: index % 2 === 0 ? 20 : undefined,
