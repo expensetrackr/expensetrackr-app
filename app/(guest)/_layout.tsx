@@ -22,6 +22,6 @@ const SCREEN_OPTIONS = {
 } as const;
 
 const AUTH_MODAL_OPTIONS = {
-    presentation: 'modal',
+    presentation: 'card',
     headerShown: false,
 } as const;

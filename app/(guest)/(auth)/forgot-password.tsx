@@ -59,10 +59,10 @@ export default function ForgotPasswordScreen() {
             <KeyboardAwareScrollView
                 bottomOffset={Platform.select({ ios: 175 })}
                 bounces={false}
-                contentContainerClassName="ios:pt-20 pt-28"
+                contentContainerStyle={{ flexGrow: 1 }}
                 keyboardDismissMode="interactive"
                 keyboardShouldPersistTaps="handled">
-                <View className="ios:px-12 flex-1 px-8">
+                <View className="ios:px-12 flex-1 justify-center px-8">
                     <Animated.View className="items-center pb-6" entering={FadeIn.delay(200).duration(800)}>
                         <View style={styles.logoContainer}>
                             <Image
