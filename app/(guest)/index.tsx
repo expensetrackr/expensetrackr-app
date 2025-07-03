@@ -23,13 +23,13 @@ import { Text } from '#/components/ui/text.tsx';
 
 // Financial data for animations
 const FINANCIAL_DATA = [
-    { value: '+$1,234', type: 'gain', delay: 0 },
-    { value: '+15.2%', type: 'gain', delay: 1000 },
-    { value: '-$89', type: 'loss', delay: 2000 },
-    { value: '+$567', type: 'gain', delay: 3000 },
-    { value: '+8.5%', type: 'gain', delay: 4000 },
-    { value: '-$45', type: 'loss', delay: 5000 },
-    { value: '+$1,234', type: 'gain', delay: 6000 },
+    { id: 1, value: '+$1,234', type: 'gain', delay: 0 },
+    { id: 2, value: '+15.2%', type: 'gain', delay: 1000 },
+    { id: 3, value: '-$89', type: 'loss', delay: 2000 },
+    { id: 4, value: '+$567', type: 'gain', delay: 3000 },
+    { id: 5, value: '+8.5%', type: 'gain', delay: 4000 },
+    { id: 6, value: '-$45', type: 'loss', delay: 5000 },
+    { id: 7, value: '+$1,234', type: 'gain', delay: 6000 },
 ];
 
 function FloatingFinancialNumber({ value, type, delay, position }: any) {
@@ -51,6 +51,9 @@ function FloatingFinancialNumber({ value, type, delay, position }: any) {
         return () => {
             clearTimeout(timer);
             clearInterval(interval);
+            // Cancel any running animations
+            opacity.value = 0;
+            translateY.value = 0;
         };
     }, [delay, opacity, translateY]);
 
@@ -111,6 +114,14 @@ function AnimatedChart({ position }: any) {
         };
 
         animateBars();
+
+        return () => {
+            // Cancel all running animations
+            height1.value = 10;
+            height2.value = 15;
+            height3.value = 8;
+            height4.value = 20;
+        };
     }, [height1, height2, height3, height4]);
 
     const bar1Style = useAnimatedStyle(() => ({
@@ -316,7 +327,7 @@ export default function AuthIndexScreen() {
                 {FINANCIAL_DATA.map((item, index) => (
                     <FloatingFinancialNumber
                         delay={item.delay}
-                        key={index}
+                        key={item.id}
                         position={{
                             top: 100 + index * 80,
                             left: index % 2 === 0 ? 20 : undefined,
@@ -394,14 +405,14 @@ export default function AuthIndexScreen() {
                             $size={Platform.select({ ios: 'lg', default: 'md' })}
                             $variant="secondary"
                             className="ios:border-foreground/20 bg-white/90 dark:bg-background"
+                            style={styles.secondaryButton}
                             onPress={() => {
                                 alertRef.current?.alert({
                                     title: 'Suggestion',
                                     message: 'Use @react-native-google-signin/google-signin',
                                     buttons: [{ text: 'OK', style: 'cancel' }],
                                 });
-                            }}
-                            style={styles.secondaryButton}>
+                            }}>
                             <Image
                                 contentFit="contain"
                                 source={require('#/assets/images/google-logo.png')}

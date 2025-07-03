@@ -18,7 +18,7 @@ export default function ForgotPasswordScreen() {
     const insets = useSafeAreaInsets();
     const alertRef = React.useRef<AlertRef>(null);
 
-    function onSubmit() {
+    const onSubmit = React.useCallback(() => {
         alertRef.current?.prompt({
             title: 'Check your inbox',
             message:
@@ -45,7 +45,7 @@ export default function ForgotPasswordScreen() {
                 },
             ],
         });
-    }
+    }, []);
 
     return (
         <View className="ios:bg-card flex-1" style={{ paddingBottom: insets.bottom }}>
@@ -59,10 +59,10 @@ export default function ForgotPasswordScreen() {
             <KeyboardAwareScrollView
                 bottomOffset={Platform.select({ ios: 175 })}
                 bounces={false}
-                contentContainerClassName="ios:pt-20 pt-28"
+                contentContainerStyle={{ flexGrow: 1 }}
                 keyboardDismissMode="interactive"
                 keyboardShouldPersistTaps="handled">
-                <View className="ios:px-12 flex-1 px-8">
+                <View className="ios:px-12 flex-1 justify-center px-8">
                     <Animated.View className="items-center pb-6" entering={FadeIn.delay(200).duration(800)}>
                         <View style={styles.logoContainer}>
                             <Image
@@ -91,15 +91,17 @@ export default function ForgotPasswordScreen() {
                             <FormSection className="ios:bg-background/95 backdrop-blur-sm" style={styles.formSection}>
                                 <FormItem>
                                     <TextField
-                                        autoCapitalize="none"
                                         autoFocus
+                                        accessibilityHint="Enter your email address to receive a password reset link"
+                                        accessibilityLabel="Email address"
+                                        autoCapitalize="none"
                                         keyboardType="email-address"
                                         label={Platform.select({ ios: undefined, default: 'Email' })}
-                                        onSubmitEditing={onSubmit}
                                         placeholder={Platform.select({ ios: 'Email', default: '' })}
                                         returnKeyType="send"
                                         submitBehavior="submit"
                                         textContentType="emailAddress"
+                                        onSubmitEditing={onSubmit}
                                     />
                                 </FormItem>
                             </FormSection>
@@ -122,7 +124,7 @@ export default function ForgotPasswordScreen() {
                 }}>
                 {Platform.OS === 'ios' ? (
                     <Animated.View className="px-12 py-4" entering={FadeInDown.delay(1000).duration(600)}>
-                        <Button $size="lg" onPress={onSubmit} style={styles.primaryButton}>
+                        <Button $size="lg" style={styles.primaryButton} onPress={onSubmit}>
                             <Text className="font-semibold">Send reset link</Text>
                         </Button>
                     </Animated.View>
@@ -138,7 +140,7 @@ export default function ForgotPasswordScreen() {
                             }}>
                             <Text className="px-0.5 text-sm font-medium text-primary">Create account</Text>
                         </Button>
-                        <Button onPress={onSubmit} style={styles.primaryButton}>
+                        <Button style={styles.primaryButton} onPress={onSubmit}>
                             <Text className="text-sm font-semibold">Send reset link</Text>
                         </Button>
                     </Animated.View>

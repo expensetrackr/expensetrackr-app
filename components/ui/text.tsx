@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Text as RNText } from 'react-native';
 
-import { cn } from '#/utils/cn';
-import { tv, VariantProps } from '#/utils/tv';
+import { cn } from '#/utils/cn.ts';
+import { tv, VariantProps } from '#/utils/tv.ts';
 
 const textVariants = tv({
     base: 'text-foreground',
