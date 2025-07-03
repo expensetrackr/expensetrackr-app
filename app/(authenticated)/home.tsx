@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -8,9 +9,9 @@ import { useSession } from '#/providers/session-provider.tsx';
 export default function HomePage() {
     const { setSession } = useSession();
 
-    const handleLogout = () => {
+    const handleLogout = useCallback(() => {
         setSession(null);
-    };
+    }, [setSession]);
 
     return (
         <SafeAreaView className="flex-1 bg-background">
