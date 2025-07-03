@@ -18,7 +18,7 @@ export default function ForgotPasswordScreen() {
     const insets = useSafeAreaInsets();
     const alertRef = React.useRef<AlertRef>(null);
 
-    function onSubmit() {
+    const onSubmit = React.useCallback(() => {
         alertRef.current?.prompt({
             title: 'Check your inbox',
             message:
@@ -45,7 +45,7 @@ export default function ForgotPasswordScreen() {
                 },
             ],
         });
-    }
+    }, []);
 
     return (
         <View className="ios:bg-card flex-1" style={{ paddingBottom: insets.bottom }}>
@@ -92,6 +92,8 @@ export default function ForgotPasswordScreen() {
                                 <FormItem>
                                     <TextField
                                         autoFocus
+                                        accessibilityHint="Enter your email address to receive a password reset link"
+                                        accessibilityLabel="Email address"
                                         autoCapitalize="none"
                                         keyboardType="email-address"
                                         label={Platform.select({ ios: undefined, default: 'Email' })}
