@@ -39,7 +39,7 @@ const DARK_THEME: Theme = {
 };
 
 export const unstable_settings = {
-    initialRouteName: '(guest)',
+    initialRouteName: '(authenticated)/home',
 };
 
 export default function RootLayout() {
