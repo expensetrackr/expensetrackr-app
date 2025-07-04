@@ -8,7 +8,7 @@ import {
     RegisterSchema,
     RegisterValidationErrorSchema,
 } from '#/schemas/auth.ts';
-import { getConfiguredDeviceName } from '#/utils/auth-config.ts';
+import { generateDeviceName } from '#/utils/device.ts';
 
 export function useLogin(): UseMutationResult<string, Error, z.infer<typeof LoginSchema>> {
     return useMutation({
@@ -16,7 +16,7 @@ export function useLogin(): UseMutationResult<string, Error, z.infer<typeof Logi
             const response = await $fetch('@post/auth/login', {
                 body: {
                     ...values,
-                    device_name: await getConfiguredDeviceName(),
+                    device_name: await generateDeviceName(),
                 },
             });
 
@@ -43,7 +43,7 @@ export function useRegister(): UseMutationResult<string, Error, z.infer<typeof R
             const response = await $fetch('@post/auth/register', {
                 body: {
                     ...values,
-                    device_name: await getConfiguredDeviceName(),
+                    device_name: await generateDeviceName(),
                 },
             });
 
