@@ -25,7 +25,7 @@ export function useLogin(): UseMutationResult<string, Error, z.infer<typeof Logi
 
                 if (validationErrorResult.success) {
                     const errorData = validationErrorResult.data;
-                    const message = errorData.email?.[0] || errorData.password?.[0] || 'Invalid credentials';
+                    const message = errorData.email?.[0] || errorData.password?.[0] || 'Unknown error';
                     throw new Error(`Login failed: ${message}`);
                 }
 
