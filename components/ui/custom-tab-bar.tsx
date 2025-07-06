@@ -46,13 +46,13 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
             left: 0,
             right: 0,
             paddingBottom: insets.bottom,
-            backgroundColor: colors.bgWhite,
+            backgroundColor: colors.bgWhite0,
         },
         tabBar: {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-around',
-            backgroundColor: colors.bgWhite,
+            backgroundColor: colors.bgWhite0,
             borderRadius: 28,
             paddingVertical: 12,
             paddingHorizontal: 8,
@@ -71,7 +71,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
             minWidth: 48,
         },
         tabButtonActive: {
-            backgroundColor: colors.bgSoft,
+            backgroundColor: colors.bgSoft200,
         },
         addButtonContainer: {
             flex: 1,
@@ -96,7 +96,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
             shadowRadius: 8,
             elevation: 8,
             borderWidth: 4,
-            borderColor: colors.bgWhite,
+            borderColor: colors.bgWhite0,
         },
     });
 
@@ -147,7 +147,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
         });
 
         const animatedIconStyle = useAnimatedStyle(() => {
-            const iconColor = interpolateColor(focusProgress.value, [0, 1], [colors.textSoft, colors.primary]);
+            const iconColor = interpolateColor(focusProgress.value, [0, 1], [colors.textSub600, colors.primary]);
 
             return {
                 color: iconColor,
@@ -206,7 +206,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
                     style={styles.addButton}
                     testID="add-transaction-button"
                     onPress={handleAddPress}>
-                    <Feather color={colors.textWhite} name="plus" size={26} />
+                    <Feather color={colors.textWhite0} name="plus" size={26} />
                 </AnimatedPressable>
             </Animated.View>
         );

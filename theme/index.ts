@@ -6,23 +6,23 @@ const NAV_THEME = {
     light: {
         ...DefaultTheme,
         colors: {
-            background: colors.light.bgWhite,
-            border: colors.light.strokeSoft,
-            card: colors.light.bgWhite,
+            background: colors.light.bgWhite0,
+            border: colors.light.strokeSoft200,
+            card: colors.light.bgWhite0,
             notification: colors.light.error,
             primary: colors.light.primary,
-            text: colors.light.textStrong,
+            text: colors.light.textStrong950,
         },
     },
     dark: {
         ...DarkTheme,
         colors: {
-            background: colors.dark.bgWhite,
-            border: colors.dark.strokeSoft,
-            card: colors.dark.bgWhite,
+            background: colors.dark.bgWhite0,
+            border: colors.dark.strokeSoft200,
+            card: colors.dark.bgWhite0,
             notification: colors.dark.error,
             primary: colors.dark.primary,
-            text: colors.dark.textStrong,
+            text: colors.dark.textStrong950,
         },
     },
 };

@@ -146,7 +146,7 @@ export default function TransactionsScreen() {
                 <Animated.View className="mb-4 px-5" entering={FadeInDown.delay(200).springify()}>
                     <View className="relative">
                         <Feather
-                            color={colors.neutral200}
+                            color={colors.iconSub600}
                             name="search"
                             size={20}
                             style={{ position: 'absolute', left: 12, top: 12, zIndex: 1 }}
@@ -184,7 +184,7 @@ export default function TransactionsScreen() {
             <SectionList
                 ListEmptyComponent={
                     <View className="flex-1 items-center justify-center py-20">
-                        <MaterialCommunityIcons color={colors.neutral200} name="receipt" size={64} />
+                        <MaterialCommunityIcons color={colors.iconSub600} name="receipt" size={64} />
                         <ThemedText className="mt-4 text-text-sub-600">No transactions found</ThemedText>
                     </View>
                 }

@@ -32,10 +32,10 @@ SplashScreen.preventAutoHideAsync();
 const LIGHT_THEME: Theme = {
     ...DefaultTheme,
     colors: {
-        background: colors.light.bgWhite,
-        card: colors.light.bgWhite,
-        text: colors.light.textStrong,
-        border: colors.light.strokeSoft,
+        background: colors.light.bgWhite0,
+        card: colors.light.bgWhite0,
+        text: colors.light.textStrong950,
+        border: colors.light.strokeSoft200,
         notification: colors.light.error,
         primary: colors.light.primary,
     },
@@ -43,10 +43,10 @@ const LIGHT_THEME: Theme = {
 const DARK_THEME: Theme = {
     ...DarkTheme,
     colors: {
-        background: colors.dark.bgWhite,
-        card: colors.dark.bgWhite,
-        text: colors.dark.textStrong,
-        border: colors.dark.strokeSoft,
+        background: colors.dark.bgWhite0,
+        card: colors.dark.bgWhite0,
+        text: colors.dark.textStrong950,
+        border: colors.dark.strokeSoft200,
         notification: colors.dark.error,
         primary: colors.dark.primary,
     },

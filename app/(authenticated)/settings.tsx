@@ -109,7 +109,7 @@ export default function SettingsScreen() {
                                 <ThemedText className="text-lg font-semibold text-text-strong-950">John Doe</ThemedText>
                                 <ThemedText className="text-sm text-text-sub-600">john.doe@example.com</ThemedText>
                             </View>
-                            <Feather color={colors.neutral200} name="chevron-right" size={20} />
+                            <Feather color={colors.iconSub600} name="chevron-right" size={20} />
                         </View>
                     </LinearGradient>
                 </Animated.View>

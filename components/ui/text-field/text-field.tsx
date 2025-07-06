@@ -309,7 +309,7 @@ function MaterialClearIcon(props: MaterialClearIconProps) {
                 className="flex-1 justify-center px-2 active:opacity-65"
                 disabled={props.editable === false}
                 onPress={props.clearText}>
-                <Icon color={colors.neutral200} name="close-circle-outline" size={24} />
+                <Icon color={colors.iconSub600} name="close-circle-outline" size={24} />
             </Pressable>
         </Animated.View>
     );

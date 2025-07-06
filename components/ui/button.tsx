@@ -1,4 +1,5 @@
 import * as Slot from '@rn-primitives/slot';
+import { ColorTranslator } from 'colortranslator';
 import * as React from 'react';
 import { Platform, Pressable, PressableProps, View, ViewStyle } from 'react-native';
 
@@ -71,32 +72,18 @@ const buttonTextVariants = tv({
     },
 });
 
-function convertToRGBA(rgb: string, opacity: number): string {
-    const rgbValues = rgb.match(/\d+/g);
-    if (!rgbValues || rgbValues.length !== 3) {
-        throw new Error('Invalid RGB color format');
-    }
-    const red = parseInt(rgbValues[0], 10);
-    const green = parseInt(rgbValues[1], 10);
-    const blue = parseInt(rgbValues[2], 10);
-    if (opacity < 0 || opacity > 1) {
-        throw new Error('Opacity must be a number between 0 and 1');
-    }
-    return `rgba(${red},${green},${blue},${opacity})`;
-}
-
 const ANDROID_RIPPLE = {
     dark: {
-        primary: { color: convertToRGBA(colors.dark.neutral300, 0.4), borderless: false },
-        secondary: { color: convertToRGBA(colors.dark.neutral500, 0.8), borderless: false },
-        plain: { color: convertToRGBA(colors.dark.neutral500, 0.8), borderless: false },
-        tonal: { color: convertToRGBA(colors.dark.neutral500, 0.8), borderless: false },
+        primary: { color: new ColorTranslator(colors.dark.gray300).setA(0.4).RGBA, borderless: false },
+        secondary: { color: new ColorTranslator(colors.dark.gray500).setA(0.8).RGBA, borderless: false },
+        plain: { color: new ColorTranslator(colors.dark.gray500).setA(0.8).RGBA, borderless: false },
+        tonal: { color: new ColorTranslator(colors.dark.gray500).setA(0.8).RGBA, borderless: false },
     },
     light: {
-        primary: { color: convertToRGBA(colors.light.neutral400, 0.4), borderless: false },
-        secondary: { color: convertToRGBA(colors.light.neutral500, 0.4), borderless: false },
-        plain: { color: convertToRGBA(colors.light.neutral500, 0.4), borderless: false },
-        tonal: { color: convertToRGBA(colors.light.neutral600, 0.4), borderless: false },
+        primary: { color: new ColorTranslator(colors.light.gray400).setA(0.4).RGBA, borderless: false },
+        secondary: { color: new ColorTranslator(colors.light.gray500).setA(0.4).RGBA, borderless: false },
+        plain: { color: new ColorTranslator(colors.light.gray500).setA(0.4).RGBA, borderless: false },
+        tonal: { color: new ColorTranslator(colors.light.gray600).setA(0.4).RGBA, borderless: false },
     },
 };
 

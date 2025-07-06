@@ -59,7 +59,7 @@ export default function AddTransactionScreen() {
                                 <Pressable
                                     className="h-10 w-10 items-center justify-center rounded-full bg-bg-weak-50"
                                     onPress={() => router.back()}>
-                                    <Feather color={colors.neutral200} name="arrow-left" size={20} />
+                                    <Feather color={colors.iconSub600} name="arrow-left" size={20} />
                                 </Pressable>
                                 <ThemedText className="text-2xl font-semibold text-text-strong-950">
                                     Add Transaction

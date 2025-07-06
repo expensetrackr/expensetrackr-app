@@ -1,361 +1,365 @@
+export const defaultColors = {
+    /* gray colors */
+    gray950: 'hsl(0 0% 9.02%)',
+    gray900: 'hsl(0 0% 10.98%)',
+    gray800: 'hsl(0 0% 16.08%)',
+    gray700: 'hsl(0 0% 20%)',
+    gray600: 'hsl(0 0% 36.08%)',
+    gray500: 'hsl(0 0% 48.24%)',
+    gray400: 'hsl(0 0% 63.92%)',
+    gray300: 'hsl(0 0% 81.96%)',
+    gray200: 'hsl(0 0% 92.16%)',
+    gray100: 'hsl(0 0% 96.08%)',
+    gray50: 'hsl(0 0% 96.86%)',
+    gray0: 'hsl(0 0% 100%)',
+
+    grayAlpha24: 'hsl(0 0% 63.92% / 24%)',
+    grayAlpha16: 'hsl(0 0% 63.92% / 16%)',
+    grayAlpha10: 'hsl(0 0% 63.92% / 10%)',
+
+    /* vibrants */
+    blue950: 'hsl(228.14 70.49% 23.92%)',
+    blue900: 'hsl(228 70.55% 31.96%)',
+    blue800: 'hsl(228.17 69.61% 40%)',
+    blue700: 'hsl(228.07 69.8% 48.04%)',
+    blue600: 'hsl(228 80.36% 56.08%)',
+    blue500: 'hsl(227.94 100% 60%)',
+    blue400: 'hsl(222.12 100% 70.39%)',
+    blue300: 'hsl(219.81 100% 79.61%)',
+    blue200: 'hsl(220 100% 87.65%)',
+    blue100: 'hsl(221.43 100% 91.76%)',
+    blue50: 'hsl(222 100% 96.08%)',
+
+    blueAlpha24: 'hsl(227.93 100% 63.92% / 24%)',
+    blueAlpha16: 'hsl(227.93 100% 63.92% / 16%)',
+    blueAlpha10: 'hsl(227.93 100% 63.92% / 10%)',
+
+    orange950: 'hsl(23.88 83.74% 24.12%)',
+    orange900: 'hsl(24.09 84.05% 31.96%)',
+    orange800: 'hsl(24.07 83.92% 39.02%)',
+    orange700: 'hsl(24.26 83.93% 43.92%)',
+    orange600: 'hsl(24 83.67% 48.04%)',
+    orange500: 'hsl(24 95.74% 53.92%)',
+    orange400: 'hsl(23.84 100% 70.39%)',
+    orange300: 'hsl(24.23 100% 79.61%)',
+    orange200: 'hsl(23.81 100% 87.65%)',
+    orange100: 'hsl(24.29 100% 91.76%)',
+    orange50: 'hsl(24 100% 96.08%)',
+
+    orangeAlpha24: 'hsl(24.13 100% 63.92% / 24%)',
+    orangeAlpha16: 'hsl(24.13 100% 63.92% / 16%)',
+    orangeAlpha10: 'hsl(24.13 100% 63.92% / 10%)',
+
+    red950: 'hsl(355.12 70.49% 23.92%)',
+    red900: 'hsl(354.78 70.55% 31.96%)',
+    red800: 'hsl(354.93 69.61% 40%)',
+    red700: 'hsl(355.09 69.8% 48.04%)',
+    red600: 'hsl(355 80.36% 56.08%)',
+    red500: 'hsl(354.8 96.08% 60%)',
+    red400: 'hsl(354.83 100% 70.39%)',
+    red300: 'hsl(354.81 100% 79.61%)',
+    red200: 'hsl(355.24 100% 87.65%)',
+    red100: 'hsl(355.71 100% 91.76%)',
+    red50: 'hsl(357 100% 96.08%)',
+
+    redAlpha24: 'hsl(354.8 96.08% 60% / 24%)',
+    redAlpha16: 'hsl(354.8 96.08% 60% / 16%)',
+    redAlpha10: 'hsl(354.8 96.08% 60% / 10%)',
+
+    green950: 'hsl(148.47 72.84% 15.88%)',
+    green900: 'hsl(148.46 63.93% 23.92%)',
+    green800: 'hsl(147.69 63.64% 28.04%)',
+    green700: 'hsl(148.21 71.78% 31.96%)',
+    green600: 'hsl(147.95 71.57% 40%)',
+    green500: 'hsl(148.15 72.32% 43.92%)',
+    green400: 'hsl(147.78 72.32% 56.08%)',
+    green300: 'hsl(147.96 72.03% 71.96%)',
+    green200: 'hsl(148.24 71.83% 86.08%)',
+    green100: 'hsl(154.88 84.31% 90%)',
+    green50: 'hsl(147.69 72.22% 92.94%)',
+
+    greenAlpha24: 'hsl(148.15 72.32% 43.92% / 24%)',
+    greenAlpha16: 'hsl(148.15 72.32% 43.92% / 16%)',
+    greenAlpha10: 'hsl(148.15 72.32% 43.92% / 10%)',
+
+    yellow950: 'hsl(42.16 60.66% 23.92%)',
+    yellow900: 'hsl(41.71 64.42% 31.96%)',
+    yellow800: 'hsl(42 63.73% 40%)',
+    yellow700: 'hsl(42.04 64.08% 48.04%)',
+    yellow600: 'hsl(41.85 80.39% 50%)',
+    yellow500: 'hsl(41.94 92.31% 54.12%)',
+    yellow400: 'hsl(42.12 100% 70.39%)',
+    yellow300: 'hsl(42.12 100% 79.61%)',
+    yellow200: 'hsl(41.9 100% 87.65%)',
+    yellow100: 'hsl(41.18 100% 90%)',
+    yellow50: 'hsl(43.9 100% 91.96%)',
+
+    yellowAlpha24: 'hsl(41.93 95.65% 63.92% / 24%)',
+    yellowAlpha16: 'hsl(41.93 95.65% 63.92% / 16%)',
+    yellowAlpha10: 'hsl(41.93 95.65% 63.92% / 10%)',
+
+    purple950: 'hsl(257.8 63.64% 28.04%)',
+    purple900: 'hsl(258.29 64.42% 31.96%)',
+    purple800: 'hsl(258 63.73% 40%)',
+    purple700: 'hsl(257.96 64.08% 48.04%)',
+    purple600: 'hsl(255.93 72.32% 56.08%)',
+    purple500: 'hsl(255.93 88.04% 63.92%)',
+    purple400: 'hsl(252.18 88.08% 70.39%)',
+    purple300: 'hsl(249.81 100% 79.61%)',
+    purple200: 'hsl(249.52 100% 87.65%)',
+    purple100: 'hsl(250 100% 91.76%)',
+    purple50: 'hsl(252 100% 96.08%)',
+
+    purpleAlpha24: 'hsl(255.93 83.51% 61.96% / 24%)',
+    purpleAlpha16: 'hsl(255.93 83.51% 61.96% / 16%)',
+    purpleAlpha10: 'hsl(255.93 83.51% 61.96% / 10%)',
+
+    sky950: 'hsl(200.23 70.49% 23.92%)',
+    sky900: 'hsl(199.83 70.55% 31.96%)',
+    sky800: 'hsl(199.86 69.61% 40%)',
+    sky700: 'hsl(200 69.8% 48.04%)',
+    sky600: 'hsl(200 80.36% 56.08%)',
+    sky500: 'hsl(199.89 100% 63.92%)',
+    sky400: 'hsl(199.87 100% 70.39%)',
+    sky300: 'hsl(200.19 100% 79.61%)',
+    sky200: 'hsl(200 100% 87.65%)',
+    sky100: 'hsl(200 100% 91.76%)',
+    sky50: 'hsl(201 100% 96.08%)',
+
+    skyAlpha24: 'hsl(199.89 100% 63.92% / 24%)',
+    skyAlpha16: 'hsl(199.89 100% 63.92% / 16%)',
+    skyAlpha10: 'hsl(199.89 100% 63.92% / 10%)',
+
+    pink950: 'hsl(330 70.49% 23.92%)',
+    pink900: 'hsl(329.74 70.55% 31.96%)',
+    pink800: 'hsl(330 69.61% 40%)',
+    pink700: 'hsl(330.18 69.8% 48.04%)',
+    pink600: 'hsl(330 80.36% 56.08%)',
+    pink500: 'hsl(330 95.65% 63.92%)',
+    pink400: 'hsl(330.2 100% 70.39%)',
+    pink300: 'hsl(330 100% 79.61%)',
+    pink200: 'hsl(330.48 100% 87.65%)',
+    pink100: 'hsl(330 100% 91.76%)',
+    pink50: 'hsl(333 100% 96.08%)',
+
+    pinkAlpha24: 'hsl(330 95.65% 63.92% / 24%)',
+    pinkAlpha16: 'hsl(330 95.65% 63.92% / 16%)',
+    pinkAlpha10: 'hsl(330 95.65% 63.92% / 10%)',
+
+    teal950: 'hsl(171.86 72.84% 15.88%)',
+    teal900: 'hsl(172.31 63.93% 23.92%)',
+    teal800: 'hsl(172.09 63.64% 28.04%)',
+    teal700: 'hsl(172.31 71.78% 31.96%)',
+    teal600: 'hsl(172.19 71.57% 40%)',
+    teal500: 'hsl(171.86 72.24% 48.04%)',
+    teal400: 'hsl(172.08 70.67% 55.88%)',
+    teal300: 'hsl(171.84 72.03% 71.96%)',
+    teal200: 'hsl(171.76 71.83% 86.08%)',
+    teal100: 'hsl(171.63 84.31% 90%)',
+    teal50: 'hsl(172.17 74.19% 93.92%)',
+
+    tealAlpha24: 'hsl(171.86 72.24% 48.04% / 24%)',
+    tealAlpha16: 'hsl(171.86 72.24% 48.04% / 16%)',
+    tealAlpha10: 'hsl(171.86 72.24% 48.04% / 10%)',
+
+    whiteAlpha24: 'hsl(0 0% 100% / 24%)',
+    whiteAlpha16: 'hsl(0 0% 100% / 16%)',
+    whiteAlpha10: 'hsl(0 0% 100% / 10%)',
+
+    blackAlpha24: 'hsl(0 0% 0% / 24%)',
+    blackAlpha16: 'hsl(0 0% 0% / 16%)',
+    blackAlpha10: 'hsl(0 0% 0% / 10%)',
+
+    /* brand colors */
+    brandPrimary50: 'hsl(214 100% 97.1%)',
+    brandPrimary100: 'hsl(216 94.5% 92.9%)',
+    brandPrimary200: 'hsl(214 99.9% 87%)',
+    brandPrimary300: 'hsl(213 97.9% 78%)',
+    brandPrimary400: 'hsl(214 96.2% 68.1%)',
+    brandPrimary500: 'hsl(219 92.8% 60.4%)',
+    brandPrimary600: 'hsl(228 95.8% 59.9%)',
+    brandPrimary700: 'hsl(226 75.9% 49.6%)',
+    brandPrimary800: 'hsl(227 72.6% 40%)',
+    brandPrimary900: 'hsl(225 66% 32.8%)',
+    brandPrimary950: 'hsl(227 59.6% 20.9%)',
+
+    brandPrimaryAlpha24: 'hsl(219 92.8% 60.4% / 24%)',
+    brandPrimaryAlpha16: 'hsl(219 92.8% 60.4% / 16%)',
+    brandPrimaryAlpha10: 'hsl(219 92.8% 60.4% / 10%)',
+} as const;
+
+export const primaryColors = {
+    primaryDarker: defaultColors.brandPrimary800,
+    primaryDark: defaultColors.brandPrimary700,
+    primary: defaultColors.brandPrimary500,
+    primaryLight: defaultColors.brandPrimaryAlpha24,
+    primaryLighter: defaultColors.brandPrimaryAlpha16,
+    primaryLightest: defaultColors.brandPrimaryAlpha10,
+};
+
 export const colors = {
-    white: 'rgb(255, 255, 255)',
-    black: 'rgb(0, 0, 0)',
+    white: 'hsl(0 0% 100%)',
+    black: 'hsl(0 0% 0%)',
 
     light: {
-        // Gray Scale (neutral base)
-        gray0: 'rgb(255, 255, 255)', // --gray-0
-        gray50: 'rgb(247, 247, 247)', // --gray-50
-        gray100: 'rgb(245, 245, 245)', // --gray-100
-        gray200: 'rgb(235, 235, 235)', // --gray-200
-        gray300: 'rgb(209, 209, 209)', // --gray-300
-        gray400: 'rgb(163, 163, 163)', // --gray-400
-        gray500: 'rgb(123, 123, 123)', // --gray-500
-        gray600: 'rgb(92, 92, 92)', // --gray-600
-        gray700: 'rgb(51, 51, 51)', // --gray-700
-        gray800: 'rgb(41, 41, 41)', // --gray-800
-        gray900: 'rgb(28, 28, 28)', // --gray-900
-        gray950: 'rgb(23, 23, 23)', // --gray-950
+        ...defaultColors,
+        ...primaryColors,
 
-        // Slate Scale
-        slate0: 'rgb(255, 255, 255)', // --slate-0
-        slate50: 'rgb(248, 250, 252)', // --slate-50
-        slate100: 'rgb(241, 245, 249)', // --slate-100
-        slate200: 'rgb(226, 232, 240)', // --slate-200
-        slate300: 'rgb(203, 213, 225)', // --slate-300
-        slate400: 'rgb(148, 163, 184)', // --slate-400
-        slate500: 'rgb(100, 116, 139)', // --slate-500
-        slate600: 'rgb(71, 85, 105)', // --slate-600
-        slate700: 'rgb(51, 65, 85)', // --slate-700
-        slate800: 'rgb(30, 41, 59)', // --slate-800
-        slate900: 'rgb(15, 23, 42)', // --slate-900
-        slate950: 'rgb(2, 6, 23)', // --slate-950
+        /* gray colors */
+        bgStrong950: defaultColors.gray950,
+        bgSurface800: defaultColors.gray800,
+        bgSub300: defaultColors.gray300,
+        bgSoft200: defaultColors.gray200,
+        bgWeak50: defaultColors.gray50,
+        bgWhite0: defaultColors.gray0,
 
-        // Neutral Scale (references gray)
-        neutral0: 'rgb(255, 255, 255)', // --neutral-0
-        neutral50: 'rgb(247, 247, 247)', // --neutral-50
-        neutral100: 'rgb(245, 245, 245)', // --neutral-100
-        neutral200: 'rgb(235, 235, 235)', // --neutral-200
-        neutral300: 'rgb(209, 209, 209)', // --neutral-300
-        neutral400: 'rgb(163, 163, 163)', // --neutral-400
-        neutral500: 'rgb(123, 123, 123)', // --neutral-500
-        neutral600: 'rgb(92, 92, 92)', // --neutral-600
-        neutral700: 'rgb(51, 51, 51)', // --neutral-700
-        neutral800: 'rgb(41, 41, 41)', // --neutral-800
-        neutral900: 'rgb(28, 28, 28)', // --neutral-900
-        neutral950: 'rgb(23, 23, 23)', // --neutral-950
+        textStrong950: defaultColors.gray950,
+        textSub600: defaultColors.gray600,
+        textSoft400: defaultColors.gray400,
+        textDisabled300: defaultColors.gray300,
+        textWhite0: defaultColors.gray0,
 
-        // Blue Scale
-        blue50: 'rgb(239, 246, 255)', // --blue-50
-        blue100: 'rgb(219, 234, 254)', // --blue-100
-        blue200: 'rgb(191, 219, 254)', // --blue-200
-        blue300: 'rgb(147, 197, 253)', // --blue-300
-        blue400: 'rgb(96, 165, 250)', // --blue-400
-        blue500: 'rgb(59, 130, 246)', // --blue-500
-        blue600: 'rgb(37, 99, 235)', // --blue-600
-        blue700: 'rgb(29, 78, 216)', // --blue-700
-        blue800: 'rgb(30, 64, 175)', // --blue-800
-        blue900: 'rgb(30, 58, 138)', // --blue-900
-        blue950: 'rgb(23, 37, 84)', // --blue-950
+        strokeStrong950: defaultColors.gray950,
+        strokeSub300: defaultColors.gray300,
+        strokeSoft200: defaultColors.gray200,
+        strokeWhite0: defaultColors.gray0,
 
-        // Orange Scale
-        orange50: 'rgb(255, 247, 237)', // --orange-50
-        orange100: 'rgb(255, 237, 213)', // --orange-100
-        orange200: 'rgb(254, 215, 170)', // --orange-200
-        orange300: 'rgb(253, 186, 116)', // --orange-300
-        orange400: 'rgb(251, 146, 60)', // --orange-400
-        orange500: 'rgb(249, 115, 22)', // --orange-500
-        orange600: 'rgb(234, 88, 12)', // --orange-600
-        orange700: 'rgb(194, 65, 12)', // --orange-700
-        orange800: 'rgb(154, 52, 18)', // --orange-800
-        orange900: 'rgb(124, 45, 18)', // --orange-900
-        orange950: 'rgb(67, 20, 7)', // --orange-950
+        iconStrong950: defaultColors.gray950,
+        iconSub600: defaultColors.gray600,
+        iconSoft400: defaultColors.gray400,
+        iconDisabled300: defaultColors.gray300,
+        iconWhite0: defaultColors.gray0,
 
-        // Red Scale
-        red50: 'rgb(254, 242, 242)', // --red-50
-        red100: 'rgb(254, 226, 226)', // --red-100
-        red200: 'rgb(254, 202, 202)', // --red-200
-        red300: 'rgb(252, 165, 165)', // --red-300
-        red400: 'rgb(248, 113, 113)', // --red-400
-        red500: 'rgb(239, 68, 68)', // --red-500
-        red600: 'rgb(220, 38, 38)', // --red-600
-        red700: 'rgb(185, 28, 28)', // --red-700
-        red800: 'rgb(153, 27, 27)', // --red-800
-        red900: 'rgb(127, 29, 29)', // --red-900
-        red950: 'rgb(69, 10, 10)', // --red-950
+        /* state-colors */
+        fadedDark: defaultColors.gray800,
+        faded: defaultColors.gray500,
+        fadedLight: defaultColors.gray200,
+        fadedLighter: defaultColors.gray100,
 
-        // Green Scale
-        green50: 'rgb(240, 253, 244)', // --green-50
-        green100: 'rgb(220, 252, 231)', // --green-100
-        green200: 'rgb(187, 247, 208)', // --green-200
-        green300: 'rgb(134, 239, 172)', // --green-300
-        green400: 'rgb(74, 222, 128)', // --green-400
-        green500: 'rgb(34, 197, 94)', // --green-500
-        green600: 'rgb(22, 163, 74)', // --green-600
-        green700: 'rgb(21, 128, 61)', // --green-700
-        green800: 'rgb(22, 101, 52)', // --green-800
-        green900: 'rgb(20, 83, 45)', // --green-900
-        green950: 'rgb(5, 46, 22)', // --green-950
+        informationDark: defaultColors.blue950,
+        information: defaultColors.blue500,
+        informationLight: defaultColors.blue200,
+        informationLighter: defaultColors.blue50,
 
-        // Yellow Scale
-        yellow50: 'rgb(254, 252, 232)', // --yellow-50
-        yellow100: 'rgb(254, 249, 195)', // --yellow-100
-        yellow200: 'rgb(254, 240, 138)', // --yellow-200
-        yellow300: 'rgb(253, 224, 71)', // --yellow-300
-        yellow400: 'rgb(250, 204, 21)', // --yellow-400
-        yellow500: 'rgb(234, 179, 8)', // --yellow-500
-        yellow600: 'rgb(202, 138, 4)', // --yellow-600
-        yellow700: 'rgb(161, 98, 7)', // --yellow-700
-        yellow800: 'rgb(133, 77, 14)', // --yellow-800
-        yellow900: 'rgb(113, 63, 18)', // --yellow-900
-        yellow950: 'rgb(66, 32, 6)', // --yellow-950
+        warningDark: defaultColors.orange950,
+        warning: defaultColors.orange500,
+        warningLight: defaultColors.orange200,
+        warningLighter: defaultColors.orange50,
 
-        // Purple Scale
-        purple50: 'rgb(250, 245, 255)', // --purple-50
-        purple100: 'rgb(243, 232, 255)', // --purple-100
-        purple200: 'rgb(233, 213, 255)', // --purple-200
-        purple300: 'rgb(196, 181, 253)', // --purple-300
-        purple400: 'rgb(147, 128, 255)', // --purple-400
-        purple500: 'rgb(124, 94, 255)', // --purple-500
-        purple600: 'rgb(124, 58, 237)', // --purple-600
-        purple700: 'rgb(109, 40, 217)', // --purple-700
-        purple800: 'rgb(91, 33, 182)', // --purple-800
-        purple900: 'rgb(76, 29, 149)', // --purple-900
-        purple950: 'rgb(46, 16, 101)', // --purple-950
+        errorDark: defaultColors.red950,
+        error: defaultColors.red500,
+        errorLight: defaultColors.red200,
+        errorLighter: defaultColors.red50,
 
-        // Sky Scale
-        sky50: 'rgb(240, 249, 255)', // --sky-50
-        sky100: 'rgb(224, 242, 254)', // --sky-100
-        sky200: 'rgb(186, 230, 253)', // --sky-200
-        sky300: 'rgb(125, 211, 252)', // --sky-300
-        sky400: 'rgb(56, 189, 248)', // --sky-400
-        sky500: 'rgb(14, 165, 233)', // --sky-500
-        sky600: 'rgb(2, 132, 199)', // --sky-600
-        sky700: 'rgb(3, 105, 161)', // --sky-700
-        sky800: 'rgb(7, 89, 133)', // --sky-800
-        sky900: 'rgb(12, 74, 110)', // --sky-900
-        sky950: 'rgb(8, 47, 73)', // --sky-950
+        successDark: defaultColors.green950,
+        success: defaultColors.green500,
+        successLight: defaultColors.green200,
+        successLighter: defaultColors.green50,
 
-        // Pink Scale
-        pink50: 'rgb(253, 242, 248)', // --pink-50
-        pink100: 'rgb(252, 231, 243)', // --pink-100
-        pink200: 'rgb(251, 207, 232)', // --pink-200
-        pink300: 'rgb(249, 168, 212)', // --pink-300
-        pink400: 'rgb(244, 114, 182)', // --pink-400
-        pink500: 'rgb(236, 72, 153)', // --pink-500
-        pink600: 'rgb(219, 39, 119)', // --pink-600
-        pink700: 'rgb(190, 24, 93)', // --pink-700
-        pink800: 'rgb(157, 23, 77)', // --pink-800
-        pink900: 'rgb(131, 24, 67)', // --pink-900
-        pink950: 'rgb(80, 7, 36)', // --pink-950
+        awayDark: defaultColors.yellow950,
+        away: defaultColors.yellow500,
+        awayLight: defaultColors.yellow200,
+        awayLighter: defaultColors.yellow50,
 
-        // Teal Scale
-        teal50: 'rgb(240, 253, 250)', // --teal-50
-        teal100: 'rgb(204, 251, 241)', // --teal-100
-        teal200: 'rgb(153, 246, 228)', // --teal-200
-        teal300: 'rgb(94, 234, 212)', // --teal-300
-        teal400: 'rgb(45, 212, 191)', // --teal-400
-        teal500: 'rgb(20, 184, 166)', // --teal-500
-        teal600: 'rgb(13, 148, 136)', // --teal-600
-        teal700: 'rgb(15, 118, 110)', // --teal-700
-        teal800: 'rgb(17, 94, 89)', // --teal-800
-        teal900: 'rgb(19, 78, 74)', // --teal-900
-        teal950: 'rgb(4, 47, 46)', // --teal-950
+        featureDark: defaultColors.purple950,
+        feature: defaultColors.purple500,
+        featureLight: defaultColors.purple200,
+        featureLighter: defaultColors.purple50,
 
-        // Brand Primary Scale (from global.css)
-        brandPrimary50: 'rgb(239, 246, 255)', // --brand-primary-50
-        brandPrimary100: 'rgb(219, 234, 254)', // --brand-primary-100
-        brandPrimary200: 'rgb(191, 219, 254)', // --brand-primary-200
-        brandPrimary300: 'rgb(147, 197, 253)', // --brand-primary-300
-        brandPrimary400: 'rgb(96, 165, 250)', // --brand-primary-400
-        brandPrimary500: 'rgb(59, 130, 246)', // --brand-primary-500
-        brandPrimary600: 'rgb(37, 99, 235)', // --brand-primary-600
-        brandPrimary700: 'rgb(29, 78, 216)', // --brand-primary-700
-        brandPrimary800: 'rgb(30, 64, 175)', // --brand-primary-800
-        brandPrimary900: 'rgb(30, 58, 138)', // --brand-primary-900
-        brandPrimary950: 'rgb(23, 37, 84)', // --brand-primary-950
+        verifiedDark: defaultColors.sky950,
+        verified: defaultColors.sky500,
+        verifiedLight: defaultColors.sky200,
+        verifiedLighter: defaultColors.sky50,
 
-        // Semantic Colors (Light Mode)
-        primary: 'rgb(59, 130, 246)', // --primary-base
-        primaryDark: 'rgb(30, 64, 175)', // --primary-dark
-        primaryDarker: 'rgb(29, 78, 216)', // --primary-darker
+        highlightedDark: defaultColors.pink950,
+        highlighted: defaultColors.pink500,
+        highlightedLight: defaultColors.pink200,
+        highlightedLighter: defaultColors.pink50,
 
-        // Background Colors
-        bgStrong: 'rgb(23, 23, 23)', // --bg-strong-950
-        bgSurface: 'rgb(41, 41, 41)', // --bg-surface-800
-        bgSub: 'rgb(209, 209, 209)', // --bg-sub-300
-        bgSoft: 'rgb(235, 235, 235)', // --bg-soft-200
-        bgWeak: 'rgb(247, 247, 247)', // --bg-weak-50
-        bgWhite: 'rgb(255, 255, 255)', // --bg-white-0
-
-        // Text Colors
-        textStrong: 'rgb(23, 23, 23)', // --text-strong-950
-        textSub: 'rgb(92, 92, 92)', // --text-sub-600
-        textSoft: 'rgb(163, 163, 163)', // --text-soft-400
-        textDisabled: 'rgb(209, 209, 209)', // --text-disabled-300
-        textWhite: 'rgb(255, 255, 255)', // --text-white-0
-
-        // Stroke Colors
-        strokeStrong: 'rgb(23, 23, 23)', // --stroke-strong-950
-        strokeSub: 'rgb(209, 209, 209)', // --stroke-sub-300
-        strokeSoft: 'rgb(235, 235, 235)', // --stroke-soft-200
-        strokeWhite: 'rgb(255, 255, 255)', // --stroke-white-0
-
-        // Semantic Status Colors
-        faded: 'rgb(123, 123, 123)', // --faded-base
-        fadedDark: 'rgb(41, 41, 41)', // --faded-dark
-        fadedLight: 'rgb(235, 235, 235)', // --faded-light
-        fadedLighter: 'rgb(245, 245, 245)', // --faded-lighter
-
-        information: 'rgb(59, 130, 246)', // --information-base
-        informationDark: 'rgb(23, 37, 84)', // --information-dark
-        informationLight: 'rgb(191, 219, 254)', // --information-light
-        informationLighter: 'rgb(239, 246, 255)', // --information-lighter
-
-        warning: 'rgb(249, 115, 22)', // --warning-base
-        warningDark: 'rgb(67, 20, 7)', // --warning-dark
-        warningLight: 'rgb(254, 215, 170)', // --warning-light
-        warningLighter: 'rgb(255, 247, 237)', // --warning-lighter
-
-        error: 'rgb(239, 68, 68)', // --error-base
-        errorDark: 'rgb(69, 10, 10)', // --error-dark
-        errorLight: 'rgb(254, 202, 202)', // --error-light
-        errorLighter: 'rgb(254, 242, 242)', // --error-lighter
-
-        success: 'rgb(34, 197, 94)', // --success-base
-        successDark: 'rgb(5, 46, 22)', // --success-dark
-        successLight: 'rgb(187, 247, 208)', // --success-light
-        successLighter: 'rgb(240, 253, 244)', // --success-lighter
-
-        away: 'rgb(234, 179, 8)', // --away-base
-        awayDark: 'rgb(66, 32, 6)', // --away-dark
-        awayLight: 'rgb(254, 240, 138)', // --away-light
-        awayLighter: 'rgb(254, 252, 232)', // --away-lighter
-
-        feature: 'rgb(124, 94, 255)', // --feature-base
-        featureDark: 'rgb(46, 16, 101)', // --feature-dark
-        featureLight: 'rgb(233, 213, 255)', // --feature-light
-        featureLighter: 'rgb(250, 245, 255)', // --feature-lighter
-
-        verified: 'rgb(14, 165, 233)', // --verified-base
-        verifiedDark: 'rgb(8, 47, 73)', // --verified-dark
-        verifiedLight: 'rgb(186, 230, 253)', // --verified-light
-        verifiedLighter: 'rgb(240, 249, 255)', // --verified-lighter
-
-        highlighted: 'rgb(236, 72, 153)', // --highlighted-base
-        highlightedDark: 'rgb(80, 7, 36)', // --highlighted-dark
-        highlightedLight: 'rgb(251, 207, 232)', // --highlighted-light
-        highlightedLighter: 'rgb(253, 242, 248)', // --highlighted-lighter
-
-        stable: 'rgb(20, 184, 166)', // --stable-base
-        stableDark: 'rgb(45, 212, 191)', // --stable-dark
-        stableLight: 'rgb(153, 246, 228)', // --stable-light
-        stableLighter: 'rgb(240, 253, 250)', // --stable-lighter
+        stableDark: defaultColors.teal950,
+        stable: defaultColors.teal500,
+        stableLight: defaultColors.teal200,
+        stableLighter: defaultColors.teal50,
     },
 
     dark: {
-        // Neutral colors maintain same values
-        neutral0: 'rgb(255, 255, 255)',
-        neutral50: 'rgb(247, 247, 247)',
-        neutral100: 'rgb(245, 245, 245)',
-        neutral200: 'rgb(235, 235, 235)',
-        neutral300: 'rgb(209, 209, 209)',
-        neutral400: 'rgb(163, 163, 163)',
-        neutral500: 'rgb(123, 123, 123)',
-        neutral600: 'rgb(92, 92, 92)',
-        neutral700: 'rgb(51, 51, 51)',
-        neutral800: 'rgb(41, 41, 41)',
-        neutral900: 'rgb(28, 28, 28)',
-        neutral950: 'rgb(23, 23, 23)',
+        ...defaultColors,
+        ...primaryColors,
 
-        // Brand colors maintain same values
-        brandPrimary50: 'rgb(239, 246, 255)',
-        brandPrimary100: 'rgb(219, 234, 254)',
-        brandPrimary200: 'rgb(191, 219, 254)',
-        brandPrimary300: 'rgb(147, 197, 253)',
-        brandPrimary400: 'rgb(96, 165, 250)',
-        brandPrimary500: 'rgb(59, 130, 246)',
-        brandPrimary600: 'rgb(37, 99, 235)',
-        brandPrimary700: 'rgb(29, 78, 216)',
-        brandPrimary800: 'rgb(30, 64, 175)',
-        brandPrimary900: 'rgb(30, 58, 138)',
-        brandPrimary950: 'rgb(23, 37, 84)',
+        /* gray colors */
+        bgStrong950: defaultColors.gray0,
+        bgSurface800: defaultColors.gray200,
+        bgSub300: defaultColors.gray600,
+        bgSoft200: defaultColors.gray700,
+        bgWeak50: defaultColors.gray900,
+        bgWhite0: defaultColors.gray950,
 
-        // Semantic Colors (Dark Mode - inverted hierarchy)
-        primary: 'rgb(59, 130, 246)',
-        primaryDark: 'rgb(30, 64, 175)',
-        primaryDarker: 'rgb(29, 78, 216)',
+        textStrong950: defaultColors.gray0,
+        textSub600: defaultColors.gray400,
+        textSoft400: defaultColors.gray500,
+        textDisabled300: defaultColors.gray600,
+        textWhite0: defaultColors.gray950,
 
-        // Background Colors (Dark Mode)
-        bgStrong: 'rgb(255, 255, 255)', // inverted
-        bgSurface: 'rgb(235, 235, 235)', // inverted
-        bgSub: 'rgb(92, 92, 92)', // inverted
-        bgSoft: 'rgb(51, 51, 51)', // inverted
-        bgWeak: 'rgb(28, 28, 28)', // inverted
-        bgWhite: 'rgb(23, 23, 23)', // inverted
+        strokeStrong950: defaultColors.gray0,
+        strokeSub300: defaultColors.gray600,
+        strokeSoft200: defaultColors.gray700,
+        strokeWhite0: defaultColors.gray950,
 
-        // Text Colors (Dark Mode)
-        textStrong: 'rgb(255, 255, 255)', // inverted
-        textSub: 'rgb(163, 163, 163)', // inverted
-        textSoft: 'rgb(123, 123, 123)', // inverted
-        textDisabled: 'rgb(92, 92, 92)', // inverted
-        textWhite: 'rgb(23, 23, 23)', // inverted
+        iconStrong950: defaultColors.gray0,
+        iconSub600: defaultColors.gray400,
+        iconSoft400: defaultColors.gray500,
+        iconDisabled300: defaultColors.gray600,
+        iconWhite0: defaultColors.gray950,
 
-        // Stroke Colors (Dark Mode)
-        strokeStrong: 'rgb(255, 255, 255)', // inverted
-        strokeSub: 'rgb(92, 92, 92)', // inverted
-        strokeSoft: 'rgb(51, 51, 51)', // inverted
-        strokeWhite: 'rgb(23, 23, 23)', // inverted
+        /* state-colors */
+        fadedDark: defaultColors.gray300,
+        faded: defaultColors.gray500,
+        fadedLight: defaultColors.grayAlpha24,
+        fadedLighter: defaultColors.grayAlpha16,
 
-        // Semantic Status Colors (Dark Mode)
-        faded: 'rgb(123, 123, 123)',
-        fadedDark: 'rgb(209, 209, 209)', // inverted
-        fadedLight: 'rgba(163, 163, 163, 0.24)', // alpha variant
-        fadedLighter: 'rgba(163, 163, 163, 0.16)', // alpha variant
+        informationDark: defaultColors.blue400,
+        information: defaultColors.blue600,
+        informationLight: defaultColors.blueAlpha24,
+        informationLighter: defaultColors.blueAlpha16,
 
-        information: 'rgb(59, 130, 246)',
-        informationDark: 'rgb(96, 165, 250)', // brighter for dark mode
-        informationLight: 'rgba(59, 130, 246, 0.24)', // alpha variant
-        informationLighter: 'rgba(59, 130, 246, 0.16)', // alpha variant
+        warningDark: defaultColors.orange400,
+        warning: defaultColors.orange600,
+        warningLight: defaultColors.orangeAlpha24,
+        warningLighter: defaultColors.orangeAlpha16,
 
-        warning: 'rgb(249, 115, 22)',
-        warningDark: 'rgb(251, 146, 60)', // brighter for dark mode
-        warningLight: 'rgba(249, 115, 22, 0.24)', // alpha variant
-        warningLighter: 'rgba(249, 115, 22, 0.16)', // alpha variant
+        errorDark: defaultColors.red400,
+        error: defaultColors.red600,
+        errorLight: defaultColors.redAlpha24,
+        errorLighter: defaultColors.redAlpha16,
 
-        error: 'rgb(239, 68, 68)',
-        errorDark: 'rgb(248, 113, 113)', // brighter for dark mode
-        errorLight: 'rgba(239, 68, 68, 0.24)', // alpha variant
-        errorLighter: 'rgba(239, 68, 68, 0.16)', // alpha variant
+        successDark: defaultColors.green400,
+        success: defaultColors.green600,
+        successLight: defaultColors.greenAlpha24,
+        successLighter: defaultColors.greenAlpha16,
 
-        success: 'rgb(34, 197, 94)',
-        successDark: 'rgb(74, 222, 128)', // brighter for dark mode
-        successLight: 'rgba(34, 197, 94, 0.24)', // alpha variant
-        successLighter: 'rgba(34, 197, 94, 0.16)', // alpha variant
+        awayDark: defaultColors.yellow400,
+        away: defaultColors.yellow600,
+        awayLight: defaultColors.yellowAlpha24,
+        awayLighter: defaultColors.yellowAlpha16,
 
-        away: 'rgb(234, 179, 8)',
-        awayDark: 'rgb(250, 204, 21)', // brighter for dark mode
-        awayLight: 'rgba(234, 179, 8, 0.24)', // alpha variant
-        awayLighter: 'rgba(234, 179, 8, 0.16)', // alpha variant
+        featureDark: defaultColors.purple400,
+        feature: defaultColors.purple600,
+        featureLight: defaultColors.purpleAlpha24,
+        featureLighter: defaultColors.purpleAlpha16,
 
-        feature: 'rgb(124, 94, 255)',
-        featureDark: 'rgb(147, 128, 255)', // brighter for dark mode
-        featureLight: 'rgba(124, 94, 255, 0.24)', // alpha variant
-        featureLighter: 'rgba(124, 94, 255, 0.16)', // alpha variant
+        verifiedDark: defaultColors.sky400,
+        verified: defaultColors.sky600,
+        verifiedLight: defaultColors.skyAlpha24,
+        verifiedLighter: defaultColors.skyAlpha16,
 
-        verified: 'rgb(14, 165, 233)',
-        verifiedDark: 'rgb(56, 189, 248)', // brighter for dark mode
-        verifiedLight: 'rgba(14, 165, 233, 0.24)', // alpha variant
-        verifiedLighter: 'rgba(14, 165, 233, 0.16)', // alpha variant
+        highlightedDark: defaultColors.pink400,
+        highlighted: defaultColors.pink600,
+        highlightedLight: defaultColors.pinkAlpha24,
+        highlightedLighter: defaultColors.pinkAlpha16,
 
-        highlighted: 'rgb(236, 72, 153)',
-        highlightedDark: 'rgb(244, 114, 182)', // brighter for dark mode
-        highlightedLight: 'rgba(236, 72, 153, 0.24)', // alpha variant
-        highlightedLighter: 'rgba(236, 72, 153, 0.16)', // alpha variant
-
-        stable: 'rgb(20, 184, 166)',
-        stableDark: 'rgb(45, 212, 191)', // brighter for dark mode
-        stableLight: 'rgba(20, 184, 166, 0.24)', // alpha variant
-        stableLighter: 'rgba(20, 184, 166, 0.16)', // alpha variant
+        stableDark: defaultColors.teal400,
+        stable: defaultColors.teal600,
+        stableLight: defaultColors.tealAlpha24,
+        stableLighter: defaultColors.tealAlpha16,
     },
 } as const;

@@ -24,7 +24,7 @@ function HeaderLeftButton() {
 }
 
 export default function AuthLayout() {
-    const textColor = useThemeColor({}, 'textStrong');
+    const textColor = useThemeColor({}, 'textStrong950');
 
     return (
         <Stack

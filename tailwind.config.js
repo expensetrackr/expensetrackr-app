@@ -478,12 +478,12 @@ module.exports = {
                 },
             },
             primary: {
-                dark: 'hsl(var(--primary-dark))',
                 darker: 'hsl(var(--primary-darker))',
+                dark: 'hsl(var(--primary-dark))',
                 base: 'hsl(var(--primary-base))',
-                'alpha-24': 'hsl(var(--primary-alpha-24))',
-                'alpha-16': 'hsl(var(--primary-alpha-16))',
-                'alpha-10': 'hsl(var(--primary-alpha-10))',
+                light: 'hsl(var(--primary-alpha-light))',
+                lighter: 'hsl(var(--primary-alpha-lighter))',
+                lightest: 'hsl(var(--primary-alpha-lightest))',
             },
             static: {
                 black: 'hsl(var(--static-black))',

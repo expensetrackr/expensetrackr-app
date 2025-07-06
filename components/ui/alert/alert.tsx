@@ -105,7 +105,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                     style={typeof materialWidth === 'number' ? { width: materialWidth } : undefined}>
                                     {!!materialIcon && (
                                         <View className="items-center pb-4">
-                                            <Icon color={colors.textStrong} size={27} {...materialIcon} />
+                                            <Icon color={colors.iconSub600} size={27} {...materialIcon} />
                                         </View>
                                     )}
                                     {!!message ? (
