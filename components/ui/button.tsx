@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Platform, Pressable, PressableProps, View, ViewStyle } from 'react-native';
 
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
-import { COLORS } from '#/theme/colors.ts';
+import { colors } from '#/theme/colors.ts';
 import { cn } from '#/utils/cn.ts';
 import { tv, VariantProps } from '#/utils/tv.ts';
 
@@ -87,16 +87,16 @@ function convertToRGBA(rgb: string, opacity: number): string {
 
 const ANDROID_RIPPLE = {
     dark: {
-        primary: { color: convertToRGBA(COLORS.dark.grey3, 0.4), borderless: false },
-        secondary: { color: convertToRGBA(COLORS.dark.grey5, 0.8), borderless: false },
-        plain: { color: convertToRGBA(COLORS.dark.grey5, 0.8), borderless: false },
-        tonal: { color: convertToRGBA(COLORS.dark.grey5, 0.8), borderless: false },
+        primary: { color: convertToRGBA(colors.dark.neutral300, 0.4), borderless: false },
+        secondary: { color: convertToRGBA(colors.dark.neutral500, 0.8), borderless: false },
+        plain: { color: convertToRGBA(colors.dark.neutral500, 0.8), borderless: false },
+        tonal: { color: convertToRGBA(colors.dark.neutral500, 0.8), borderless: false },
     },
     light: {
-        primary: { color: convertToRGBA(COLORS.light.grey4, 0.4), borderless: false },
-        secondary: { color: convertToRGBA(COLORS.light.grey5, 0.4), borderless: false },
-        plain: { color: convertToRGBA(COLORS.light.grey5, 0.4), borderless: false },
-        tonal: { color: convertToRGBA(COLORS.light.grey6, 0.4), borderless: false },
+        primary: { color: convertToRGBA(colors.light.neutral400, 0.4), borderless: false },
+        secondary: { color: convertToRGBA(colors.light.neutral500, 0.4), borderless: false },
+        plain: { color: convertToRGBA(colors.light.neutral500, 0.4), borderless: false },
+        tonal: { color: convertToRGBA(colors.light.neutral600, 0.4), borderless: false },
     },
 };
 

@@ -118,7 +118,7 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
                             accessibilityLabel={label}
                             accessibilityRole="text"
                             className={cn(
-                                'flex-1 rounded py-3 pl-2.5 text-[17px] text-foreground dark:placeholder:text-white/30',
+                                'rounded text-foreground flex-1 py-3 pl-2.5 text-[17px] dark:placeholder:text-white/30',
                                 materialVariant === 'filled' && !!label && 'pb-2 pt-5',
                                 className,
                             )}
@@ -309,7 +309,7 @@ function MaterialClearIcon(props: MaterialClearIconProps) {
                 className="flex-1 justify-center px-2 active:opacity-65"
                 disabled={props.editable === false}
                 onPress={props.clearText}>
-                <Icon color={colors.grey2} name="close-circle-outline" size={24} />
+                <Icon color={colors.neutral200} name="close-circle-outline" size={24} />
             </Pressable>
         </Animated.View>
     );
@@ -324,7 +324,7 @@ function MaterialErrorIcon() {
             exiting={FadeOut.duration(200)}
             pointerEvents="none">
             <Icon
-                color={colors.destructive}
+                color={colors.error}
                 materialIcon={{
                     name: 'alert-circle',
                     type: 'MaterialCommunityIcons',

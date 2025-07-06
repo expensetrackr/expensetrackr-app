@@ -1,28 +1,28 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 
-import { COLORS } from './colors';
+import { colors } from './colors';
 
 const NAV_THEME = {
     light: {
         ...DefaultTheme,
         colors: {
-            background: COLORS.light.background,
-            border: COLORS.light.grey5,
-            card: COLORS.light.card,
-            notification: COLORS.light.destructive,
-            primary: COLORS.light.primary,
-            text: COLORS.black,
+            background: colors.light.bgWhite,
+            border: colors.light.strokeSoft,
+            card: colors.light.bgWhite,
+            notification: colors.light.error,
+            primary: colors.light.primary,
+            text: colors.light.textStrong,
         },
     },
     dark: {
         ...DarkTheme,
         colors: {
-            background: COLORS.dark.background,
-            border: COLORS.dark.grey5,
-            card: COLORS.dark.grey6,
-            notification: COLORS.dark.destructive,
-            primary: COLORS.dark.primary,
-            text: COLORS.white,
+            background: colors.dark.bgWhite,
+            border: colors.dark.strokeSoft,
+            card: colors.dark.bgWhite,
+            notification: colors.dark.error,
+            primary: colors.dark.primary,
+            text: colors.dark.textStrong,
         },
     },
 };

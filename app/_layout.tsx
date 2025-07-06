@@ -13,11 +13,11 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import 'react-native-reanimated';
 import { Toaster } from 'sonner-native';
 
-import { Colors } from '#/constants/Colors.ts';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
 import { setAndroidNavigationBar } from '#/lib/android-navigation-bar.ts';
 import { QueryClientProvider } from '#/providers/query-client-provider.tsx';
 import { SessionProvider } from '#/providers/session-provider.tsx';
+import { colors } from '#/theme/colors.ts';
 import '../global.css';
 
 // Set the animation options. This is optional.
@@ -31,15 +31,29 @@ SplashScreen.preventAutoHideAsync();
 
 const LIGHT_THEME: Theme = {
     ...DefaultTheme,
-    colors: Colors.light,
+    colors: {
+        background: colors.light.bgWhite,
+        card: colors.light.bgWhite,
+        text: colors.light.textStrong,
+        border: colors.light.strokeSoft,
+        notification: colors.light.error,
+        primary: colors.light.primary,
+    },
 };
 const DARK_THEME: Theme = {
     ...DarkTheme,
-    colors: Colors.dark,
+    colors: {
+        background: colors.dark.bgWhite,
+        card: colors.dark.bgWhite,
+        text: colors.dark.textStrong,
+        border: colors.dark.strokeSoft,
+        notification: colors.dark.error,
+        primary: colors.dark.primary,
+    },
 };
 
 export const unstable_settings = {
-    initialRouteName: '(authenticated)/home',
+    initialRouteName: '(authenticated)',
 };
 
 export default function RootLayout() {
@@ -87,7 +101,7 @@ export default function RootLayout() {
                         <KeyboardProvider navigationBarTranslucent statusBarTranslucent>
                             <MotiView
                                 animate={{ opacity: 1 }}
-                                className="flex-1 bg-background"
+                                className="bg-background flex-1"
                                 from={{ opacity: 0 }}
                                 transition={{ type: 'timing' }}
                                 onLayout={onLayoutRootView}>

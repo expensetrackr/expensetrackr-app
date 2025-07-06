@@ -11,20 +11,20 @@ function HeaderLeftButton() {
     if (isForgotPassword) {
         return (
             <Button $variant="plain" className="ios:px-0" onPress={() => router.back()}>
-                <Text className="font-medium text-primary">Back</Text>
+                <Text className="text-primary font-medium">Back</Text>
             </Button>
         );
     }
 
     return (
         <Button $variant="plain" className="ios:px-0" onPress={() => router.dismiss()}>
-            <Text className="font-medium text-primary">Cancel</Text>
+            <Text className="text-primary font-medium">Cancel</Text>
         </Button>
     );
 }
 
 export default function AuthLayout() {
-    const textColor = useThemeColor({}, 'text');
+    const textColor = useThemeColor({}, 'textStrong');
 
     return (
         <Stack

@@ -24,7 +24,7 @@
         "start": "expo start",
         "submit:android": "eas submit --platform android",
         "submit:ios": "eas submit --platform ios",
-        "type-check": "tsc --noEmit",
+        "typecheck": "tsc --noEmit",
         "update": "eas update",
         "web": "expo start --web"
     },
