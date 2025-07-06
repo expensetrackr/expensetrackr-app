@@ -6,7 +6,7 @@ export default function GuestLayout() {
     const { session } = useSession();
 
     if (session) {
-        return <Redirect href="/(authenticated)/home" />;
+        return <Redirect href="/(authenticated)" />;
     }
 
     return (
