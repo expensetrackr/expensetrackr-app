@@ -242,7 +242,7 @@ function FilterTab({
             onPressOut={() => {
                 scale.value = withSpring(1);
             }}>
-            <MaterialCommunityIcons color={isSelected ? '#ffffff' : colors.grey} name={filter.icon} size={16} />
+            <MaterialCommunityIcons color={isSelected ? '#ffffff' : colors.iconSub600} name={filter.icon} size={16} />
             <ThemedText className={cn('text-sm ml-1.5 font-medium', isSelected ? 'text-white' : 'text-text-sub-600')}>
                 {filter.label}
             </ThemedText>
