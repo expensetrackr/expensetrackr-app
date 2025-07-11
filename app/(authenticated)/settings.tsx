@@ -1,4 +1,5 @@
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import { ColorTranslator } from 'colortranslator';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Pressable, ScrollView, Switch, View } from 'react-native';
@@ -179,12 +180,14 @@ function SettingsItem({
             className={cn(
                 'flex-row items-center px-4 py-4',
                 !isLast && 'border-b',
-                isDarkColorScheme ? 'border-grey5' : 'border-stroke-soft-200',
+                isDarkColorScheme ? 'border-strokeSoft200' : 'border-stroke-soft-200',
             )}>
             <View
                 className="mr-3 h-10 w-10 items-center justify-center rounded-full"
-                style={{ backgroundColor: item.color ? `${item.color}20` : colors.grey5 }}>
-                <MaterialCommunityIcons color={item.color || colors.grey} name={item.icon} size={20} />
+                style={{
+                    backgroundColor: item.color ? new ColorTranslator(item.color).setA(0.2).RGBA : colors.fadedLighter,
+                }}>
+                <MaterialCommunityIcons color={item.color || colors.iconSub600} name={item.icon} size={20} />
             </View>
             <View className="flex-1">
                 <ThemedText className="text-base text-text-strong-950">{item.label}</ThemedText>
@@ -194,13 +197,13 @@ function SettingsItem({
             </View>
             {item.isToggle ? (
                 <Switch
-                    thumbColor={item.value ? '#ffffff' : colors.grey3}
-                    trackColor={{ false: colors.grey5, true: colors.primary }}
+                    thumbColor={item.value ? '#ffffff' : colors.iconSoft400}
+                    trackColor={{ false: colors.fadedLighter, true: colors.primary }}
                     value={item.value}
                     onValueChange={item.onToggle}
                 />
             ) : (
-                <Feather color={colors.grey2} name="chevron-right" size={20} />
+                <Feather color={colors.iconSub600} name="chevron-right" size={20} />
             )}
         </View>
     );
@@ -211,7 +214,7 @@ function SettingsItem({
 
     return (
         <AnimatedPressable
-            android_ripple={{ color: colors.grey5 }}
+            android_ripple={{ color: colors.fadedLighter }}
             style={animatedStyle}
             onPressIn={() => {
                 scale.value = withSpring(0.98);
