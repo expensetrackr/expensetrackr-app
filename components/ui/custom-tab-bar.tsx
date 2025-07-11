@@ -3,7 +3,7 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { NavigationRoute, ParamListBase } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
-import React from 'react';
+import { useEffect } from 'react';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
     interpolateColor,
@@ -133,7 +133,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
 
         const focusProgress = useSharedValue(isFocused ? 1 : 0);
 
-        React.useEffect(() => {
+        useEffect(() => {
             focusProgress.value = withTiming(isFocused ? 1 : 0, {
                 duration: 300,
             });
