@@ -146,7 +146,6 @@ export default function SettingsScreen() {
                             {section.items.map((item, index) => (
                                 <SettingsItem
                                     colors={colors}
-                                    isDarkColorScheme={isDarkColorScheme}
                                     isLast={index === section.items.length - 1}
                                     item={item}
                                     key={item.id}
@@ -172,17 +171,7 @@ export default function SettingsScreen() {
     );
 }
 
-function SettingsItem({
-    item,
-    isLast,
-    colors,
-    isDarkColorScheme,
-}: {
-    item: SettingsItemData;
-    isLast: boolean;
-    colors: ColorScheme;
-    isDarkColorScheme: boolean;
-}) {
+function SettingsItem({ item, isLast, colors }: { item: SettingsItemData; isLast: boolean; colors: ColorScheme }) {
     const scale = useSharedValue(1);
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -190,12 +179,7 @@ function SettingsItem({
     }));
 
     const content = (
-        <View
-            className={cn(
-                'flex-row items-center px-4 py-4',
-                !isLast && 'border-b',
-                isDarkColorScheme ? 'border-strokeSoft200' : 'border-stroke-soft-200',
-            )}>
+        <View className={cn('flex-row items-center px-4 py-4', !isLast && 'border-b border-stroke-soft-200')}>
             <View
                 className="mr-3 h-10 w-10 items-center justify-center rounded-full"
                 style={{
