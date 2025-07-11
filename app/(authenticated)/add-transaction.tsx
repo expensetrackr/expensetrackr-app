@@ -201,7 +201,7 @@ function TransactionTypeButton({
                 scale.value = withSpring(1);
             }}>
             <Feather
-                color={isActive ? (type === 'expense' ? '#ef4444' : '#10b981') : colors.grey}
+                color={isActive ? (type === 'expense' ? '#ef4444' : '#10b981') : colors.gray}
                 name={type === 'expense' ? 'arrow-up-circle' : 'arrow-down-circle'}
                 size={20}
             />
