@@ -17,6 +17,13 @@ import { cn } from '#/utils/cn.ts';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
+const formatCurrency = (amount: number): string => {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    }).format(amount);
+};
+
 interface Account {
     id: number;
     name: string;
@@ -133,13 +140,6 @@ function AccountCard({ account, index }: { account: Account; index: number }) {
             },
         ],
     }));
-
-    const formatCurrency = (amount: number): string => {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-        }).format(amount);
-    };
 
     return (
         <Animated.View className="mb-4" entering={FadeInDown.delay(index * 100).springify()}>
