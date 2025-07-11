@@ -68,7 +68,7 @@ export function Badge({
 }
 
 function getCount(count: React.ReactNode, maxCount?: number) {
-    if (maxCount === null) {
+    if (maxCount === null || maxCount === undefined) {
         return count;
     }
     if (typeof count !== 'string' && typeof count !== 'number') {
