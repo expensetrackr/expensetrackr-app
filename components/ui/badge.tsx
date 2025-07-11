@@ -4,7 +4,10 @@ import { cn } from '#/utils/cn.ts';
 
 import { Text } from './text.tsx';
 
-const BORDER_CURVE: ViewStyle = Platform.OS === 'ios' ? { borderCurve: 'continuous' } : {};
+const BORDER_CURVE: ViewStyle = Platform.select({
+    ios: { borderCurve: 'continuous' },
+    default: {},
+});
 
 type TextProps = React.ComponentPropsWithoutRef<typeof Text>;
 
@@ -27,7 +30,7 @@ type BadgeProps = Omit<TextProps, '$variant'> & {
 };
 
 /**
- * Positionning is relative to its parent.
+ * Positioning is relative to its parent.
  * @example With a count
  * <View>
       <Icon name="bell-outline" />
