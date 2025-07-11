@@ -7,6 +7,7 @@ Our color system is based on [AlignUI's color foundation](https://alignui.com/do
 Each color has a scale from 50 (lightest) to 950 (darkest):
 
 ### Primary Colors
+
 - **Gray/Neutral**: Base neutral colors for text, borders, and backgrounds
 - **Blue**: Primary brand color and interactive elements
 - **Orange**: Accent color for highlights and CTAs
@@ -16,7 +17,8 @@ Each color has a scale from 50 (lightest) to 950 (darkest):
 - **Purple**: Secondary accent color
 
 ### Scale Structure
-```
+
+```text
 50  - Very light tint
 100 - Light tint
 200 - Light
@@ -33,8 +35,9 @@ Each color has a scale from 50 (lightest) to 950 (darkest):
 ## Alpha Variants
 
 Each color includes alpha variants for transparency:
+
 - `*-alpha-10`: 10% opacity
-- `*-alpha-16`: 16% opacity  
+- `*-alpha-16`: 16% opacity
 - `*-alpha-24`: 24% opacity
 
 ## Semantic Mappings
@@ -42,16 +45,19 @@ Each color includes alpha variants for transparency:
 Colors are semantically mapped for consistent usage:
 
 ### Text Colors
+
 - `text-strong-950`: Primary text
 - `text-sub-600`: Secondary text
 - `text-white-0`: White text on dark backgrounds
 
 ### Background Colors
+
 - `bg-white-0`: Primary background
 - `bg-weak-50`: Subtle background
 - `bg-soft-200`: Soft background
 
 ### Interactive Colors
+
 - `primary`: Brand color for buttons, links
 - `success`: Success states
 - `error/destructive`: Error states
@@ -67,5 +73,6 @@ Colors are semantically mapped for consistent usage:
 ## Implementation
 
 Colors are defined in `global.css` and accessed through:
+
 - Tailwind classes: `bg-blue-500`, `text-red-600`
 - useColorScheme hook: `colors.primary`, `colors.textSub600`
