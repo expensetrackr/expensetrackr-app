@@ -12,6 +12,26 @@ import { cn } from '#/utils/cn.ts';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
+interface FilterData {
+    id: string;
+    label: string;
+    icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'] | string;
+}
+
+interface TransactionData {
+    id: number;
+    name: string;
+    category: string;
+    amount: string;
+    time: string;
+    icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'] | string;
+    color: string;
+}
+
+interface ColorScheme {
+    [key: string]: string;
+}
+
 export default function TransactionsScreen() {
     const insets = useSafeAreaInsets();
     const { isDarkColorScheme, colors } = useColorScheme();
@@ -217,10 +237,10 @@ function FilterTab({
     onPress,
     colors,
 }: {
-    filter: any;
+    filter: FilterData;
     isSelected: boolean;
     onPress: () => void;
-    colors: any;
+    colors: ColorScheme;
 }) {
     const scale = useSharedValue(1);
 
@@ -242,7 +262,11 @@ function FilterTab({
             onPressOut={() => {
                 scale.value = withSpring(1);
             }}>
-            <MaterialCommunityIcons color={isSelected ? '#ffffff' : colors.iconSub600} name={filter.icon} size={16} />
+            <MaterialCommunityIcons
+                color={isSelected ? '#ffffff' : colors.iconSub600}
+                name={filter.icon as React.ComponentProps<typeof MaterialCommunityIcons>['name']}
+                size={16}
+            />
             <ThemedText className={cn('text-sm ml-1.5 font-medium', isSelected ? 'text-white' : 'text-text-sub-600')}>
                 {filter.label}
             </ThemedText>
@@ -255,7 +279,7 @@ function TransactionItem({
     isLast,
     isDarkColorScheme,
 }: {
-    transaction: any;
+    transaction: TransactionData;
     isLast: boolean;
     isDarkColorScheme: boolean;
 }) {
@@ -283,7 +307,11 @@ function TransactionItem({
                 <View
                     className="mr-3 h-12 w-12 items-center justify-center rounded-full"
                     style={{ backgroundColor: `${transaction.color}20` }}>
-                    <MaterialCommunityIcons color={transaction.color} name={transaction.icon} size={24} />
+                    <MaterialCommunityIcons
+                        color={transaction.color}
+                        name={transaction.icon as React.ComponentProps<typeof MaterialCommunityIcons>['name']}
+                        size={24}
+                    />
                 </View>
                 <View className="flex-1">
                     <ThemedText className="text-base font-medium text-text-strong-950">{transaction.name}</ThemedText>
