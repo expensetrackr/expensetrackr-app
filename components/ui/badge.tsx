@@ -82,5 +82,5 @@ function getCount(count: React.ReactNode, maxCount?: number) {
         return count;
     }
 
-    return countNumber <= (maxCount ?? 0) ? count : `${maxCount ?? 0}+`;
+    return countNumber <= maxCount ? count : `${maxCount}+`;
 }
