@@ -25,7 +25,11 @@ interface TabConfig {
     label: string;
 }
 
-const TAB_CONFIG: Record<string, TabConfig> = {
+interface CustomTabBarProps extends BottomTabBarProps {
+    tabConfig?: Record<string, TabConfig>;
+}
+
+const DEFAULT_TAB_CONFIG: Record<string, TabConfig> = {
     index: { name: 'index', icon: 'home', label: 'Home' },
     accounts: { name: 'accounts', icon: 'credit-card', label: 'Accounts' },
     'add-transaction': { name: 'add-transaction', icon: 'plus', label: 'Add' },
@@ -33,7 +37,7 @@ const TAB_CONFIG: Record<string, TabConfig> = {
     settings: { name: 'settings', icon: 'settings', label: 'Settings' },
 };
 
-export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
+export function CustomTabBar({ state, navigation, tabConfig = DEFAULT_TAB_CONFIG }: CustomTabBarProps) {
     const insets = useSafeAreaInsets();
     const { colors } = useColorScheme();
 
@@ -129,7 +133,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
 
     const TabButton = ({ route, index }: { route: NavigationRoute<ParamListBase, string>; index: number }) => {
         const isFocused = state.index === index;
-        const tabConfig = TAB_CONFIG[route.name];
+        const tabInfo = tabConfig[route.name];
 
         const focusProgress = useSharedValue(isFocused ? 1 : 0);
 
@@ -167,14 +171,14 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
         return (
             <Animated.View style={[styles.tabContainer, animatedStyle]}>
                 <AnimatedPressable
-                    accessibilityHint={`Navigate to ${tabConfig.label}`}
-                    accessibilityLabel={tabConfig.label}
+                    accessibilityHint={`Navigate to ${tabInfo.label}`}
+                    accessibilityLabel={tabInfo.label}
                     accessibilityRole="tab"
                     accessibilityState={{ selected: isFocused }}
                     style={styles.tabButton}
                     testID={`tab-${route.name}`}
                     onPress={() => handleTabPress(route)}>
-                    <AnimatedFeather name={tabConfig.icon} size={24} style={animatedIconStyle} />
+                    <AnimatedFeather name={tabInfo.icon} size={24} style={animatedIconStyle} />
                     <Animated.View
                         style={[
                             {
