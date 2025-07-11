@@ -11,6 +11,8 @@ export default function DashboardScreen() {
     const insets = useSafeAreaInsets();
     const { colors } = useColorScheme();
 
+    // TODO: Fetch user data from authentication context or API
+    // TODO: Fetch financial metrics from API
     const metrics = [
         {
             title: 'Income',
@@ -30,6 +32,7 @@ export default function DashboardScreen() {
         },
     ];
 
+    // TODO: Fetch category spending data from API
     const categorySpending = [
         { name: 'Food & Dining', amount: '$1,230', color: '#FF6B35', percentage: 35 },
         { name: 'Transportation', amount: '$890', color: '#4F46E5', percentage: 25 },
@@ -51,6 +54,7 @@ export default function DashboardScreen() {
                     <View className="flex-1">
                         <ThemedText className="text-base mb-1 text-text-sub-600">Good morning 👋</ThemedText>
                         <ThemedText className="text-2xl font-bold tracking-tight text-text-strong-950">
+                            {/* TODO: Replace with actual user name from auth context */}
                             Daniel Esteves
                         </ThemedText>
                     </View>
@@ -72,12 +76,14 @@ export default function DashboardScreen() {
                     entering={FadeInUp.delay(200)}>
                     <ThemedText className="text-base mb-2 text-text-sub-600 opacity-80">Total Balance</ThemedText>
                     <ThemedText className="text-4xl mb-4 font-extrabold tracking-tight text-text-strong-950">
+                        {/* TODO: Replace with actual balance from API */}
                         $12,450.00
                     </ThemedText>
                     <View className="flex-row items-center justify-between">
                         <View className="flex-row items-center rounded-full bg-bg-weak-50 px-3 py-1.5">
                             <Feather color="#10B981" name="trending-up" size={14} />
                             <ThemedText className="text-sm ml-1 font-semibold text-text-sub-600">
+                                {/* TODO: Replace with actual percentage change from API */}
                                 +12.5% this month
                             </ThemedText>
                         </View>
