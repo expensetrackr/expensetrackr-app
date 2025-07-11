@@ -59,7 +59,7 @@ export const unstable_settings = {
 export default function RootLayout() {
     const hasMounted = useRef(false);
     const { colorScheme, isDarkColorScheme } = useColorScheme();
-    const [isColorSchemeLoaded, setIsColorSchemeLoaded] = useState(false);
+    const [isColorSchemeLoaded, setColorSchemeLoaded] = useState(false);
 
     const [fontsLoaded] = useFonts({
         InstrumentSerif_400Regular,
@@ -71,7 +71,7 @@ export default function RootLayout() {
         }
 
         setAndroidNavigationBar(colorScheme);
-        setIsColorSchemeLoaded(true);
+        setColorSchemeLoaded(true);
         hasMounted.current = true;
     }, []);
 
