@@ -21,7 +21,7 @@ const AnimatedFeather = Animated.createAnimatedComponent(Feather);
 
 interface TabConfig {
     name: string;
-    icon: string;
+    icon: React.ComponentProps<typeof Feather>['name'];
     label: string;
 }
 
@@ -174,7 +174,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
                     style={styles.tabButton}
                     testID={`tab-${route.name}`}
                     onPress={() => handleTabPress(route)}>
-                    <AnimatedFeather name={tabConfig.icon as any} size={24} style={animatedIconStyle} />
+                    <AnimatedFeather name={tabConfig.icon} size={24} style={animatedIconStyle} />
                     <Animated.View
                         style={[
                             {
