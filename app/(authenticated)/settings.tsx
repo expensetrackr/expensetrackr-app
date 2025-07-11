@@ -13,6 +13,20 @@ import { cn } from '#/utils/cn.ts';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
+interface SettingsItemData {
+    id: string;
+    label: string;
+    icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'] | string;
+    color?: string;
+    value?: string | boolean;
+    isToggle?: boolean;
+    onToggle?: () => void;
+}
+
+interface ColorScheme {
+    [key: string]: string;
+}
+
 export default function SettingsScreen() {
     const insets = useSafeAreaInsets();
     const { isDarkColorScheme, colors, toggleColorScheme } = useColorScheme();
@@ -164,9 +178,9 @@ function SettingsItem({
     colors,
     isDarkColorScheme,
 }: {
-    item: any;
+    item: SettingsItemData;
     isLast: boolean;
-    colors: any;
+    colors: ColorScheme;
     isDarkColorScheme: boolean;
 }) {
     const scale = useSharedValue(1);
@@ -187,7 +201,11 @@ function SettingsItem({
                 style={{
                     backgroundColor: item.color ? new ColorTranslator(item.color).setA(0.2).RGBA : colors.fadedLighter,
                 }}>
-                <MaterialCommunityIcons color={item.color || colors.iconSub600} name={item.icon} size={20} />
+                <MaterialCommunityIcons
+                    color={item.color || colors.iconSub600}
+                    name={item.icon as React.ComponentProps<typeof MaterialCommunityIcons>['name']}
+                    size={20}
+                />
             </View>
             <View className="flex-1">
                 <ThemedText className="text-base text-text-strong-950">{item.label}</ThemedText>
@@ -199,7 +217,7 @@ function SettingsItem({
                 <Switch
                     thumbColor={item.value ? '#ffffff' : colors.iconSoft400}
                     trackColor={{ false: colors.fadedLighter, true: colors.primary }}
-                    value={item.value}
+                    value={!!item.value}
                     onValueChange={item.onToggle}
                 />
             ) : (
