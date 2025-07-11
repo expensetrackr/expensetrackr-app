@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Platform, View, ViewStyle } from 'react-native';
 
 import { cn } from '#/utils/cn.ts';
@@ -50,6 +49,8 @@ export function Badge({
 }: BadgeProps) {
     return (
         <View
+            accessibilityLabel={children ? `Badge with count ${getCount(children, maxCount)}` : 'Badge indicator'}
+            accessibilityRole="text"
             className={cn(
                 variant === 'info' ? 'bg-primary' : variant === 'destructive' ? 'bg-destructive' : '',
                 'absolute z-50 items-center justify-center rounded-full text-center',
