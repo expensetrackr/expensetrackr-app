@@ -18,6 +18,16 @@ import { cn } from '#/utils/cn.ts';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
+interface Account {
+    id: number;
+    name: string;
+    type: string;
+    balance: string;
+    accountNumber: string;
+    gradient: readonly [string, string];
+    icon: string;
+}
+
 export default function AccountsScreen() {
     const insets = useSafeAreaInsets();
     const { isDarkColorScheme, colors } = useColorScheme();
@@ -119,7 +129,7 @@ export default function AccountsScreen() {
     );
 }
 
-function AccountCard({ account, index }: { account: any; index: number }) {
+function AccountCard({ account, index }: { account: Account; index: number }) {
     const pressed = useSharedValue(0);
 
     const animatedStyle = useAnimatedStyle(() => ({
