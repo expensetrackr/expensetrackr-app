@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { View, ViewStyle } from 'react-native';
+import { Platform, View, ViewStyle } from 'react-native';
 
 import { cn } from '#/utils/cn.ts';
 
 import { Text } from './text.tsx';
 
-const BORDER_CURVE: ViewStyle = {
-    borderCurve: 'continuous',
-};
+const BORDER_CURVE: ViewStyle = Platform.OS === 'ios' ? { borderCurve: 'continuous' } : {};
 
 type TextProps = React.ComponentPropsWithoutRef<typeof Text>;
 
