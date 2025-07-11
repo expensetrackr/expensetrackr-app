@@ -15,6 +15,13 @@ import { cn } from '#/utils/cn.ts';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
+interface Category {
+    id: string;
+    name: string;
+    icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'] | string;
+    color: string;
+}
+
 export default function AddTransactionScreen() {
     const insets = useSafeAreaInsets();
     const { isDarkColorScheme, colors } = useColorScheme();
@@ -215,7 +222,7 @@ function CategoryButton({
     onPress,
     isDarkColorScheme,
 }: {
-    category: any;
+    category: Category;
     isSelected: boolean;
     onPress: () => void;
     isDarkColorScheme: boolean;
@@ -249,7 +256,11 @@ function CategoryButton({
                 <View
                     className="mb-2 h-12 w-12 items-center justify-center rounded-full"
                     style={{ backgroundColor: `${category.color}20` }}>
-                    <MaterialCommunityIcons color={category.color} name={category.icon} size={24} />
+                    <MaterialCommunityIcons
+                        color={category.color}
+                        name={category.icon as React.ComponentProps<typeof MaterialCommunityIcons>['name']}
+                        size={24}
+                    />
                 </View>
                 <ThemedText className="text-xs text-center text-text-strong-950">{category.name}</ThemedText>
             </View>
