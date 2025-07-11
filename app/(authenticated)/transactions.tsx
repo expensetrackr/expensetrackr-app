@@ -34,7 +34,7 @@ interface ColorScheme {
 
 export default function TransactionsScreen() {
     const insets = useSafeAreaInsets();
-    const { isDarkColorScheme, colors } = useColorScheme();
+    const { colors } = useColorScheme();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedFilter, setSelectedFilter] = useState('all');
 
@@ -213,11 +213,7 @@ export default function TransactionsScreen() {
                 }}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item, index, section }) => (
-                    <TransactionItem
-                        isDarkColorScheme={isDarkColorScheme}
-                        isLast={index === section.data.length - 1}
-                        transaction={item}
-                    />
+                    <TransactionItem isLast={index === section.data.length - 1} transaction={item} />
                 )}
                 renderSectionHeader={({ section: { title } }) => (
                     <View className="bg-bg-white-0 px-5 py-2">
@@ -274,15 +270,7 @@ function FilterTab({
     );
 }
 
-function TransactionItem({
-    transaction,
-    isLast,
-    isDarkColorScheme,
-}: {
-    transaction: TransactionData;
-    isLast: boolean;
-    isDarkColorScheme: boolean;
-}) {
+function TransactionItem({ transaction, isLast }: { transaction: TransactionData; isLast: boolean }) {
     const scale = useSharedValue(1);
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -298,12 +286,7 @@ function TransactionItem({
             onPressOut={() => {
                 scale.value = withSpring(1);
             }}>
-            <View
-                className={cn(
-                    'flex-row items-center px-5 py-4',
-                    !isLast && 'border-b',
-                    isDarkColorScheme ? 'border-grey5' : 'border-stroke-soft-200',
-                )}>
+            <View className={cn('flex-row items-center px-5 py-4', !isLast && 'border-b border-stroke-soft-200')}>
                 <View
                     className="mr-3 h-12 w-12 items-center justify-center rounded-full"
                     style={{ backgroundColor: `${transaction.color}20` }}>
