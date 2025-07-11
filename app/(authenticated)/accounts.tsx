@@ -24,7 +24,7 @@ interface Account {
     balance: number;
     accountNumber: string;
     gradient: readonly [string, string];
-    icon: string;
+    icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
 }
 
 export default function AccountsScreen() {
