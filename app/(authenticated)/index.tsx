@@ -40,9 +40,12 @@ export default function DashboardScreen() {
         <View className="flex-1">
             <ScrollView
                 className="flex-1"
-                contentContainerStyle={{ paddingHorizontal: 20 }}
-                showsVerticalScrollIndicator={false}
-                style={{ paddingTop: insets.top + 16, paddingBottom: insets.bottom + 120 }}>
+                contentContainerStyle={{
+                    paddingHorizontal: 20,
+                    paddingTop: insets.top + 16,
+                    paddingBottom: insets.bottom + 120,
+                }}
+                showsVerticalScrollIndicator={false}>
                 {/* Header */}
                 <Animated.View className="mb-8 flex-row items-center justify-between" entering={FadeInUp.delay(100)}>
                     <View className="flex-1">
