@@ -1,5 +1,4 @@
 import { Feather } from '@expo/vector-icons';
-import React from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import Animated, { FadeInRight, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,7 +12,14 @@ export default function DashboardScreen() {
 
     // TODO: Fetch user data from authentication context or API
     // TODO: Fetch financial metrics from API
-    const metrics = [
+    const metrics: {
+        title: string;
+        amount: string;
+        change: string;
+        isPositive: boolean;
+        icon: React.ComponentProps<typeof Feather>['name'];
+        color: string;
+    }[] = [
         {
             title: 'Income',
             amount: '$8,250',
@@ -111,7 +117,7 @@ export default function DashboardScreen() {
                                     {metric.title}
                                 </ThemedText>
                                 <View className="flex-row items-center">
-                                    <Feather color={metric.color} name={metric.icon as any} size={14} />
+                                    <Feather color={metric.color} name={metric.icon} size={14} />
                                     <ThemedText className="text-xs ml-1 font-semibold" style={{ color: metric.color }}>
                                         {metric.change}
                                     </ThemedText>

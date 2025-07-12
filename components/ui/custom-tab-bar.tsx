@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
+    cancelAnimation,
     interpolateColor,
     useAnimatedStyle,
     useSharedValue,
@@ -141,6 +142,10 @@ export function CustomTabBar({ state, navigation, tabConfig = DEFAULT_TAB_CONFIG
             focusProgress.value = withTiming(isFocused ? 1 : 0, {
                 duration: 300,
             });
+
+            return () => {
+                cancelAnimation(focusProgress);
+            };
         }, [isFocused]);
 
         const animatedStyle = useAnimatedStyle(() => {

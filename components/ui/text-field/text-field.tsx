@@ -78,6 +78,8 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
 
         return (
             <Pressable
+                accessibilityLabel="Clear text"
+                accessibilityRole="button"
                 className={rootVariants({
                     $variant: materialVariant,
                     $state: getInputState({
@@ -118,7 +120,7 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
                             accessibilityLabel={label}
                             accessibilityRole="text"
                             className={cn(
-                                'rounded text-foreground flex-1 py-3 pl-2.5 text-[17px] dark:placeholder:text-white/30',
+                                'rounded text-foreground flex-1 py-3 pl-2.5 text-[17px] placeholder:text-text-disabled-300',
                                 materialVariant === 'filled' && !!label && 'pb-2 pt-5',
                                 className,
                             )}

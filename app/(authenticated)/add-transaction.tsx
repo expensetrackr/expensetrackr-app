@@ -11,6 +11,7 @@ import { ThemedView } from '#/components/ThemedView.tsx';
 import { Button } from '#/components/ui/button.tsx';
 import { TextField } from '#/components/ui/text-field/index.ts';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
+import { colors } from '#/theme/colors.ts';
 import { cn } from '#/utils/cn.ts';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -29,6 +30,17 @@ export default function AddTransactionScreen() {
     const [amount, setAmount] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [note, setNote] = useState('');
+    const [amountError, setAmountError] = useState('');
+
+    const validateAmount = (value: string) => {
+        const regex = /^\d+(\.\d{0,2})?$/;
+        if (value && !regex.test(value)) {
+            setAmountError('Please enter a valid amount (e.g., 10.50)');
+            return false;
+        }
+        setAmountError('');
+        return true;
+    };
 
     const categories = {
         expense: [
@@ -110,9 +122,15 @@ export default function AddTransactionScreen() {
                                 placeholder="0.00"
                                 style={{ fontSize: 28 }}
                                 value={amount}
-                                onChangeText={setAmount}
+                                onChangeText={(text) => {
+                                    setAmount(text);
+                                    validateAmount(text);
+                                }}
                             />
                         </View>
+                        {amountError ? (
+                            <ThemedText className="text-sm mt-1 text-error-base">{amountError}</ThemedText>
+                        ) : null}
                     </Animated.View>
 
                     {/* Category Selection */}
@@ -149,7 +167,7 @@ export default function AddTransactionScreen() {
                         <Button
                             $size="lg"
                             className="w-full"
-                            disabled={!amount || !selectedCategory}
+                            disabled={!amount || !selectedCategory || !!amountError}
                             onPress={() => {
                                 // Here you would typically save the transaction
                                 // For now, we'll just navigate back
@@ -163,6 +181,17 @@ export default function AddTransactionScreen() {
                             />
                             <ThemedText className="text-lg font-semibold text-white">Save Transaction</ThemedText>
                         </Button>
+                        {(!amount || !selectedCategory || !!amountError) && (
+                            <ThemedText className="text-sm mt-2 text-center text-error-base">
+                                {amountError
+                                    ? amountError
+                                    : !amount
+                                      ? 'Please enter an amount.'
+                                      : !selectedCategory
+                                        ? 'Please select a category.'
+                                        : ''}
+                            </ThemedText>
+                        )}
                     </Animated.View>
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -170,19 +199,15 @@ export default function AddTransactionScreen() {
     );
 }
 
-function TransactionTypeButton({
-    type,
-    label,
-    isActive,
-    onPress,
-    colors,
-}: {
+interface TransactionTypeButtonProps {
     type: 'expense' | 'income';
     label: string;
     isActive: boolean;
     onPress: () => void;
-    colors: any;
-}) {
+    colors: typeof colors.light | typeof colors.dark;
+}
+
+function TransactionTypeButton({ type, label, isActive, onPress, colors }: TransactionTypeButtonProps) {
     const scale = useSharedValue(1);
 
     const animatedStyle = useAnimatedStyle(() => ({

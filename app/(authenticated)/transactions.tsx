@@ -253,6 +253,10 @@ function FilterTab({
 
     return (
         <AnimatedPressable
+            accessible
+            accessibilityLabel={`${filter.label} filter`}
+            accessibilityRole="button"
+            accessibilityState={{ selected: isSelected }}
             className={cn(
                 'mr-2 flex-row items-center rounded-full px-4 py-2',
                 isSelected ? 'bg-primary' : 'bg-bg-weak-50',
@@ -266,7 +270,7 @@ function FilterTab({
                 scale.value = withSpring(1);
             }}>
             <MaterialCommunityIcons
-                color={isSelected ? '#ffffff' : colors.iconSub600}
+                color={isSelected ? colors.textWhite0 : colors.iconSub600}
                 name={filter.icon as React.ComponentProps<typeof MaterialCommunityIcons>['name']}
                 size={16}
             />
@@ -287,6 +291,9 @@ function TransactionItem({ transaction, isLast }: { transaction: TransactionData
 
     return (
         <AnimatedPressable
+            accessible
+            accessibilityLabel={`${transaction.name}, ${transaction.category}, ${transaction.amount}`}
+            accessibilityRole="button"
             style={animatedStyle}
             onPressIn={() => {
                 scale.value = withSpring(0.98);
