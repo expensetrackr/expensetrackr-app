@@ -32,19 +32,19 @@ export default function AddTransactionScreen() {
 
     const categories = {
         expense: [
-            { id: 'food', name: 'Food & Dining', icon: 'food-fork-drink', color: '#ef4444' },
-            { id: 'transport', name: 'Transportation', icon: 'car', color: '#3b82f6' },
-            { id: 'shopping', name: 'Shopping', icon: 'shopping', color: '#8b5cf6' },
-            { id: 'entertainment', name: 'Entertainment', icon: 'movie-open', color: '#ec4899' },
-            { id: 'bills', name: 'Bills & Utilities', icon: 'receipt', color: '#f59e0b' },
-            { id: 'health', name: 'Healthcare', icon: 'hospital-box', color: '#10b981' },
+            { id: 'food', name: 'Food & Dining', icon: 'food-fork-drink', color: 'error' },
+            { id: 'transport', name: 'Transportation', icon: 'car', color: 'information' },
+            { id: 'shopping', name: 'Shopping', icon: 'shopping', color: 'feature' },
+            { id: 'entertainment', name: 'Entertainment', icon: 'movie-open', color: 'highlighted' },
+            { id: 'bills', name: 'Bills & Utilities', icon: 'receipt', color: 'warning' },
+            { id: 'health', name: 'Healthcare', icon: 'hospital-box', color: 'success' },
         ],
         income: [
-            { id: 'salary', name: 'Salary', icon: 'cash', color: '#10b981' },
-            { id: 'freelance', name: 'Freelance', icon: 'laptop', color: '#3b82f6' },
-            { id: 'investment', name: 'Investment', icon: 'chart-line', color: '#8b5cf6' },
-            { id: 'gift', name: 'Gift', icon: 'gift', color: '#ec4899' },
-            { id: 'other', name: 'Other', icon: 'dots-horizontal', color: '#6b7280' },
+            { id: 'salary', name: 'Salary', icon: 'cash', color: 'success' },
+            { id: 'freelance', name: 'Freelance', icon: 'laptop', color: 'information' },
+            { id: 'investment', name: 'Investment', icon: 'chart-line', color: 'feature' },
+            { id: 'gift', name: 'Gift', icon: 'gift', color: 'highlighted' },
+            { id: 'other', name: 'Other', icon: 'dots-horizontal', color: 'gray600' },
         ],
     };
 

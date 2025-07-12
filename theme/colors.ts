@@ -363,3 +363,5 @@ export const colors = {
         stableLighter: defaultColors.tealAlpha16,
     },
 } as const;
+
+export type ThemeColors = typeof colors.light | typeof colors.dark;
