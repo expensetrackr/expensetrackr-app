@@ -56,14 +56,17 @@ export default function AddTransactionScreen() {
             { id: 'freelance', name: 'Freelance', icon: 'laptop', color: 'information' },
             { id: 'investment', name: 'Investment', icon: 'chart-line', color: 'feature' },
             { id: 'gift', name: 'Gift', icon: 'gift', color: 'highlighted' },
-            { id: 'other', name: 'Other', icon: 'dots-horizontal', color: 'gray600' },
+            { id: 'other', name: 'Other', icon: 'dots-horizontal', color: 'iconSub600' },
         ],
     };
 
-    const currentCategories = categories[transactionType].map((cat) => ({
-        ...cat,
-        color: colors[cat.color as keyof typeof colors] || cat.color,
-    }));
+    const currentCategories = categories[transactionType].map((cat) => {
+        const colorKey = cat.color as keyof typeof colors;
+        return {
+            ...cat,
+            color: colorKey in colors ? colors[colorKey] : colors.iconSub600,
+        };
+    });
 
     return (
         <ThemedView className="flex-1">

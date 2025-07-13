@@ -78,7 +78,7 @@ const TextField = React.forwardRef<TextFieldRef, TextFieldProps>(
 
         return (
             <Pressable
-                accessibilityLabel="Clear text"
+                accessibilityLabel="Focus text field"
                 accessibilityRole="button"
                 className={rootVariants({
                     $variant: materialVariant,
