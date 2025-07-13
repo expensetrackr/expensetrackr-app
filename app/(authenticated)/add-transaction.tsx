@@ -60,7 +60,10 @@ export default function AddTransactionScreen() {
         ],
     };
 
-    const currentCategories = categories[transactionType];
+    const currentCategories = categories[transactionType].map((cat) => ({
+        ...cat,
+        color: colors[cat.color as keyof typeof colors] || cat.color,
+    }));
 
     return (
         <ThemedView className="flex-1">
@@ -176,7 +179,11 @@ export default function AddTransactionScreen() {
                             }}>
                             <LinearGradient
                                 className="rounded-xl absolute inset-0"
-                                colors={transactionType === 'expense' ? ['#ef4444', '#f87171'] : ['#10b981', '#34d399']}
+                                colors={
+                                    transactionType === 'expense'
+                                        ? [colors.error, colors.errorLight]
+                                        : [colors.success, colors.successLight]
+                                }
                                 end={{ x: 1, y: 0 }}
                                 start={{ x: 0, y: 0 }}
                             />
@@ -217,6 +224,10 @@ function TransactionTypeButton({ type, label, isActive, onPress, colors }: Trans
 
     return (
         <AnimatedPressable
+            accessible
+            accessibilityLabel={`Select ${label} type`}
+            accessibilityRole="button"
+            accessibilityState={{ selected: isActive }}
             className={cn('rounded-lg flex-1 items-center py-3', isActive && 'bg-bg-white-0')}
             style={animatedStyle}
             onPress={onPress}
@@ -261,6 +272,9 @@ function CategoryButton({
 
     return (
         <AnimatedPressable
+            accessible
+            accessibilityLabel={`Select ${category.name} category`}
+            accessibilityRole="button"
             className="mb-3 mr-[2%] w-[31%]"
             style={animatedStyle}
             onPress={onPress}
