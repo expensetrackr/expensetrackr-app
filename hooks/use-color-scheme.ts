@@ -1,6 +1,6 @@
 import { useColorScheme as useNativewindColorScheme } from 'nativewind';
 
-import { COLORS } from '#/theme/colors';
+import { colors } from '#/theme/colors.ts';
 
 export function useColorScheme() {
     const { colorScheme, setColorScheme, toggleColorScheme } = useNativewindColorScheme();
@@ -9,6 +9,6 @@ export function useColorScheme() {
         isDarkColorScheme: colorScheme === 'dark',
         setColorScheme,
         toggleColorScheme,
-        colors: COLORS[colorScheme ?? 'light'],
+        colors: colors[colorScheme ?? 'light'],
     };
 }

@@ -13,11 +13,11 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import 'react-native-reanimated';
 import { Toaster } from 'sonner-native';
 
-import { Colors } from '#/constants/Colors.ts';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
 import { setAndroidNavigationBar } from '#/lib/android-navigation-bar.ts';
 import { QueryClientProvider } from '#/providers/query-client-provider.tsx';
 import { SessionProvider } from '#/providers/session-provider.tsx';
+import { colors } from '#/theme/colors.ts';
 import '../global.css';
 
 // Set the animation options. This is optional.
@@ -31,21 +31,35 @@ SplashScreen.preventAutoHideAsync();
 
 const LIGHT_THEME: Theme = {
     ...DefaultTheme,
-    colors: Colors.light,
+    colors: {
+        background: colors.light.bgWhite0,
+        card: colors.light.bgWhite0,
+        text: colors.light.textStrong950,
+        border: colors.light.strokeSoft200,
+        notification: colors.light.error,
+        primary: colors.light.primary,
+    },
 };
 const DARK_THEME: Theme = {
     ...DarkTheme,
-    colors: Colors.dark,
+    colors: {
+        background: colors.dark.bgWhite0,
+        card: colors.dark.bgWhite0,
+        text: colors.dark.textStrong950,
+        border: colors.dark.strokeSoft200,
+        notification: colors.dark.error,
+        primary: colors.dark.primary,
+    },
 };
 
 export const unstable_settings = {
-    initialRouteName: '(authenticated)/home',
+    initialRouteName: '(authenticated)',
 };
 
 export default function RootLayout() {
     const hasMounted = useRef(false);
     const { colorScheme, isDarkColorScheme } = useColorScheme();
-    const [isColorSchemeLoaded, setIsColorSchemeLoaded] = useState(false);
+    const [isColorSchemeLoaded, setColorSchemeLoaded] = useState(false);
 
     const [fontsLoaded] = useFonts({
         InstrumentSerif_400Regular,
@@ -57,7 +71,7 @@ export default function RootLayout() {
         }
 
         setAndroidNavigationBar(colorScheme);
-        setIsColorSchemeLoaded(true);
+        setColorSchemeLoaded(true);
         hasMounted.current = true;
     }, []);
 
@@ -87,7 +101,7 @@ export default function RootLayout() {
                         <KeyboardProvider navigationBarTranslucent statusBarTranslucent>
                             <MotiView
                                 animate={{ opacity: 1 }}
-                                className="flex-1 bg-background"
+                                className="bg-background flex-1"
                                 from={{ opacity: 0 }}
                                 transition={{ type: 'timing' }}
                                 onLayout={onLayoutRootView}>

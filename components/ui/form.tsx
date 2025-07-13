@@ -28,7 +28,7 @@ type FormSectionProps = ViewProps & {
     materialIconProps?: Omit<IconProps<'material'>, 'namingScheme' | 'ios'>;
 };
 
-const FormSection = React.forwardRef<React.ElementRef<typeof View>, FormSectionProps>(
+const FormSection = React.forwardRef<React.ComponentRef<typeof View>, FormSectionProps>(
     (
         {
             rootClassName,
@@ -76,13 +76,13 @@ const FormSection = React.forwardRef<React.ElementRef<typeof View>, FormSectionP
                 {Platform.OS === 'ios' && !!ios?.title && (
                     <Text
                         $variant="footnote"
-                        className={cn('pb-1 pl-3 uppercase text-muted-foreground', ios?.titleClassName)}>
+                        className={cn('text-muted-foreground pb-1 pl-3 uppercase', ios?.titleClassName)}>
                         {ios.title}
                     </Text>
                 )}
                 {!!materialIconProps && (
                     <View className="ios:hidden pt-0.5">
-                        <Icon color={colors.grey} size={24} {...(materialIconProps as IconProps<'material'>)} />
+                        <Icon color={colors.iconSub600} size={24} {...(materialIconProps as IconProps<'material'>)} />
                     </View>
                 )}
                 <View className="flex-1">
@@ -99,7 +99,7 @@ const FormSection = React.forwardRef<React.ElementRef<typeof View>, FormSectionP
                     {!!footnote && (
                         <Text
                             $variant="footnote"
-                            className={cn('ios:pl-3 ios:pt-1 pl-3 pt-0.5 text-muted-foreground', footnoteClassName)}>
+                            className={cn('ios:pl-3 ios:pt-1 text-muted-foreground pl-3 pt-0.5', footnoteClassName)}>
                             {footnote}
                         </Text>
                     )}
@@ -121,7 +121,7 @@ const FormItem = React.forwardRef<
         <>
             <View className={cn('ios:pr-1', className)} ref={ref} {...props} />
             {Platform.OS === 'ios' && !isLast && (
-                <View className={cn('ml-2 h-px flex-1 bg-border', iosSeparatorClassName)} />
+                <View className={cn('bg-border ml-2 h-px flex-1', iosSeparatorClassName)} />
             )}
         </>
     );

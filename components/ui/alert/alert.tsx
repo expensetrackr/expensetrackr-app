@@ -99,13 +99,13 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                             style={bottomPaddingStyle}>
                             <AlertDialogPrimitive.Content>
                                 <Animated.View
-                                    className="min-w-72 max-w-xl rounded-3xl bg-card p-6 pt-7 shadow-xl"
+                                    className="rounded-3xl bg-card shadow-xl min-w-72 max-w-xl p-6 pt-7"
                                     entering={FadeInDown}
                                     exiting={FadeOutDown}
                                     style={typeof materialWidth === 'number' ? { width: materialWidth } : undefined}>
                                     {!!materialIcon && (
                                         <View className="items-center pb-4">
-                                            <Icon color={colors.foreground} size={27} {...materialIcon} />
+                                            <Icon color={colors.iconSub600} size={27} {...materialIcon} />
                                         </View>
                                     )}
                                     {!!message ? (
@@ -211,7 +211,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                                             : text,
                                                                     );
                                                                 }}>
-                                                                <Text className="text-[14px] font-medium text-primary">
+                                                                <Text className="text-primary text-[14px] font-medium">
                                                                     {button.text}
                                                                 </Text>
                                                             </Button>
@@ -237,7 +237,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                                             : text,
                                                                     );
                                                                 }}>
-                                                                <Text className="text-[14px] font-medium text-foreground">
+                                                                <Text className="text-foreground text-[14px] font-medium">
                                                                     {button.text}
                                                                 </Text>
                                                             </Button>
@@ -261,7 +261,7 @@ const Alert = React.forwardRef<AlertRef, AlertProps>(
                                                                         : text,
                                                                 );
                                                             }}>
-                                                            <Text className="text-[14px] font-medium text-primary">
+                                                            <Text className="text-primary text-[14px] font-medium">
                                                                 {button.text}
                                                             </Text>
                                                         </Button>

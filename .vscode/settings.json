@@ -1,8 +1,11 @@
 {
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit",
+        "source.fixAll.eslint": "always",
         "source.organizeImports": "explicit",
         "source.sortMembers": "explicit"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "javascript.preferences.importModuleSpecifierEnding": "js",
+    "typescript.preferences.importModuleSpecifierEnding": "js"
 }

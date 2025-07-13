@@ -1,9 +1,10 @@
 import * as Slot from '@rn-primitives/slot';
+import { ColorTranslator } from 'colortranslator';
 import * as React from 'react';
 import { Platform, Pressable, PressableProps, View, ViewStyle } from 'react-native';
 
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
-import { COLORS } from '#/theme/colors.ts';
+import { colors } from '#/theme/colors.ts';
 import { cn } from '#/utils/cn.ts';
 import { tv, VariantProps } from '#/utils/tv.ts';
 
@@ -71,32 +72,18 @@ const buttonTextVariants = tv({
     },
 });
 
-function convertToRGBA(rgb: string, opacity: number): string {
-    const rgbValues = rgb.match(/\d+/g);
-    if (!rgbValues || rgbValues.length !== 3) {
-        throw new Error('Invalid RGB color format');
-    }
-    const red = parseInt(rgbValues[0], 10);
-    const green = parseInt(rgbValues[1], 10);
-    const blue = parseInt(rgbValues[2], 10);
-    if (opacity < 0 || opacity > 1) {
-        throw new Error('Opacity must be a number between 0 and 1');
-    }
-    return `rgba(${red},${green},${blue},${opacity})`;
-}
-
 const ANDROID_RIPPLE = {
     dark: {
-        primary: { color: convertToRGBA(COLORS.dark.grey3, 0.4), borderless: false },
-        secondary: { color: convertToRGBA(COLORS.dark.grey5, 0.8), borderless: false },
-        plain: { color: convertToRGBA(COLORS.dark.grey5, 0.8), borderless: false },
-        tonal: { color: convertToRGBA(COLORS.dark.grey5, 0.8), borderless: false },
+        primary: { color: new ColorTranslator(colors.dark.gray300).setA(0.4).RGBA, borderless: false },
+        secondary: { color: new ColorTranslator(colors.dark.gray500).setA(0.8).RGBA, borderless: false },
+        plain: { color: new ColorTranslator(colors.dark.gray500).setA(0.8).RGBA, borderless: false },
+        tonal: { color: new ColorTranslator(colors.dark.gray500).setA(0.8).RGBA, borderless: false },
     },
     light: {
-        primary: { color: convertToRGBA(COLORS.light.grey4, 0.4), borderless: false },
-        secondary: { color: convertToRGBA(COLORS.light.grey5, 0.4), borderless: false },
-        plain: { color: convertToRGBA(COLORS.light.grey5, 0.4), borderless: false },
-        tonal: { color: convertToRGBA(COLORS.light.grey6, 0.4), borderless: false },
+        primary: { color: new ColorTranslator(colors.light.gray400).setA(0.4).RGBA, borderless: false },
+        secondary: { color: new ColorTranslator(colors.light.gray500).setA(0.4).RGBA, borderless: false },
+        plain: { color: new ColorTranslator(colors.light.gray500).setA(0.4).RGBA, borderless: false },
+        tonal: { color: new ColorTranslator(colors.light.gray600).setA(0.4).RGBA, borderless: false },
     },
 };
 
