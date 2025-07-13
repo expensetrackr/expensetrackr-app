@@ -243,6 +243,7 @@ export const borderRadii = {
     20: '1.25rem',
     24: '1.5rem',
     full: '9999px',
+    hairline: hairlineWidth(),
 };
 
 /** @type {import('tailwindcss').Config} */

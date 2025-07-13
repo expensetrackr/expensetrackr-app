@@ -114,6 +114,9 @@ export default function AccountsScreen() {
                 {/* Add Account Button */}
                 <Animated.View className="mt-6 px-5" entering={FadeInDown.delay(500).springify()}>
                     <Pressable
+                        accessibilityHint="Opens screen to connect a bank account or add one manually"
+                        accessibilityLabel="Add new account"
+                        accessibilityRole="button"
                         className={cn(
                             'rounded-2xl items-center border-2 border-dashed p-6',
                             isDarkColorScheme ? 'border-grey4' : 'border-grey5',
@@ -144,6 +147,9 @@ function AccountCard({ account, index }: { account: Account; index: number }) {
     return (
         <Animated.View className="mb-4" entering={FadeInDown.delay(index * 100).springify()}>
             <AnimatedPressable
+                accessibilityHint={`Shows details for ${account.name} with balance ${formatCurrency(account.balance)}`}
+                accessibilityLabel={`${account.name} account`}
+                accessibilityRole="button"
                 style={animatedStyle}
                 onPressIn={() => {
                     pressed.value = withSpring(1);
