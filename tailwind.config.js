@@ -2,7 +2,7 @@ const { hairlineWidth } = require('nativewind/theme');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 export const texts = {
-    'title-h1': [
+    h1: [
         '3.5rem',
         {
             lineHeight: '4rem',
@@ -10,7 +10,7 @@ export const texts = {
             fontWeight: '500',
         },
     ],
-    'title-h2': [
+    h2: [
         '3rem',
         {
             lineHeight: '3.5rem',
@@ -18,7 +18,7 @@ export const texts = {
             fontWeight: '500',
         },
     ],
-    'title-h3': [
+    h3: [
         '2.5rem',
         {
             lineHeight: '3rem',
@@ -26,7 +26,7 @@ export const texts = {
             fontWeight: '500',
         },
     ],
-    'title-h4': [
+    h4: [
         '2rem',
         {
             lineHeight: '2.5rem',
@@ -34,7 +34,7 @@ export const texts = {
             fontWeight: '500',
         },
     ],
-    'title-h5': [
+    h5: [
         '1.5rem',
         {
             lineHeight: '2rem',
@@ -42,7 +42,7 @@ export const texts = {
             fontWeight: '500',
         },
     ],
-    'title-h6': [
+    h6: [
         '1.25rem',
         {
             lineHeight: '1.75rem',
