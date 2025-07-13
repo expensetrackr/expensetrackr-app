@@ -226,7 +226,7 @@ function TransactionTypeButton({ type, label, isActive, onPress, colors }: Trans
                 scale.value = withSpring(1);
             }}>
             <Feather
-                color={isActive ? (type === 'expense' ? '#ef4444' : '#10b981') : colors.iconSub600}
+                color={isActive ? (type === 'expense' ? colors.error : colors.success) : colors.iconSub600}
                 name={type === 'expense' ? 'arrow-up-circle' : 'arrow-down-circle'}
                 size={20}
             />
