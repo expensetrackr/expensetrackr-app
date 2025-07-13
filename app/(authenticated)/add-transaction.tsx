@@ -76,6 +76,7 @@ export default function AddTransactionScreen() {
                         <Animated.View entering={FadeInDown.delay(100).springify()}>
                             <View className="mb-2 flex-row items-center justify-between">
                                 <Pressable
+                                    accessibilityLabel="Go back"
                                     className="h-10 w-10 items-center justify-center rounded-full bg-bg-weak-50"
                                     onPress={() => router.back()}>
                                     <Feather color={colors.iconSub600} name="arrow-left" size={20} />
