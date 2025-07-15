@@ -170,14 +170,14 @@ export default function AccountsScreen() {
                 {/* Header */}
                 <Animated.View className="mb-6" entering={FadeInUp.delay(100)}>
                     <View className="flex-row items-center justify-between mb-2">
-                        <ThemedText className="text-3xl font-bold tracking-tight text-text-strong-950">
+                        <ThemedText className="text-h3 font-bold tracking-tight text-text-strong-950">
                             Accounts
                         </ThemedText>
                         <Pressable className="h-10 w-10 items-center justify-center rounded-full bg-primary">
                             <Feather color="white" name="plus" size={18} />
                         </Pressable>
                     </View>
-                    <ThemedText className="text-base text-text-sub-600">
+                    <ThemedText className="text-paragraph-md text-text-sub-600">
                         {accounts.length} accounts • {multiCurrencyCount} multi-currency
                     </ThemedText>
                 </Animated.View>
@@ -185,16 +185,16 @@ export default function AccountsScreen() {
                 {/* Summary Stats */}
                 <Animated.View className="mb-8 flex-row gap-4" entering={FadeInUp.delay(200)}>
                     <View className="flex-1 rounded-16 bg-bg-white-0 p-4">
-                        <ThemedText className="text-sm mb-1 text-text-sub-600">Total Balance</ThemedText>
-                        <ThemedText className="text-2xl font-bold text-text-strong-950">
+                        <ThemedText className="text-paragraph-sm mb-1 text-text-sub-600">Total Balance</ThemedText>
+                        <ThemedText className="text-h4 font-bold text-text-strong-950">
                             {formatCurrency(totalBalance)}
                         </ThemedText>
                     </View>
                     <View className="flex-1 rounded-16 bg-bg-white-0 p-4">
-                        <ThemedText className="text-sm mb-1 text-text-sub-600">This Month</ThemedText>
+                        <ThemedText className="text-paragraph-sm mb-1 text-text-sub-600">This Month</ThemedText>
                         <View className="flex-row items-center">
                             <Feather color="#10B981" name="trending-up" size={16} />
-                            <ThemedText className="text-2xl font-bold text-success ml-2">
+                            <ThemedText className="text-h4 font-bold text-success ml-2">
                                 +$1,240
                             </ThemedText>
                         </View>
@@ -220,18 +220,18 @@ export default function AccountsScreen() {
                                             </View>
                                             <View className="flex-1">
                                                 <View className="flex-row items-center">
-                                                    <ThemedText className="text-lg font-semibold text-text-strong-950">
+                                                    <ThemedText className="text-label-lg font-semibold text-text-strong-950">
                                                         {account.name}
                                                     </ThemedText>
                                                     {isMultiCurrency(account) && (
                                                         <View className="ml-2 px-1.5 py-0.5 bg-blue-50 rounded-md">
-                                                            <ThemedText className="text-xs font-medium text-blue-600">
+                                                            <ThemedText className="text-subheading-2xs font-medium text-blue-600">
                                                                 MC
                                                             </ThemedText>
                                                         </View>
                                                     )}
                                                 </View>
-                                                <ThemedText className="text-sm text-text-sub-600">
+                                                <ThemedText className="text-paragraph-sm text-text-sub-600">
                                                     {getAccountTypeDisplayName(account.subtype)}
                                                 </ThemedText>
                                             </View>
@@ -243,11 +243,11 @@ export default function AccountsScreen() {
                                 {/* Balance Section */}
                                 <View className="border-t border-stroke-soft-200 pt-4">
                                     <View className="flex-row items-baseline justify-between mb-2">
-                                        <ThemedText className="text-2xl font-bold text-text-strong-950">
+                                        <ThemedText className="text-h4 font-bold text-text-strong-950">
                                             {formatCurrency(account.current_balance, account.currency_code)}
                                         </ThemedText>
                                         <View className="flex-row items-center">
-                                            <ThemedText className="text-sm text-text-sub-600 mr-2">
+                                            <ThemedText className="text-paragraph-sm text-text-sub-600 mr-2">
                                                 {account.currency_code}
                                             </ThemedText>
                                             <View className={`h-2 w-2 rounded-full ${account.current_balance >= 0 ? 'bg-success' : 'bg-error'}`} />
@@ -259,11 +259,11 @@ export default function AccountsScreen() {
                                         <View className="flex-row items-center justify-between mt-2 p-2 rounded-8 bg-bg-weak-50">
                                             <View className="flex-row items-center">
                                                 <Feather color={colors.textSub600} name="dollar-sign" size={14} />
-                                                <ThemedText className="text-sm font-medium text-text-strong-950 ml-1">
+                                                <ThemedText className="text-paragraph-sm font-medium text-text-strong-950 ml-1">
                                                     {formatCurrency(account.base_current_balance, account.base_currency!)}
                                                 </ThemedText>
                                             </View>
-                                            <ThemedText className="text-xs text-text-sub-600">
+                                            <ThemedText className="text-paragraph-xs text-text-sub-600">
                                                 {account.currency_rate?.toFixed(4)} USD
                                             </ThemedText>
                                         </View>
@@ -282,10 +282,10 @@ export default function AccountsScreen() {
                         <View className="mb-3 h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                             <Feather color={colors.primary} name="plus" size={20} />
                         </View>
-                        <ThemedText className="text-base font-semibold text-text-strong-950 mb-1">
+                        <ThemedText className="text-paragraph-md font-semibold text-text-strong-950 mb-1">
                             Add Account
                         </ThemedText>
-                        <ThemedText className="text-sm text-text-sub-600">
+                        <ThemedText className="text-paragraph-sm text-text-sub-600">
                             Connect your bank or add manually
                         </ThemedText>
                     </Pressable>
