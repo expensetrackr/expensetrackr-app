@@ -224,9 +224,9 @@ export default function AccountsScreen() {
                                                         {account.name}
                                                     </ThemedText>
                                                     {isMultiCurrency(account) && (
-                                                        <View className="ml-2 px-2 py-1 bg-blue-50 rounded-full">
-                                                            <ThemedText className="text-xs font-medium text-blue-700">
-                                                                Multi
+                                                        <View className="ml-2 px-1.5 py-0.5 bg-blue-50 rounded-md">
+                                                            <ThemedText className="text-xs font-medium text-blue-600">
+                                                                MC
                                                             </ThemedText>
                                                         </View>
                                                     )}
