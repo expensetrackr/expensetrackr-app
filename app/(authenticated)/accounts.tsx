@@ -4,6 +4,7 @@ import Animated, { FadeInUp, FadeInRight } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '#/components/ThemedText.tsx';
+import { Badge } from '#/components/ui/badge.tsx';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
 
 const formatCurrency = (amount: number, currencyCode: string = 'USD'): string => {
@@ -227,10 +228,10 @@ export default function AccountsScreen() {
                                                     {account.name}
                                                 </ThemedText>
                                                 {isMultiCurrency(account) && (
-                                                    <View className="ml-2 rounded-full bg-blue-50 px-2 py-0.5">
-                                                        <ThemedText className="text-xs font-medium text-blue-700">
+                                                    <View className="ml-2">
+                                                        <Badge variant="info">
                                                             Multi-Currency
-                                                        </ThemedText>
+                                                        </Badge>
                                                     </View>
                                                 )}
                                             </View>
@@ -238,7 +239,9 @@ export default function AccountsScreen() {
                                                 {getAccountTypeDisplayName(account.subtype)}
                                             </ThemedText>
                                         </View>
-                                        <Feather color={colors.textSub600} name="chevron-right" size={16} />
+                                        <View className="ml-2">
+                                            <Feather color={colors.textSub600} name="chevron-right" size={16} />
+                                        </View>
                                     </View>
 
                                     {/* Account Balance */}
