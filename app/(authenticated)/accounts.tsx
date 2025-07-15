@@ -1,22 +1,10 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
 import { Pressable, ScrollView, View } from 'react-native';
-import Animated, {
-    FadeInDown,
-    interpolate,
-    useAnimatedStyle,
-    useSharedValue,
-    withSpring,
-} from 'react-native-reanimated';
+import Animated, { FadeInUp, FadeInRight } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '#/components/ThemedText.tsx';
-import { ThemedView } from '#/components/ThemedView.tsx';
-import { Badge } from '#/components/ui/badge.tsx';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
-import { cn } from '#/utils/cn.ts';
-
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const formatCurrency = (amount: number, currencyCode: string = 'USD'): string => {
     return new Intl.NumberFormat('en-US', {
@@ -47,8 +35,8 @@ interface Account {
     current_balance: number;
     base_current_balance: number | null;
     // UI-specific fields
-    gradient: readonly [string, string];
-    icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
+    color: string;
+    icon: React.ComponentProps<typeof Feather>['name'];
 }
 
 // Helper function to determine if account is multi-currency
@@ -77,14 +65,14 @@ const getAccountTypeDisplayName = (subtype: AccountSubtype | null): string => {
 
 export default function AccountsScreen() {
     const insets = useSafeAreaInsets();
-    const { isDarkColorScheme, colors } = useColorScheme();
+    const { colors } = useColorScheme();
 
     // Dummy data with multi-currency support
     const accounts: Account[] = [
         {
             id: 1,
             name: 'Main Checking',
-            description: 'Primary checking account for daily expenses',
+            description: 'Primary checking account',
             subtype: AccountSubtype.CHECKING,
             currency_code: 'USD',
             base_currency: null,
@@ -93,13 +81,13 @@ export default function AccountsScreen() {
             base_initial_balance: null,
             current_balance: 5250.0,
             base_current_balance: null,
-            gradient: ['#3b82f6', '#60a5fa'] as const,
-            icon: 'bank',
+            color: '#3B82F6',
+            icon: 'credit-card',
         },
         {
             id: 2,
             name: 'Euro Savings',
-            description: 'European savings account with currency conversion',
+            description: 'European savings account',
             subtype: AccountSubtype.SAVINGS,
             currency_code: 'EUR',
             base_currency: 'USD',
@@ -108,13 +96,13 @@ export default function AccountsScreen() {
             base_initial_balance: 10800.0,
             current_balance: 12450.0,
             base_current_balance: 13446.0,
-            gradient: ['#10b981', '#34d399'] as const,
+            color: '#10B981',
             icon: 'piggy-bank',
         },
         {
             id: 3,
             name: 'Travel Credit Card',
-            description: 'Multi-currency credit card for international travel',
+            description: 'Multi-currency travel card',
             subtype: AccountSubtype.CREDIT_CARD,
             currency_code: 'GBP',
             base_currency: 'USD',
@@ -123,13 +111,13 @@ export default function AccountsScreen() {
             base_initial_balance: 0.0,
             current_balance: -960.0,
             base_current_balance: -1200.0,
-            gradient: ['#8b5cf6', '#a78bfa'] as const,
+            color: '#8B5CF6',
             icon: 'credit-card',
         },
         {
             id: 4,
             name: 'Investment Portfolio',
-            description: 'Diversified investment portfolio',
+            description: 'Diversified portfolio',
             subtype: AccountSubtype.INVESTMENT,
             currency_code: 'USD',
             base_currency: null,
@@ -138,13 +126,13 @@ export default function AccountsScreen() {
             base_initial_balance: null,
             current_balance: 25890.0,
             base_current_balance: null,
-            gradient: ['#f59e0b', '#fbbf24'] as const,
-            icon: 'chart-line',
+            color: '#F59E0B',
+            icon: 'trending-up',
         },
         {
             id: 5,
             name: 'Business Account',
-            description: 'Japanese business operations account',
+            description: 'Japanese business operations',
             subtype: AccountSubtype.BUSINESS,
             currency_code: 'JPY',
             base_currency: 'USD',
@@ -153,8 +141,8 @@ export default function AccountsScreen() {
             base_initial_balance: 10050.0,
             current_balance: 1850000.0,
             base_current_balance: 12395.0,
-            gradient: ['#ef4444', '#f87171'] as const,
-            icon: 'office-building',
+            color: '#EF4444',
+            icon: 'briefcase',
         },
     ];
 
@@ -166,187 +154,140 @@ export default function AccountsScreen() {
         return acc + account.current_balance;
     }, 0);
 
-    const multiCurrencyAccountsCount = accounts.filter(account => isMultiCurrency(account)).length;
+    const multiCurrencyCount = accounts.filter(account => isMultiCurrency(account)).length;
 
     return (
-        <ThemedView className="flex-1">
+        <View className="flex-1">
             <ScrollView
+                className="flex-1"
                 contentContainerStyle={{
-                    paddingTop: insets.top + 20,
-                    paddingBottom: insets.bottom + 100,
+                    paddingHorizontal: 20,
+                    paddingTop: insets.top + 16,
+                    paddingBottom: insets.bottom + 120,
                 }}
                 showsVerticalScrollIndicator={false}>
+                
                 {/* Header */}
-                <View className="mb-6 px-5">
-                    <Animated.View entering={FadeInDown.delay(100).springify()}>
-                        <View className="flex-row items-center justify-between mb-3">
-                            <ThemedText className="text-2xl font-semibold text-text-strong-950">
-                                Your Accounts
+                <Animated.View className="mb-8 flex-row items-center justify-between" entering={FadeInUp.delay(100)}>
+                    <View className="flex-1">
+                        <ThemedText className="text-2xl font-bold tracking-tight text-text-strong-950">
+                            Your Accounts
+                        </ThemedText>
+                        <ThemedText className="text-base mt-1 text-text-sub-600">
+                            Manage your financial accounts
+                        </ThemedText>
+                    </View>
+                    <Pressable className="h-11 w-11 items-center justify-center rounded-full border border-stroke-soft-200 bg-bg-weak-50">
+                        <Feather color={colors.textSub600} name="plus" size={20} />
+                    </Pressable>
+                </Animated.View>
+
+                {/* Total Balance Card */}
+                <Animated.View
+                    className="mb-6 rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-6"
+                    entering={FadeInUp.delay(200)}>
+                    <ThemedText className="text-base mb-2 text-text-sub-600 opacity-80">Total Balance (USD)</ThemedText>
+                    <ThemedText className="text-4xl mb-4 font-extrabold tracking-tight text-text-strong-950">
+                        {formatCurrency(totalBalance)}
+                    </ThemedText>
+                    <View className="flex-row items-center justify-between">
+                        <View className="flex-row items-center rounded-full bg-bg-weak-50 px-3 py-1.5">
+                            <Feather color="#10B981" name="globe" size={14} />
+                            <ThemedText className="text-sm ml-1 font-semibold text-text-sub-600">
+                                {multiCurrencyCount} multi-currency accounts
                             </ThemedText>
-                            {multiCurrencyAccountsCount > 0 && (
-                                <View className="flex-row items-center">
-                                    <MaterialCommunityIcons
-                                        name="earth"
-                                        size={16}
-                                        color={colors.primary}
-                                    />
-                                    <ThemedText className="text-sm ml-1 text-primary font-medium">
-                                        {multiCurrencyAccountsCount} Multi-Currency
-                                    </ThemedText>
-                                </View>
-                            )}
                         </View>
-                        <View className="flex-row items-baseline">
-                            <ThemedText className="text-sm mr-2 text-text-sub-600">Total Balance (USD):</ThemedText>
-                            <ThemedText className="text-xl text-primary font-semibold">
-                                {formatCurrency(totalBalance)}
-                            </ThemedText>
-                        </View>
-                    </Animated.View>
-                </View>
+                        <Pressable className="p-2">
+                            <Feather color={colors.textSub600} name="eye-off" size={20} />
+                        </Pressable>
+                    </View>
+                </Animated.View>
 
                 {/* Account Cards */}
-                <View className="px-5">
-                    {accounts.map((account, index) => (
-                        <AccountCard account={account} index={index} key={account.id} />
-                    ))}
-                </View>
+                <Animated.View className="mb-8" entering={FadeInUp.delay(300)}>
+                    <ThemedText className="text-xl mb-4 font-bold tracking-tight text-text-strong-950">
+                        Accounts
+                    </ThemedText>
+                    <View className="gap-3">
+                        {accounts.map((account, index) => (
+                            <Animated.View
+                                className="rounded-16 border border-stroke-soft-200 bg-bg-white-0 p-5"
+                                entering={FadeInRight.delay(300 + index * 100)}
+                                key={account.id}>
+                                <Pressable>
+                                    <View className="mb-4 flex-row items-center">
+                                        <View 
+                                            className="mr-3 h-10 w-10 items-center justify-center rounded-12"
+                                            style={{ backgroundColor: account.color + '20' }}>
+                                            <Feather color={account.color} name={account.icon} size={20} />
+                                        </View>
+                                        <View className="flex-1">
+                                            <View className="flex-row items-center">
+                                                <ThemedText className="text-base font-semibold text-text-strong-950">
+                                                    {account.name}
+                                                </ThemedText>
+                                                {isMultiCurrency(account) && (
+                                                    <View className="ml-2 rounded-full bg-blue-50 px-2 py-0.5">
+                                                        <ThemedText className="text-xs font-medium text-blue-700">
+                                                            Multi-Currency
+                                                        </ThemedText>
+                                                    </View>
+                                                )}
+                                            </View>
+                                            <ThemedText className="text-sm text-text-sub-600">
+                                                {getAccountTypeDisplayName(account.subtype)}
+                                            </ThemedText>
+                                        </View>
+                                        <Feather color={colors.textSub600} name="chevron-right" size={16} />
+                                    </View>
 
-                {/* Add Account Button */}
-                <Animated.View className="mt-6 px-5" entering={FadeInDown.delay(500).springify()}>
-                    <Pressable
-                        accessibilityHint="Opens screen to connect a bank account or add one manually"
-                        accessibilityLabel="Add new account"
-                        accessibilityRole="button"
-                        className={cn(
-                            'rounded-2xl items-center border-2 border-dashed p-6',
-                            isDarkColorScheme ? 'border-grey4' : 'border-grey5',
-                        )}>
+                                    {/* Account Balance */}
+                                    <View className="mb-3">
+                                        <ThemedText className="text-2xl font-bold tracking-tight text-text-strong-950">
+                                            {formatCurrency(account.current_balance, account.currency_code)}
+                                        </ThemedText>
+                                        <ThemedText className="text-sm text-text-sub-600">
+                                            Current Balance
+                                        </ThemedText>
+                                    </View>
+
+                                    {/* USD Balance for Multi-Currency */}
+                                    {isMultiCurrency(account) && account.base_current_balance !== null && (
+                                        <View className="mt-2 flex-row items-center justify-between rounded-8 bg-bg-weak-50 p-3">
+                                            <View className="flex-row items-center">
+                                                <Feather color={colors.textSub600} name="dollar-sign" size={14} />
+                                                <ThemedText className="text-sm ml-1 font-medium text-text-strong-950">
+                                                    {formatCurrency(account.base_current_balance, account.base_currency!)}
+                                                </ThemedText>
+                                            </View>
+                                            <ThemedText className="text-xs text-text-sub-600">
+                                                Rate: {account.currency_rate?.toFixed(4)}
+                                            </ThemedText>
+                                        </View>
+                                    )}
+                                </Pressable>
+                            </Animated.View>
+                        ))}
+                    </View>
+                </Animated.View>
+
+                {/* Add Account Card */}
+                <Animated.View
+                    className="rounded-16 border border-dashed border-stroke-soft-200 bg-bg-white-0 p-6"
+                    entering={FadeInUp.delay(600)}>
+                    <Pressable className="items-center">
                         <View className="mb-3 h-12 w-12 items-center justify-center rounded-full bg-bg-weak-50">
-                            <MaterialCommunityIcons color={colors.primary} name="plus" size={24} />
+                            <Feather color={colors.primary} name="plus" size={24} />
                         </View>
-                        <ThemedText className="text-base font-medium text-text-strong-950">Add New Account</ThemedText>
-                        <ThemedText className="text-sm mt-1 text-text-sub-600">Connect bank or add manually</ThemedText>
+                        <ThemedText className="text-base font-semibold text-text-strong-950">
+                            Add New Account
+                        </ThemedText>
+                        <ThemedText className="text-sm mt-1 text-text-sub-600">
+                            Connect bank or add manually
+                        </ThemedText>
                     </Pressable>
                 </Animated.View>
             </ScrollView>
-        </ThemedView>
-    );
-}
-
-function AccountCard({ account, index }: { account: Account; index: number }) {
-    const pressed = useSharedValue(0);
-    const { colors } = useColorScheme();
-    const isMultiCurrencyAccount = isMultiCurrency(account);
-
-    const animatedStyle = useAnimatedStyle(() => ({
-        transform: [
-            {
-                scale: interpolate(pressed.value, [0, 1], [1, 0.95]),
-            },
-        ],
-    }));
-
-    return (
-        <Animated.View className="mb-4" entering={FadeInDown.delay(index * 100).springify()}>
-            <AnimatedPressable
-                accessibilityHint={`Shows details for ${account.name} with balance ${formatCurrency(account.current_balance, account.currency_code)}`}
-                accessibilityLabel={`${account.name} account`}
-                accessibilityRole="button"
-                style={animatedStyle}
-                onPressIn={() => {
-                    pressed.value = withSpring(1);
-                }}
-                onPressOut={() => {
-                    pressed.value = withSpring(0);
-                }}>
-                <LinearGradient
-                    className="rounded-2xl p-5"
-                    colors={account.gradient}
-                    end={{ x: 1, y: 1 }}
-                    start={{ x: 0, y: 0 }}
-                    style={{
-                        shadowColor: account.gradient[0],
-                        shadowOffset: {
-                            width: 0,
-                            height: 4,
-                        },
-                        shadowOpacity: 0.15,
-                        shadowRadius: 8,
-                        elevation: 5,
-                    }}>
-                    
-                    {/* Header with account info and badges */}
-                    <View className="mb-6 flex-row items-start justify-between">
-                        <View className="flex-1">
-                            <View className="flex-row items-center mb-1">
-                                <ThemedText className="text-lg font-semibold text-white mr-2">
-                                    {account.name}
-                                </ThemedText>
-                                {isMultiCurrencyAccount && (
-                                    <View className="bg-white/20 px-2 py-0.5 rounded-full">
-                                        <ThemedText className="text-xs text-white/90 font-medium">
-                                            Multi-Currency
-                                        </ThemedText>
-                                    </View>
-                                )}
-                            </View>
-                            <ThemedText className="text-sm text-white/80">
-                                {getAccountTypeDisplayName(account.subtype)}
-                            </ThemedText>
-                            {account.description && (
-                                <ThemedText className="text-xs text-white/70 mt-1">
-                                    {account.description}
-                                </ThemedText>
-                            )}
-                        </View>
-                        <View className="rounded-xl bg-white/20 p-2.5">
-                            <MaterialCommunityIcons color="#ffffff" name={account.icon} size={24} />
-                        </View>
-                    </View>
-
-                    {/* Balance Information */}
-                    <View>
-                        <ThemedText className="text-xs mb-1 text-white/60">Current Balance</ThemedText>
-                        
-                        {/* Primary Currency Balance */}
-                        <View className="flex-row items-baseline mb-2">
-                            <ThemedText className="text-2xl font-bold text-white">
-                                {formatCurrency(account.current_balance, account.currency_code)}
-                            </ThemedText>
-                            <ThemedText className="text-sm text-white/70 ml-2">
-                                {account.currency_code}
-                            </ThemedText>
-                        </View>
-
-                        {/* USD Balance for Multi-Currency Accounts */}
-                        {isMultiCurrencyAccount && account.base_current_balance !== null && (
-                            <View className="flex-row items-center justify-between mt-2 pt-2 border-t border-white/20">
-                                <View className="flex-row items-center">
-                                    <MaterialCommunityIcons
-                                        name="currency-usd"
-                                        size={14}
-                                        color="rgba(255, 255, 255, 0.8)"
-                                    />
-                                    <ThemedText className="text-sm text-white/80 ml-1">
-                                        {formatCurrency(account.base_current_balance, account.base_currency!)}
-                                    </ThemedText>
-                                </View>
-                                <View className="flex-row items-center">
-                                    <ThemedText className="text-xs text-white/60">
-                                        Rate: {account.currency_rate?.toFixed(4)}
-                                    </ThemedText>
-                                </View>
-                            </View>
-                        )}
-
-                        {/* Account Number */}
-                        <ThemedText className="text-sm text-white/80 mt-3">
-                            ****{account.id.toString().padStart(4, '0')}
-                        </ThemedText>
-                    </View>
-                </LinearGradient>
-            </AnimatedPressable>
-        </Animated.View>
+        </View>
     );
 }
