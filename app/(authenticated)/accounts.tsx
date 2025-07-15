@@ -4,7 +4,6 @@ import Animated, { FadeInUp, FadeInRight } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '#/components/ThemedText.tsx';
-import { Badge } from '#/components/ui/badge.tsx';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
 
 const formatCurrency = (amount: number, currencyCode: string = 'USD'): string => {
@@ -225,8 +224,10 @@ export default function AccountsScreen() {
                                                         {account.name}
                                                     </ThemedText>
                                                     {isMultiCurrency(account) && (
-                                                        <View className="ml-2">
-                                                            <Badge variant="info">Multi</Badge>
+                                                        <View className="ml-2 px-2 py-1 bg-blue-50 rounded-full">
+                                                            <ThemedText className="text-xs font-medium text-blue-700">
+                                                                Multi
+                                                            </ThemedText>
                                                         </View>
                                                     )}
                                                 </View>
