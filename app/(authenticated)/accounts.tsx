@@ -158,7 +158,7 @@ export default function AccountsScreen() {
     const multiCurrencyCount = accounts.filter(account => isMultiCurrency(account)).length;
 
     return (
-        <View className="flex-1">
+        <View className="flex-1 bg-bg-weak-50">
             <ScrollView
                 className="flex-1"
                 contentContainerStyle={{
@@ -169,124 +169,123 @@ export default function AccountsScreen() {
                 showsVerticalScrollIndicator={false}>
                 
                 {/* Header */}
-                <Animated.View className="mb-8 flex-row items-center justify-between" entering={FadeInUp.delay(100)}>
-                    <View className="flex-1">
-                        <ThemedText className="text-2xl font-bold tracking-tight text-text-strong-950">
-                            Your Accounts
+                <Animated.View className="mb-6" entering={FadeInUp.delay(100)}>
+                    <View className="flex-row items-center justify-between mb-2">
+                        <ThemedText className="text-3xl font-bold tracking-tight text-text-strong-950">
+                            Accounts
                         </ThemedText>
-                        <ThemedText className="text-base mt-1 text-text-sub-600">
-                            Manage your financial accounts
-                        </ThemedText>
-                    </View>
-                    <Pressable className="h-11 w-11 items-center justify-center rounded-full border border-stroke-soft-200 bg-bg-weak-50">
-                        <Feather color={colors.textSub600} name="plus" size={20} />
-                    </Pressable>
-                </Animated.View>
-
-                {/* Total Balance Card */}
-                <Animated.View
-                    className="mb-6 rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-6"
-                    entering={FadeInUp.delay(200)}>
-                    <ThemedText className="text-base mb-2 text-text-sub-600 opacity-80">Total Balance (USD)</ThemedText>
-                    <ThemedText className="text-4xl mb-4 font-extrabold tracking-tight text-text-strong-950">
-                        {formatCurrency(totalBalance)}
-                    </ThemedText>
-                    <View className="flex-row items-center justify-between">
-                        <View className="flex-row items-center rounded-full bg-bg-weak-50 px-3 py-1.5">
-                            <Feather color="#10B981" name="globe" size={14} />
-                            <ThemedText className="text-sm ml-1 font-semibold text-text-sub-600">
-                                {multiCurrencyCount} multi-currency accounts
-                            </ThemedText>
-                        </View>
-                        <Pressable className="p-2">
-                            <Feather color={colors.textSub600} name="eye-off" size={20} />
+                        <Pressable className="h-10 w-10 items-center justify-center rounded-full bg-primary">
+                            <Feather color="white" name="plus" size={18} />
                         </Pressable>
                     </View>
+                    <ThemedText className="text-base text-text-sub-600">
+                        {accounts.length} accounts • {multiCurrencyCount} multi-currency
+                    </ThemedText>
                 </Animated.View>
 
-                {/* Account Cards */}
-                <Animated.View className="mb-8" entering={FadeInUp.delay(300)}>
-                    <ThemedText className="text-xl mb-4 font-bold tracking-tight text-text-strong-950">
-                        Accounts
-                    </ThemedText>
-                    <View className="gap-3">
-                        {accounts.map((account, index) => (
-                            <Animated.View
-                                className="rounded-16 border border-stroke-soft-200 bg-bg-white-0 p-5"
-                                entering={FadeInRight.delay(300 + index * 100)}
-                                key={account.id}>
-                                <Pressable>
-                                    <View className="mb-4 flex-row items-center">
-                                        <View 
-                                            className="mr-3 h-10 w-10 items-center justify-center rounded-12"
-                                            style={{ backgroundColor: account.color + '20' }}>
-                                            <Feather color={account.color} name={account.icon} size={20} />
-                                        </View>
-                                        <View className="flex-1">
-                                            <View className="flex-row items-center">
-                                                <ThemedText className="text-base font-semibold text-text-strong-950">
-                                                    {account.name}
-                                                </ThemedText>
-                                                {isMultiCurrency(account) && (
-                                                    <View className="ml-2">
-                                                        <Badge variant="info">
-                                                            Multi-Currency
-                                                        </Badge>
-                                                    </View>
-                                                )}
+                {/* Summary Stats */}
+                <Animated.View className="mb-8 flex-row gap-4" entering={FadeInUp.delay(200)}>
+                    <View className="flex-1 rounded-16 bg-bg-white-0 p-4">
+                        <ThemedText className="text-sm mb-1 text-text-sub-600">Total Balance</ThemedText>
+                        <ThemedText className="text-2xl font-bold text-text-strong-950">
+                            {formatCurrency(totalBalance)}
+                        </ThemedText>
+                    </View>
+                    <View className="flex-1 rounded-16 bg-bg-white-0 p-4">
+                        <ThemedText className="text-sm mb-1 text-text-sub-600">This Month</ThemedText>
+                        <View className="flex-row items-center">
+                            <Feather color="#10B981" name="trending-up" size={16} />
+                            <ThemedText className="text-2xl font-bold text-success ml-2">
+                                +$1,240
+                            </ThemedText>
+                        </View>
+                    </View>
+                </Animated.View>
+
+                {/* Account List */}
+                <View className="gap-3">
+                    {accounts.map((account, index) => (
+                        <Animated.View
+                            className="rounded-16 bg-bg-white-0 overflow-hidden"
+                            entering={FadeInRight.delay(300 + index * 100)}
+                            key={account.id}>
+                            <Pressable className="p-5">
+                                {/* Account Header */}
+                                <View className="flex-row items-start justify-between mb-4">
+                                    <View className="flex-1">
+                                        <View className="flex-row items-center mb-1">
+                                            <View 
+                                                className="mr-3 h-8 w-8 items-center justify-center rounded-8"
+                                                style={{ backgroundColor: account.color + '20' }}>
+                                                <Feather color={account.color} name={account.icon} size={16} />
                                             </View>
-                                            <ThemedText className="text-sm text-text-sub-600">
-                                                {getAccountTypeDisplayName(account.subtype)}
-                                            </ThemedText>
-                                        </View>
-                                        <View className="ml-2">
-                                            <Feather color={colors.textSub600} name="chevron-right" size={16} />
+                                            <View className="flex-1">
+                                                <View className="flex-row items-center">
+                                                    <ThemedText className="text-lg font-semibold text-text-strong-950">
+                                                        {account.name}
+                                                    </ThemedText>
+                                                    {isMultiCurrency(account) && (
+                                                        <View className="ml-2">
+                                                            <Badge variant="info">Multi</Badge>
+                                                        </View>
+                                                    )}
+                                                </View>
+                                                <ThemedText className="text-sm text-text-sub-600">
+                                                    {getAccountTypeDisplayName(account.subtype)}
+                                                </ThemedText>
+                                            </View>
                                         </View>
                                     </View>
+                                    <Feather color={colors.textSub600} name="chevron-right" size={18} />
+                                </View>
 
-                                    {/* Account Balance */}
-                                    <View className="mb-3">
-                                        <ThemedText className="text-2xl font-bold tracking-tight text-text-strong-950">
+                                {/* Balance Section */}
+                                <View className="border-t border-stroke-soft-200 pt-4">
+                                    <View className="flex-row items-baseline justify-between mb-2">
+                                        <ThemedText className="text-2xl font-bold text-text-strong-950">
                                             {formatCurrency(account.current_balance, account.currency_code)}
                                         </ThemedText>
-                                        <ThemedText className="text-sm text-text-sub-600">
-                                            Current Balance
-                                        </ThemedText>
+                                        <View className="flex-row items-center">
+                                            <ThemedText className="text-sm text-text-sub-600 mr-2">
+                                                {account.currency_code}
+                                            </ThemedText>
+                                            <View className={`h-2 w-2 rounded-full ${account.current_balance >= 0 ? 'bg-success' : 'bg-error'}`} />
+                                        </View>
                                     </View>
 
-                                    {/* USD Balance for Multi-Currency */}
+                                    {/* USD Equivalent for Multi-Currency */}
                                     {isMultiCurrency(account) && account.base_current_balance !== null && (
-                                        <View className="mt-2 flex-row items-center justify-between rounded-8 bg-bg-weak-50 p-3">
+                                        <View className="flex-row items-center justify-between mt-2 p-2 rounded-8 bg-bg-weak-50">
                                             <View className="flex-row items-center">
                                                 <Feather color={colors.textSub600} name="dollar-sign" size={14} />
-                                                <ThemedText className="text-sm ml-1 font-medium text-text-strong-950">
+                                                <ThemedText className="text-sm font-medium text-text-strong-950 ml-1">
                                                     {formatCurrency(account.base_current_balance, account.base_currency!)}
                                                 </ThemedText>
                                             </View>
                                             <ThemedText className="text-xs text-text-sub-600">
-                                                Rate: {account.currency_rate?.toFixed(4)}
+                                                {account.currency_rate?.toFixed(4)} USD
                                             </ThemedText>
                                         </View>
                                     )}
-                                </Pressable>
-                            </Animated.View>
-                        ))}
-                    </View>
-                </Animated.View>
+                                </View>
+                            </Pressable>
+                        </Animated.View>
+                    ))}
+                </View>
 
-                {/* Add Account Card */}
+                {/* Add Account CTA */}
                 <Animated.View
-                    className="rounded-16 border border-dashed border-stroke-soft-200 bg-bg-white-0 p-6"
+                    className="mt-6 rounded-16 border-2 border-dashed border-stroke-soft-200 bg-bg-white-0"
                     entering={FadeInUp.delay(600)}>
-                    <Pressable className="items-center">
-                        <View className="mb-3 h-12 w-12 items-center justify-center rounded-full bg-bg-weak-50">
-                            <Feather color={colors.primary} name="plus" size={24} />
+                    <Pressable className="p-6 items-center">
+                        <View className="mb-3 h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                            <Feather color={colors.primary} name="plus" size={20} />
                         </View>
-                        <ThemedText className="text-base font-semibold text-text-strong-950">
-                            Add New Account
+                        <ThemedText className="text-base font-semibold text-text-strong-950 mb-1">
+                            Add Account
                         </ThemedText>
-                        <ThemedText className="text-sm mt-1 text-text-sub-600">
-                            Connect bank or add manually
+                        <ThemedText className="text-sm text-text-sub-600">
+                            Connect your bank or add manually
                         </ThemedText>
                     </Pressable>
                 </Animated.View>
