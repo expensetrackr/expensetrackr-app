@@ -7,6 +7,16 @@ import { ThemedText } from '#/components/ThemedText.tsx';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
 import { layoutSpacing } from '#/utils/alignui.ts';
 
+// Animation timing constants for better maintainability
+const ANIMATION_DELAYS = {
+    header: 100,
+    summary: 200,
+    accountBase: 300,
+    accountIncrement: 100,
+    addButton: 600,
+    maxAccountDelay: 800, // Maximum delay cap for accounts
+} as const;
+
 const formatCurrency = (amount: number, currencyCode: string = 'USD', locale: string = 'en-US'): string => {
     return new Intl.NumberFormat(locale, {
         style: 'currency',
@@ -42,16 +52,16 @@ interface AccountUIConfig {
     icon: React.ComponentProps<typeof Feather>['name'];
 }
 
-const accountUIMapping: Record<number, AccountUIConfig> = {
-    1: { color: '#3B82F6', icon: 'credit-card' },
-    2: { color: '#10B981', icon: 'dollar-sign' },
-    3: { color: '#8B5CF6', icon: 'credit-card' },
-    4: { color: '#F59E0B', icon: 'trending-up' },
-    5: { color: '#EF4444', icon: 'briefcase' },
+const accountUIMapping: Record<AccountSubtype, AccountUIConfig> = {
+    [AccountSubtype.CHECKING]: { color: '#3B82F6', icon: 'credit-card' },
+    [AccountSubtype.SAVINGS]: { color: '#10B981', icon: 'dollar-sign' },
+    [AccountSubtype.CREDIT_CARD]: { color: '#8B5CF6', icon: 'credit-card' },
+    [AccountSubtype.INVESTMENT]: { color: '#F59E0B', icon: 'trending-up' },
+    [AccountSubtype.BUSINESS]: { color: '#EF4444', icon: 'briefcase' },
 };
 
-const getAccountUIConfig = (accountId: number): AccountUIConfig => {
-    return accountUIMapping[accountId] || { color: '#6B7280', icon: 'circle' };
+const getAccountUIConfig = (subtype: AccountSubtype | null): AccountUIConfig => {
+    return accountUIMapping[subtype || AccountSubtype.CHECKING] || { color: '#6B7280', icon: 'circle' };
 };
 
 const isMultiCurrency = (account: Account): boolean => {
@@ -182,7 +192,7 @@ export default function AccountsScreen() {
                 }}
                 showsVerticalScrollIndicator={false}>
                 {/* Header */}
-                <Animated.View className="mb-6" entering={FadeInUp.delay(100)}>
+                <Animated.View className="mb-6" entering={FadeInUp.delay(ANIMATION_DELAYS.header)}>
                     <View className="mb-2 flex-row items-center justify-between">
                         <ThemedText className="text-h3 font-bold tracking-tight text-text-strong-950">
                             Accounts
@@ -197,7 +207,7 @@ export default function AccountsScreen() {
                 </Animated.View>
 
                 {/* Summary Stats */}
-                <Animated.View className="mb-8 flex-row gap-4" entering={FadeInUp.delay(200)}>
+                <Animated.View className="mb-8 flex-row gap-4" entering={FadeInUp.delay(ANIMATION_DELAYS.summary)}>
                     <View className="flex-1 rounded-16 bg-bg-white-0 p-4">
                         <ThemedText className="mb-1 text-paragraph-sm text-text-sub-600">Total Balance</ThemedText>
                         <ThemedText className="text-h4 font-bold text-text-strong-950">
@@ -223,11 +233,16 @@ export default function AccountsScreen() {
                 {/* Account List */}
                 <View className="gap-3">
                     {accounts.map((account, index) => {
-                        const uiConfig = getAccountUIConfig(account.id);
+                        const uiConfig = getAccountUIConfig(account.subtype);
                         return (
                             <Animated.View
                                 className="overflow-hidden rounded-16 bg-bg-white-0"
-                                entering={FadeInRight.delay(Math.min(300 + index * 100, 800))}
+                                entering={FadeInRight.delay(
+                                    Math.min(
+                                        ANIMATION_DELAYS.accountBase + index * ANIMATION_DELAYS.accountIncrement,
+                                        ANIMATION_DELAYS.maxAccountDelay,
+                                    ),
+                                )}
                                 key={account.id}>
                                 <Pressable className="p-5">
                                     {/* Account Header */}
@@ -305,7 +320,7 @@ export default function AccountsScreen() {
                 {/* Add Account CTA */}
                 <Animated.View
                     className="mt-6 rounded-16 border-2 border-dashed border-stroke-soft-200 bg-bg-white-0"
-                    entering={FadeInUp.delay(600)}>
+                    entering={FadeInUp.delay(ANIMATION_DELAYS.addButton)}>
                     <Pressable className="items-center p-6">
                         <View className="bg-primary/10 mb-3 h-12 w-12 items-center justify-center rounded-full">
                             <Feather color={colors.primary} name="plus" size={20} />
