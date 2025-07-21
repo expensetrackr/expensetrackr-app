@@ -7,8 +7,8 @@ import { ThemedText } from '#/components/ThemedText.tsx';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
 import { layoutSpacing } from '#/utils/alignui.ts';
 
-const formatCurrency = (amount: number, currencyCode: string = 'USD'): string => {
-    return new Intl.NumberFormat('en-US', {
+const formatCurrency = (amount: number, currencyCode: string = 'USD', locale: string = 'en-US'): string => {
+    return new Intl.NumberFormat(locale, {
         style: 'currency',
         currency: currencyCode,
     }).format(amount);
@@ -227,7 +227,7 @@ export default function AccountsScreen() {
                         return (
                             <Animated.View
                                 className="overflow-hidden rounded-16 bg-bg-white-0"
-                                entering={FadeInRight.delay(300 + index * 100)}
+                                entering={FadeInRight.delay(Math.min(300 + index * 100, 800))}
                                 key={account.id}>
                                 <Pressable className="p-5">
                                     {/* Account Header */}
@@ -290,7 +290,8 @@ export default function AccountsScreen() {
                                                     </ThemedText>
                                                 </View>
                                                 <ThemedText className="text-paragraph-xs text-text-sub-600">
-                                                    {account.currency_rate?.toFixed(4)} USD
+                                                    1 {account.currency_code} = {account.currency_rate?.toFixed(4)}{' '}
+                                                    {account.base_currency || 'USD'}
                                                 </ThemedText>
                                             </View>
                                         )}
