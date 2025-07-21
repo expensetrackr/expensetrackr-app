@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '#/components/ThemedText.tsx';
 import { useColorScheme } from '#/hooks/use-color-scheme.ts';
+import { AccountSubtype } from '#/types/account.ts';
 import { layoutSpacing } from '#/utils/alignui.ts';
 
 // Animation timing constants for better maintainability
@@ -23,15 +24,6 @@ const formatCurrency = (amount: number, currencyCode: string = 'USD', locale: st
         currency: currencyCode,
     }).format(amount);
 };
-
-// Account subtype enum - in real app this would come from API
-enum AccountSubtype {
-    CHECKING = 'checking',
-    SAVINGS = 'savings',
-    CREDIT_CARD = 'credit_card',
-    INVESTMENT = 'investment',
-    BUSINESS = 'business',
-}
 
 interface Account {
     id: number;
@@ -63,6 +55,13 @@ const accountUIMapping: Record<AccountSubtype, AccountUIConfig> = {
 const getAccountUIConfig = (subtype: AccountSubtype | null): AccountUIConfig => {
     return accountUIMapping[subtype || AccountSubtype.CHECKING] || { color: '#6B7280', icon: 'circle' };
 };
+
+// Memoized animation delay calculation for better performance
+const getAnimationDelay = (index: number): number =>
+    Math.min(
+        ANIMATION_DELAYS.accountBase + index * ANIMATION_DELAYS.accountIncrement,
+        ANIMATION_DELAYS.maxAccountDelay,
+    );
 
 const isMultiCurrency = (account: Account): boolean => {
     return !!(
@@ -237,12 +236,7 @@ export default function AccountsScreen() {
                         return (
                             <Animated.View
                                 className="overflow-hidden rounded-16 bg-bg-white-0"
-                                entering={FadeInRight.delay(
-                                    Math.min(
-                                        ANIMATION_DELAYS.accountBase + index * ANIMATION_DELAYS.accountIncrement,
-                                        ANIMATION_DELAYS.maxAccountDelay,
-                                    ),
-                                )}
+                                entering={FadeInRight.delay(getAnimationDelay(index))}
                                 key={account.id}>
                                 <Pressable className="p-5">
                                     {/* Account Header */}
