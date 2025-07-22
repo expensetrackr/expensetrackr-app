@@ -208,3 +208,9 @@ export const borderRadii = {
     full: '9999px',
     hairline: hairlineWidth(),
 };
+
+// Layout spacing constants for consistent component spacing
+export const layoutSpacing = {
+    tabBarHeight: 120, // Custom tab bar total height including elevated add button and padding
+    tabBarHeightCompact: 100, // Compact variant for screens with less content
+} as const;

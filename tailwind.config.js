@@ -1,6 +1,6 @@
 const { hairlineWidth } = require('nativewind/theme');
 const defaultTheme = require('tailwindcss/defaultTheme');
-const { texts, shadows, borderRadii } = require('./utils/alignui');
+const { texts, shadows, borderRadii, layoutSpacing } = require('./utils/alignui');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -356,6 +356,10 @@ module.exports = {
         extend: {
             borderWidth: {
                 hairline: hairlineWidth(),
+            },
+            spacing: {
+                'tab-bar': `${layoutSpacing.tabBarHeight}px`,
+                'tab-bar-compact': `${layoutSpacing.tabBarHeightCompact}px`,
             },
         },
     },
